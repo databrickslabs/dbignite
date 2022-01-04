@@ -58,7 +58,7 @@ For example:
 
 The basic example above is equivalent to:
 ```
-omop_dfs = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle, mapper=dbinterop.DefaultExploratoryMapping(...))
+omop_dfs = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle, mapper=dbinterop.DefaultExploratoryDfMapping(...))
 ```
 The spec could be similar to:
 ```
