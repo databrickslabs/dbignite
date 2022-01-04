@@ -63,7 +63,7 @@ The basic example above is equivalent to:
 ```
 df = dbinterop.parse_fhir_bundle(
     path_to_my_fhir_bundle, 
-    mapper=DefaultExploratoryDfMapper(pivot_resouce='Patient')
+    mapper=DefaultExploratoryDfMapper(pivot_table='Person')
 )
 ```
 
@@ -72,7 +72,7 @@ a different granularity:
 ```
 df = dbinterop.parse_fhir_bundle(
     path_to_my_fhir_bundle, 
-    mapper=DefaultExploratoryDfMapper(pivot_resouce='Provider')
+    mapper=DefaultExploratoryDfMapper(pivot_table='Provider')
 )
 ```
 
