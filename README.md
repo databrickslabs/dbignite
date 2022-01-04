@@ -30,18 +30,11 @@ df = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle)
 > patient data. Future extenstions will enable mapping
 > to other health data models.
 
-**ASUMMPTIONS TO BE VALIDATED**:
-- For the first phase, we only output a customized, denormalized 
-  version of the OMOP data model.
-- Because we are only focused on patient centric exploratory
-  analytics in the first phase, we only parse top level patient
-  data from bundles. (You can put whatever you want in
-  a bundle as long as it has a relationship to a patient.
-  We will visualize at the patient granularity).
-- No REST API integration, only bundle files.
-
 # Design Principles
 - Data Model Agnostic ("Interoperable")
+- This package handles interoperability of different data models, but
+  integration with upstream data sources and the data lake is out of
+  scope. Data is assumed to be landed in the data lake.
 
 # Future Extensions
 
