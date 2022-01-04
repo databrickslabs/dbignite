@@ -10,6 +10,11 @@ time we ensure the spec. is [extensible for the future
 use cases](#future-extensions).
 
 ### Core Use Case: Quick Exploratory Analysis of a FHIR Bundle
+
+NOTES:
+- this should probably be a directory of bundles
+- 1 bundle ~= 1 patient
+- bundles are a "snapshot in time"
 ```
 import dbinterop
 
@@ -17,6 +22,7 @@ path_to_my_fhir_bundle = '/test_bundle.json'
 df = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle)
 ```
 > TODO: Screenshot of workflow for visualizing DF
+> Esp. diagnosis by patient
 
 > Note: By default, `df` is our interpretation of
 > a denormalized OMOP "compatible" data model - a
