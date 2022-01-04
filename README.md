@@ -4,12 +4,16 @@ Health Data Interoperability Project with Databricks
 # Summary
 
 # Usage Examples
+In this first phase of development, we drive
+towards the following core use case. At the same
+time we ensure the spec. is [extensible for the future
+use cases](#future-extensions).
 
-- All FHIR data is read as FHIR bundles from the disk.
+### Core Use Case: Quick Exploratory Analysis of a FHIR Bundle
 ```
 import dbinterop
 
-path_to_my_fhir_bundle = 'test_bundle.json'
+path_to_my_fhir_bundle = '/test_bundle.json'
 df = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle)
 ```
 > TODO: Screenshot of workflow for visualizing DF
