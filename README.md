@@ -22,7 +22,7 @@ df = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle)
 > a denormalized OMOP "compatible" data model - a
 > data model well suited for exploratory analysis of
 > patient data. Future extenstions will enable mapping
-> to other data models.
+> to other health data models.
 
 **ASUMMPTIONS TO BE VALIDATED**:
 - No REST API integration, only bundle files.
