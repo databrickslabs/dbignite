@@ -39,7 +39,7 @@ df = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle)
 
 # Future Extensions
 
-### Support for Dimensional or Transactional Output Data Models (normalized)
+### Support for Dimensional (normalized) or Transactional Output Data Models
 For example:
 - Proper (dimensional) OMOP.
 - Transactional FHIR output.
