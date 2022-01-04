@@ -40,7 +40,7 @@ df = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle)
 # Future Extensions
 
 ### Non-patient centric analytics
-The above is equivalent to:
+The basic example above is equivalent to:
 ```
 df = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle, pivot_resouce='Patient')
 ```
@@ -56,9 +56,13 @@ For example:
 - Proper (dimensional) OMOP.
 - Transactional FHIR output.
 
+The basic example above is equivalent to:
+```
+omop_dfs = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle, mapper=dbinterop.DefaultExploratoryMapping(...))
+```
 The spec could be similar to:
 ```
-omop_dfs = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle, mapper=dbinterop.OMOP_Mapping(...))
+omop_dfs = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle, mapper=dbinterop.OmopMapping(...))
 ```
 (Where, `omop_dfs` is some sort of collections of DataFrames.)
 
