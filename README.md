@@ -39,18 +39,6 @@ df = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle)
 
 # Future Extensions
 
-### Non-patient centric analytics
-The basic example above is equivalent to:
-```
-df = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle, pivot_resouce='Patient')
-```
-
-We can also pivot around other resources for quick analysis at
-a different granularity:
-```
-df = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle, pivot_resouce='Practitioner')
-```
-
 ### Support for Dimensional or Transactional Output Data Models (normalized)
 For example:
 - Proper (dimensional) OMOP.
@@ -58,13 +46,36 @@ For example:
 
 The basic example above is equivalent to:
 ```
-omop_dfs = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle, mapper=dbinterop.DefaultExploratoryDfMapping(...))
+omop_dfs = dbinterop.parse_fhir_bundle(
+    path_to_my_fhir_bundle, 
+    mapper=dbinterop.DefaultExploratoryDfMapper()
+)
 ```
-The spec could be similar to:
+The _parser_ handles the input and the _mapper_ handles the output. Parameterize the method call with
+a different _mapper_ for a different output data structure. Basically,
+a deserializer and a serializer, respectively. In this example
+`omop_dfs` is some sort of collections of DataFrames representing the CDM:
 ```
-omop_dfs = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle, mapper=dbinterop.OmopMapping(...))
+omop_cdm = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle, mapper=dbinterop.OmopMapper())
 ```
-(Where, `omop_dfs` is some sort of collections of DataFrames.)
+
+### Non-patient centric analytics
+The basic example above is equivalent to:
+```
+df = dbinterop.parse_fhir_bundle(
+    path_to_my_fhir_bundle, 
+    mapper=DefaultExploratoryDfMapper(pivot_resouce='Patient')
+)
+```
+
+We can also pivot around other resources for quick analysis at
+a different granularity:
+```
+df = dbinterop.parse_fhir_bundle(
+    path_to_my_fhir_bundle, 
+    mapper=DefaultExploratoryDfMapper(pivot_resouce='Provider')
+)
+```
 
 ### Support for additional input data models
 The `dbinterop` package can be extended with additional parsers to support
