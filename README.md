@@ -52,8 +52,7 @@ omop_dfs = dbinterop.parse_fhir_bundle(
 )
 ```
 The _parser_ handles the input and the _mapper_ handles the output. Parameterize the method call with
-a different _mapper_ for a different output data structure. Basically,
-a deserializer and a serializer, respectively. In this example
+a different _mapper_ for a different output data structure. In this example
 `omop_dfs` is some sort of collections of DataFrames representing the CDM:
 ```
 omop_cdm = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle, mapper=dbinterop.OmopMapper())
