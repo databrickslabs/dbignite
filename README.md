@@ -11,15 +11,11 @@ use cases](#future-extensions).
 
 ### Core Use Case: Quick Exploratory Analysis of a FHIR Bundle
 
-NOTES:
-- this should probably be a directory of bundles
-- 1 bundle ~= 1 patient
-- bundles are a "snapshot in time"
 ```
 import dbinterop
 
-path_to_my_fhir_bundle = '/test_bundle.json'
-df = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle)
+path_to_my_fhir_bundles = '/path/to/json/bundles'
+df = dbinterop.parse_fhir_bundles(path_to_my_fhir_bundles)
 ```
 > TODO: Screenshot of workflow for visualizing DF
 > Esp. diagnosis by patient
@@ -45,8 +41,8 @@ For example:
 
 The basic example above is equivalent to:
 ```
-omop_dfs = dbinterop.parse_fhir_bundle(
-    path_to_my_fhir_bundle, 
+omop_dfs = dbinterop.parse_fhir_bundles(
+    path_to_my_fhir_bundles, 
     mapper=dbinterop.DefaultExploratoryDfMapper()
 )
 ```
@@ -54,14 +50,14 @@ The _parser_ handles the input and the _mapper_ handles the output. Parameterize
 a different _mapper_ for a different output data structure. In this example
 `omop_dfs` is some sort of collections of DataFrames representing the CDM:
 ```
-omop_cdm = dbinterop.parse_fhir_bundle(path_to_my_fhir_bundle, mapper=dbinterop.OmopMapper())
+omop_cdm = dbinterop.parse_fhir_bundles(path_to_my_fhir_bundles, mapper=dbinterop.OmopMapper())
 ```
 
 ### Non-patient centric analytics
 The basic example above is equivalent to:
 ```
-df = dbinterop.parse_fhir_bundle(
-    path_to_my_fhir_bundle, 
+df = dbinterop.parse_fhir_bundles(
+    path_to_my_fhir_bundles, 
     mapper=DefaultExploratoryDfMapper(pivot_table='Person')
 )
 ```
@@ -70,7 +66,7 @@ We can also pivot around other resources for quick analysis at
 a different granularity:
 ```
 df = dbinterop.parse_fhir_bundle(
-    path_to_my_fhir_bundle, 
+    path_to_my_fhir_bundles, 
     mapper=DefaultExploratoryDfMapper(pivot_table='Provider')
 )
 ```
