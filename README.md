@@ -1,8 +1,6 @@
 # Databricks-Health-Interop
 Health Data Interoperability Project with Databricks
 
-# Summary
-
 # Usage Examples
 In this first phase of development, we drive
 towards the following core use case. At the same
