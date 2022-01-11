@@ -31,6 +31,10 @@ df = dbinterop.parse_fhir_bundles(path_to_my_fhir_bundles)
 - This package handles interoperability of different data models, but
   integration with upstream data sources and the data lake is out of
   scope. Data is assumed to be landed in the data lake.
+- These design principles will need to be elaborated
+  on when implementing use cases that require "unstructure" data mapping.
+  For example, OMOP source to concept mapping. For the "January project",
+  those use cases are out of scope.
 
 # Future Extensions
 
