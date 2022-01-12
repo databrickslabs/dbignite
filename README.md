@@ -25,7 +25,14 @@ df = dbinterop.parse_fhir_bundles(path_to_my_fhir_bundles)
 > to other health data models.
 
 # Design Principles
-- Data Model Agnostic ("Interoperable")
+- Data Model Agnostic ("Interoperable"): The goal of this project is to
+  provide tools that minimize friction when dealing many health data
+  models (of the same data).
+- Extensible data model mappings and "intermediate data models".
+  See: Design of the Transformer API.
+  There is a "many to many" problem when creating mappings between
+  different data models. We solve this with the heirarchical combination
+  of simple "transformer" functions.
 - This package handles interoperability of different data models, but
   integration with upstream data sources and the data lake is out of
   scope. Data is assumed to be landed in the data lake.
