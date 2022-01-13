@@ -112,6 +112,6 @@ dashboard.display()
 The `dbinterop` package can be extended with additional parsers to support
 other health data models. For example:
 ```
-hl7_data = dbinterop.transformers.fhir_bundles_to_(..., mapper=dbinterop.OMOP_Mapping(...))
+omop_cdm = dbinterop.transformers.hl7v2_to_omop_cdm(path_to_my_hl7_messages, ser='xml')
 ```
 
