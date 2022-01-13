@@ -54,7 +54,7 @@ dashboard.display()
 
 ## DataModels & Transformers
 _Transformers_ are simple functions that output health data
-with a target _DataModel_. For example, the _DbinteropPersonDashboard DataModel_
+with a target _DataModel_. For example, the _PersonDashboard DataModel_
 is designed to implement a _display()_ method that simplifies
 exploratory analysis of persons.
 
