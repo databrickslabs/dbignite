@@ -23,7 +23,7 @@ exploratory analytics on Databricks.
 import dbinterop
 
 path_to_my_fhir_bundles = '/path/to/json/bundles'
-dashboard = dbinterop.transformers.FhirBundleToPersonDbinteropDashboard(path_to_my_fhir_bundles)
+dashboard = dbinterop.transformers.fhir_bundles_to_person_dashboard(path_to_my_fhir_bundles)
 dashboard.display()
 ```
 > TODO: Screenshot of workflow for visualizing DF
@@ -40,7 +40,7 @@ dashboard.display()
   provide tools that minimize friction when dealing many health data
   models (of the same data) on the Databricks analytics platform.
 - Extensible data model mappings and "intermediate data models".
-  See: [Design of the Interop Pipeline](#interop-pipeline-design).
+  See: [Design of the Interop Pipelines](#pipelines).
   There is a "many to many" problem when creating mappings between
   different data models. We solve this with the heirarchical combination
   of simple pipeline transforms.
@@ -57,31 +57,35 @@ dashboard.display()
 
 # Interop Pipeline Design
 
-## Transformers
-[![](https://mermaid.ink/img/eyJjb2RlIjoiY2xhc3NEaWFncmFtXG4gICAgRGlzcGxheWFibGUgPHwtLSBEYXRhTW9kZWxcbiAgICBEYXRhTW9kZWwgPHwtLSBEYmludGVyb3BEYXNoYm9hcmRcbiAgICBEYXRhTW9kZWwgPHwtLSBPbW9wQ2RtXG4gICAgRGF0YU1vZGVsOiArbGlzdERhdGFiYXNlcygpIExpc3R-RGF0YWJhc2V-XG4gICAgRGlzcGxheWFibGU6ICtkaXNwbGF5KCkqXG5cbiAgICBjbGFzcyB0cmFuc2Zvcm1lcn5BLCBCIGV4dGVuZHMgRGF0YU1vZGVsflxuICAgIHRyYW5zZm9ybWVyIDx8Li4gZmhpcl9idW5kbGVfdG9fZGJpbnRlcm9wX2Rhc2hib2FyZFxuICAgIHRyYW5zZm9ybWVyIDx8Li4gZmhpcl9idW5kbGVfdG9fb21vcFxuICAgIHRyYW5zZm9ybWVyIDx8Li4gaGw3djJfdG9fb21vcFxuICAgIHRyYW5zZm9ybWVyOiArX19jYWxsX18oQSBpbnB1dCkqIEJcbiAgICBmaGlyX2J1bmRsZV90b19kYmludGVyb3BfZGFzaGJvYXJkOiArX19jYWxsX18oU3RyaW5nIGJ1bmRsZV9wYXRoKSogRGJpbnRlcmlvRGFzaGJvYXJkXG4gICAgZmhpcl9idW5kbGVfdG9fb21vcDogK19fY2FsbF9fKFN0cmluZyBidW5kbGVfcGF0aCkqIE9tb3BDZG1cbiAgICBobDd2Ml90b19vbW9wOiArX19jYWxsX18oU3RyaW5nIG1lc3NhZ2VfcGF0aCwgU3RyaW5nIHNlcj1cInhtbFwiKSogT21vcENkbVxuICAgIFxuICAgICIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjpmYWxzZX0)](https://mermaid-js.github.io/mermaid-live-editor/edit#eyJjb2RlIjoiY2xhc3NEaWFncmFtXG4gICAgRGlzcGxheWFibGUgPHwtLSBEYXRhTW9kZWxcbiAgICBEYXRhTW9kZWwgPHwtLSBEYmludGVyb3BEYXNoYm9hcmRcbiAgICBEYXRhTW9kZWwgPHwtLSBPbW9wQ2RtXG4gICAgRGF0YU1vZGVsOiArbGlzdERhdGFiYXNlcygpIExpc3R-RGF0YWJhc2V-XG4gICAgRGlzcGxheWFibGU6ICtkaXNwbGF5KCkqXG5cbiAgICBjbGFzcyB0cmFuc2Zvcm1lcn5BLCBCIGV4dGVuZHMgRGF0YU1vZGVsflxuICAgIHRyYW5zZm9ybWVyIDx8Li4gZmhpcl9idW5kbGVfdG9fZGJpbnRlcm9wX2Rhc2hib2FyZFxuICAgIHRyYW5zZm9ybWVyIDx8Li4gZmhpcl9idW5kbGVfdG9fb21vcFxuICAgIHRyYW5zZm9ybWVyIDx8Li4gaGw3djJfdG9fb21vcFxuICAgIHRyYW5zZm9ybWVyOiArX19jYWxsX18oQSBpbnB1dCkqIEJcbiAgICBmaGlyX2J1bmRsZV90b19kYmludGVyb3BfZGFzaGJvYXJkOiArX19jYWxsX18oU3RyaW5nIGJ1bmRsZV9wYXRoKSogRGJpbnRlcmlvRGFzaGJvYXJkXG4gICAgZmhpcl9idW5kbGVfdG9fb21vcDogK19fY2FsbF9fKFN0cmluZyBidW5kbGVfcGF0aCkqIE9tb3BDZG1cbiAgICBobDd2Ml90b19vbW9wOiArX19jYWxsX18oU3RyaW5nIG1lc3NhZ2VfcGF0aCwgU3RyaW5nIHNlcj1cInhtbFwiKSogT21vcENkbVxuICAgIFxuICAgICIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9)
-<details>
-  <summary>
-  </summary>
-  
-```
-classDiagram
-    Displayable <|-- DataModel
-    DataModel <|-- DbinteropDashboard
-    DataModel <|-- OmopCdm
-    DataModel: +listDatabases() List~Database~
-    Displayable: +display()*
+## DataModels & Transformers
+_Transformers_ are simple functions that output health data
+with a target _DataModel_. For example, the _DbinteropPersonDashboard DataModel_
+is designed to implement a _display()_ method that simplifies
+exploratory analysis of persons.
 
-    class transformer~A, B extends DataModel~
-    transformer <|.. fhir_bundle_to_dbinterop_dashboard
-    transformer <|.. fhir_bundle_to_omop
-    transformer <|.. hl7v2_to_omop
-    transformer: +__call__(A input)* B
-    fhir_bundle_to_dbinterop_dashboard: +__call__(String bundle_path)* DbinterioDashboard
-    fhir_bundle_to_omop: +__call__(String bundle_path)* OmopCdm
-    hl7v2_to_omop: +__call__(String message_path, String ser="xml")* OmopCdm
-```
-  
-</details>
+[![](https://mermaid.ink/img/eyJjb2RlIjoiY2xhc3NEaWFncmFtXG4gICAgRGlzcGxheWFibGUgPHwtLSBEYXRhTW9kZWxcbiAgICBEYXRhTW9kZWwgPHwtLSBQZXJzb25EYXNoYm9hcmRcbiAgICBEYXRhTW9kZWwgPHwtLSBPbW9wQ2RtXG4gICAgRGF0YU1vZGVsOiArbGlzdERhdGFiYXNlcygpIExpc3R-RGF0YWJhc2V-XG4gICAgRGlzcGxheWFibGU6ICtkaXNwbGF5KCkqXG5cbiAgICBjbGFzcyB0cmFuc2Zvcm1lcn5BLCBCIGV4dGVuZHMgRGF0YU1vZGVsflxuICAgIHRyYW5zZm9ybWVyIDx8Li4gZmhpcl9idW5kbGVzX3RvX3BlcnNvbl9kYXNoYm9hcmRcbiAgICB0cmFuc2Zvcm1lciA8fC4uIGZoaXJfYnVuZGxlc190b19vbW9wX2NkbVxuICAgIHRyYW5zZm9ybWVyIDx8Li4gb21vcF9jZG1fdG9fcGVyc29uX2Rhc2hib2FyZFxuICAgIHRyYW5zZm9ybWVyOiArX19jYWxsX18oQSBpbnB1dCkqIEJcbiAgICBmaGlyX2J1bmRsZXNfdG9fcGVyc29uX2Rhc2hib2FyZDogK19fY2FsbF9fKFN0cmluZyBidW5kbGVfcGF0aCkqIFBlcnNvbkRhc2hib2FyZFxuICAgIGZoaXJfYnVuZGxlc190b19vbW9wX2NkbTogK19fY2FsbF9fKFN0cmluZyBidW5kbGVfcGF0aCkqIE9tb3BDZG1cbiAgICBvbW9wX2NkbV90b19wZXJzb25fZGFzaGJvYXJkOiArX19jYWxsX18oU3RyaW5nIGNkbV9kYXRhYmFzZSwgU3RyaW5nIG1hcHBpbmdfZGF0YWJhc2UpKiBQZXJzb25EYXNoYm9hcmRcblxuICAgIFxuICAgICIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjpmYWxzZX0)](https://mermaid-js.github.io/mermaid-live-editor/edit#eyJjb2RlIjoiY2xhc3NEaWFncmFtXG4gICAgRGlzcGxheWFibGUgPHwtLSBEYXRhTW9kZWxcbiAgICBEYXRhTW9kZWwgPHwtLSBQZXJzb25EYXNoYm9hcmRcbiAgICBEYXRhTW9kZWwgPHwtLSBPbW9wQ2RtXG4gICAgRGF0YU1vZGVsOiArbGlzdERhdGFiYXNlcygpIExpc3R-RGF0YWJhc2V-XG4gICAgRGlzcGxheWFibGU6ICtkaXNwbGF5KCkqXG5cbiAgICBjbGFzcyB0cmFuc2Zvcm1lcn5BLCBCIGV4dGVuZHMgRGF0YU1vZGVsflxuICAgIHRyYW5zZm9ybWVyIDx8Li4gZmhpcl9idW5kbGVzX3RvX3BlcnNvbl9kYXNoYm9hcmRcbiAgICB0cmFuc2Zvcm1lciA8fC4uIGZoaXJfYnVuZGxlc190b19vbW9wX2NkbVxuICAgIHRyYW5zZm9ybWVyIDx8Li4gb21vcF9jZG1fdG9fcGVyc29uX2Rhc2hib2FyZFxuICAgIHRyYW5zZm9ybWVyOiArX19jYWxsX18oQSBpbnB1dCkqIEJcbiAgICBmaGlyX2J1bmRsZXNfdG9fcGVyc29uX2Rhc2hib2FyZDogK19fY2FsbF9fKFN0cmluZyBidW5kbGVfcGF0aCkqIFBlcnNvbkRhc2hib2FyZFxuICAgIGZoaXJfYnVuZGxlc190b19vbW9wX2NkbTogK19fY2FsbF9fKFN0cmluZyBidW5kbGVfcGF0aCkqIE9tb3BDZG1cbiAgICBvbW9wX2NkbV90b19wZXJzb25fZGFzaGJvYXJkOiArX19jYWxsX18oU3RyaW5nIGNkbV9kYXRhYmFzZSwgU3RyaW5nIG1hcHBpbmdfZGF0YWJhc2UpKiBQZXJzb25EYXNoYm9hcmRcblxuICAgIFxuICAgICIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9)
+
+## Pipelines
+One of the key challenges for interoperability of data models is a
+"many to many" problem. Support for any new data model requires
+cross compatability with many other data models. Intermediate
+data models can mitigate this issue.
+
+### The "Many to Many" Problem
+[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggTFJcbiAgICBBW0FdIC0tPnx0cmFuc2Zvcm18IEIoQilcbiAgICBBW0FdIC0tPnx0cmFuc2Zvcm18IEMoQylcbiAgICBCW0JdIC0tPnx0cmFuc2Zvcm18IEEoQSlcbiAgICBCW0JdIC0tPnx0cmFuc2Zvcm18IEMoQylcbiAgICBDW0NdIC0tPnx0cmFuc2Zvcm18IEEoQSlcbiAgICBDW0NdIC0tPnx0cmFuc2Zvcm18IEIoQilcbiIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjpmYWxzZX0)](https://mermaid.live/edit#eyJjb2RlIjoiZ3JhcGggTFJcbiAgICBBW0FdIC0tPnx0cmFuc2Zvcm18IEIoQilcbiAgICBBW0FdIC0tPnx0cmFuc2Zvcm18IEMoQylcbiAgICBCW0JdIC0tPnx0cmFuc2Zvcm18IEEoQSlcbiAgICBCW0JdIC0tPnx0cmFuc2Zvcm18IEMoQylcbiAgICBDW0NdIC0tPnx0cmFuc2Zvcm18IEEoQSlcbiAgICBDW0NdIC0tPnx0cmFuc2Zvcm18IEIoQilcbiIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9)
+
+Pipelining existing transforms can significantly simplify
+the problem of mapping a variety of data models.
+[![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggTFJcbiAgICBYW0FdIC0tLXx0cmFuc2Zvcm18IEkoSW50ZXJtZWRpYXRlIERhdGFNb2RlbCBYKVxuICAgIFlbQl0gLS0tfHRyYW5zZm9ybXwgSShJbnRlcm1lZGlhdGUgRGF0YU1vZGVsIFgpXG4gICAgWltDXSAtLS18dHJhbnNmb3JtfCBJKEludGVybWVkaWF0ZSBEYXRhTW9kZWwgWClcbiIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjpmYWxzZX0)](https://mermaid.live/edit#eyJjb2RlIjoiZ3JhcGggTFJcbiAgICBYW0FdIC0tLXx0cmFuc2Zvcm18IEkoSW50ZXJtZWRpYXRlIERhdGFNb2RlbCBYKVxuICAgIFlbQl0gLS0tfHRyYW5zZm9ybXwgSShJbnRlcm1lZGlhdGUgRGF0YU1vZGVsIFgpXG4gICAgWltDXSAtLS18dHJhbnNmb3JtfCBJKEludGVybWVkaWF0ZSBEYXRhTW9kZWwgWClcbiIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9)
+
+### Making Pipelines with Simple Composition
+There's no explicit API for pipelining _Transformers_.
+Instead, we just use a simple pattern to execute
+multiple transforms in series. Here, we use the OMOP CDM
+as an intermediate data model, but any intermediate
+_DataModel_ can be introduced to simplify interoperability.
+
+[![](https://mermaid.ink/img/eyJjb2RlIjoiY2xhc3NEaWFncmFtXG4gICAgZmhpcl9idW5kbGVzX3RvX3BlcnNvbl9kYXNoYm9hcmQgLi4-IGZoaXJfYnVuZGxlc190b19vbW9wX2NkbSA6ICgxKSBjYWxsc1xuICAgIGZoaXJfYnVuZGxlc190b19wZXJzb25fZGFzaGJvYXJkIC4uPiBvbW9wX2NkbV90b19wZXJzb25fZGFzaGJvYXJkIDogKDIpIGNhbGxzXG4gICAgZmhpcl9idW5kbGVzX3RvX3BlcnNvbl9kYXNoYm9hcmQ6ICtfX2NhbGxfXyhTdHJpbmcgYnVuZGxlX3BhdGgpKiBQZXJzb25EYXNoYm9hcmRcbiAgICBmaGlyX2J1bmRsZXNfdG9fb21vcF9jZG06ICtfX2NhbGxfXyhTdHJpbmcgYnVuZGxlX3BhdGgpKiBPbW9wQ2RtXG4gICAgb21vcF9jZG1fdG9fcGVyc29uX2Rhc2hib2FyZDogK19fY2FsbF9fKFN0cmluZyBkYXRhYmFzZSkqIFBlcnNvbkRhc2hib2FyZFxuICAgIFxuICAgICIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjpmYWxzZX0)](https://mermaid.live/edit#eyJjb2RlIjoiY2xhc3NEaWFncmFtXG4gICAgZmhpcl9idW5kbGVzX3RvX3BlcnNvbl9kYXNoYm9hcmQgLi4-IGZoaXJfYnVuZGxlc190b19vbW9wX2NkbSA6ICgxKSBjYWxsc1xuICAgIGZoaXJfYnVuZGxlc190b19wZXJzb25fZGFzaGJvYXJkIC4uPiBvbW9wX2NkbV90b19wZXJzb25fZGFzaGJvYXJkIDogKDIpIGNhbGxzXG4gICAgZmhpcl9idW5kbGVzX3RvX3BlcnNvbl9kYXNoYm9hcmQ6ICtfX2NhbGxfXyhTdHJpbmcgYnVuZGxlX3BhdGgpKiBQZXJzb25EYXNoYm9hcmRcbiAgICBmaGlyX2J1bmRsZXNfdG9fb21vcF9jZG06ICtfX2NhbGxfXyhTdHJpbmcgYnVuZGxlX3BhdGgpKiBPbW9wQ2RtXG4gICAgb21vcF9jZG1fdG9fcGVyc29uX2Rhc2hib2FyZDogK19fY2FsbF9fKFN0cmluZyBkYXRhYmFzZSkqIFBlcnNvbkRhc2hib2FyZFxuICAgIFxuICAgICIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9)
 
 # Future Extensions
 
@@ -90,35 +94,19 @@ For example:
 - Proper (dimensional) OMOP.
 - Transactional FHIR output.
 
-The basic example above is equivalent to:
 ```
-omop_dfs = dbinterop.parse_fhir_bundles(
-    path_to_my_fhir_bundles, 
-    mapper=dbinterop.DefaultExploratoryDfMapper()
-)
-```
-The _parser_ handles the input and the _mapper_ handles the output. Parameterize the method call with
-a different _mapper_ for a different output data structure. In this example
-`omop_dfs` is some sort of collections of DataFrames representing the CDM:
-```
-omop_cdm = dbinterop.parse_fhir_bundles(path_to_my_fhir_bundles, mapper=dbinterop.OmopMapper())
+omop_cdm = dbinterop.transformers.fhir_bundles_to_omop_cdm(path_to_my_fhir_bundles)
+omop_cdm.listDatabases() # Spark DDL is the main interface for something like the CDM.
+omop_cdm.display() # `display()` can be used for summary statistics or telemetry.
 ```
 
 ## Non-patient centric analytics
-The basic example above is equivalent to:
+The _PersonDashborad DataModel_ is person oriented - every row is a person.
+Other dashboard _DataModels_ may have different granularity:
 ```
-df = dbinterop.parse_fhir_bundles(
-    path_to_my_fhir_bundles, 
-    mapper=DefaultExploratoryDfMapper(pivot_table='Person')
-)
-```
-
-We can also pivot around other resources for quick analysis at
-a different granularity:
-```
-df = dbinterop.parse_fhir_bundle(
-    path_to_my_fhir_bundles, 
-    mapper=DefaultExploratoryDfMapper(pivot_table='Provider')
+# Note: the only change is "person" -> "procedure"
+dashboard = dbinterop.transformers.fhir_bundles_to_procedure_dashboard(path_to_my_fhir_bundles)
+dashboard.display()
 )
 ```
 
@@ -126,6 +114,6 @@ df = dbinterop.parse_fhir_bundle(
 The `dbinterop` package can be extended with additional parsers to support
 other health data models. For example:
 ```
-omop_dfs = dbinterop.parse_hl7v2(..., mapper=dbinterop.OMOP_Mapping(...))
+hl7_data = dbinterop.transformers.fhir_bundles_to_(..., mapper=dbinterop.OMOP_Mapping(...))
 ```
 
