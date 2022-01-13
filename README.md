@@ -7,13 +7,24 @@ towards the following core use case. At the same
 time we ensure the spec. is [extensible for the future
 use cases](#future-extensions).
 
-### Core Use Case: Quick Exploratory Analysis of a FHIR Bundle
+## Core Use Case: Quick Exploratory Analysis of a FHIR Bundle
+The utilities in the _dbinterop_ package can be used
+to minimize friction when dealing with a variety of
+health data models on the Databricks analytics platform.
+In this example, the _dbinterop_ package enables
+quick exploratory analysis of the people in FHIR bundle.
+The _transformers_ module contains a suite of
+"Data Model A" to "Data Model B" transformer classes. In this
+case we transform the FHIR bundle to a proprietary
+"_dbinterop_ dashboard" model intended for low friction
+exploratory analytics on Databricks.
 
 ```
 import dbinterop
 
 path_to_my_fhir_bundles = '/path/to/json/bundles'
-df = dbinterop.parse_fhir_bundles(path_to_my_fhir_bundles)
+dashboard = dbinterop.transformers.FhirBundleToPersonDbinteropDashboard(path_to_my_fhir_bundles)
+dashboard.display()
 ```
 > TODO: Screenshot of workflow for visualizing DF
 > Esp. diagnosis by patient
@@ -27,7 +38,7 @@ df = dbinterop.parse_fhir_bundles(path_to_my_fhir_bundles)
 # Design Principles
 - Data Model Agnostic ("Interoperable"): The goal of this project is to
   provide tools that minimize friction when dealing many health data
-  models (of the same data).
+  models (of the same data) on the Databricks analytics platform.
 - Extensible data model mappings and "intermediate data models".
   See: [Design of the Interop Pipeline](#interop-pipeline-design).
   There is a "many to many" problem when creating mappings between
@@ -35,18 +46,42 @@ df = dbinterop.parse_fhir_bundles(path_to_my_fhir_bundles)
   of simple pipeline transforms.
 - This package handles interoperability of different data models, but
   integration with upstream data sources and the data lake is out of
-  scope. Data is assumed to be landed in the data lake.
+  scope. Data is assumed to be landed in the data lake. Though, the
+  pattern could in theory be extended to include integration - the
+  constructor of the _Transformer_ can take any arbitrary input to
+  find the data.
 - These design principles will need to be elaborated
   on when implementing use cases that require "unstructure" data mapping.
   For example, OMOP source to concept mapping. For the "January project",
   those use cases are out of scope.
 
 # Interop Pipeline Design
-...
+
+## Transformers
+[![](https://mermaid.ink/img/eyJjb2RlIjoiY2xhc3NEaWFncmFtXG4gICAgRGlzcGxheWFibGUgPHwtLSBUcmFuc2Zvcm1lclxuICAgIFRyYW5zZm9ybWVyIDx8LS0gRmhpckJ1bmRsZVRvUGVyc29uRGJpbnRlcm9wRGFzaGJvYXJkXG4gICAgVHJhbnNmb3JtZXIgPHwtLSBGaGlyQnVuZGxlVG9PaGRzaUNkbVxuICAgIFRyYW5zZm9ybWVyIDx8LS0gSGw3djJUb09oZHNpQ2RtXG5cbiAgICBEaXNwbGF5YWJsZTogK2Rpc3BsYXkoKSpcbiAgICBUcmFuc2Zvcm1lcjogK2xpc3REYXRhYmFzZXMoKSBMaXN0fkRhdGFiYXNlflxuICAgIEZoaXJCdW5kbGVUb1BlcnNvbkRiaW50ZXJvcERhc2hib2FyZDogK19faW5pdF9fKFN0cmluZyBidW5kbGVfcGF0aClcbiAgICBGaGlyQnVuZGxlVG9PaGRzaUNkbTogK19faW5pdF9fKFN0cmluZyBidW5kbGVfcGF0aClcbiAgICBIbDd2MlRvT2hkc2lDZG06ICtfX2luaXRfXyhTdHJpbmcgbWVzc2FnZV9wYXRoLCBTdHJpbmcgc2VyPSd4bWwnKSIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjpmYWxzZX0)](https://mermaid-js.github.io/mermaid-live-editor/edit#eyJjb2RlIjoiY2xhc3NEaWFncmFtXG4gICAgRGlzcGxheWFibGUgPHwtLSBUcmFuc2Zvcm1lclxuICAgIFRyYW5zZm9ybWVyIDx8LS0gRmhpckJ1bmRsZVRvUGVyc29uRGJpbnRlcm9wRGFzaGJvYXJkXG4gICAgVHJhbnNmb3JtZXIgPHwtLSBGaGlyQnVuZGxlVG9PaGRzaUNkbVxuICAgIFRyYW5zZm9ybWVyIDx8LS0gSGw3djJUb09oZHNpQ2RtXG5cbiAgICBEaXNwbGF5YWJsZTogK2Rpc3BsYXkoKSpcbiAgICBUcmFuc2Zvcm1lcjogK2xpc3REYXRhYmFzZXMoKSBMaXN0fkRhdGFiYXNlflxuICAgIEZoaXJCdW5kbGVUb1BlcnNvbkRiaW50ZXJvcERhc2hib2FyZDogK19faW5pdF9fKFN0cmluZyBidW5kbGVfcGF0aClcbiAgICBGaGlyQnVuZGxlVG9PaGRzaUNkbTogK19faW5pdF9fKFN0cmluZyBidW5kbGVfcGF0aClcbiAgICBIbDd2MlRvT2hkc2lDZG06ICtfX2luaXRfXyhTdHJpbmcgbWVzc2FnZV9wYXRoLCBTdHJpbmcgc2VyPSd4bWwnKSIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9)
+<details>
+  <summary>
+  </summary>
+  
+```
+classDiagram
+    Displayable <|-- Transformer
+    Transformer <|-- FhirBundleToPersonDbinteropDashboard
+    Transformer <|-- FhirBundleToOhdsiCdm
+    Transformer <|-- Hl7v2ToOhdsiCdm
+
+    Displayable: +display()*
+    Transformer: +listDatabases() List~Database~
+    FhirBundleToPersonDbinteropDashboard: +__init__(String bundle_path)
+    FhirBundleToOhdsiCdm: +__init__(String bundle_path)
+    Hl7v2ToOhdsiCdm: +__init__(String message_path, String ser='xml')
+```
+  
+</details>
 
 # Future Extensions
 
-### Support for Dimensional (normalized) or Transactional Output Data Models
+## Support for Dimensional (normalized) or Transactional Output Data Models
 For example:
 - Proper (dimensional) OMOP.
 - Transactional FHIR output.
@@ -65,7 +100,7 @@ a different _mapper_ for a different output data structure. In this example
 omop_cdm = dbinterop.parse_fhir_bundles(path_to_my_fhir_bundles, mapper=dbinterop.OmopMapper())
 ```
 
-### Non-patient centric analytics
+## Non-patient centric analytics
 The basic example above is equivalent to:
 ```
 df = dbinterop.parse_fhir_bundles(
@@ -83,7 +118,7 @@ df = dbinterop.parse_fhir_bundle(
 )
 ```
 
-### Support for additional input data models
+## Support for additional input data models
 The `dbinterop` package can be extended with additional parsers to support
 other health data models. For example:
 ```
