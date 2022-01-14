@@ -24,7 +24,7 @@ exploratory analytics of the people in the bundle.
 import dbinterop
 
 path_to_my_fhir_bundles = '/path/to/json/bundles'
-dashboard = dbinterop.transformers.fhir_bundles_to_person_dashboard(path_to_my_fhir_bundles)
+dashboard: dbinterop.DataModel = dbinterop.transformers.fhir_bundles_to_person_dashboard(path_to_my_fhir_bundles)
 dashboard.display()
 ```
 > TODO: Screenshot of workflow for visualizing DF
