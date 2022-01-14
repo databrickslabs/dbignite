@@ -45,6 +45,9 @@ dashboard.display()
   pattern could in theory be extended to include integration -
   the _Transformer_ can take any arbitrary input to
   find the data.
+- FHIR Bundles: dbinterop has support for the convention of data for one patient per bundle
+  in a directory. In general, we make no assumptions about what resources will be found in
+  a FHIR bundle, or what the relationships between them will be.
 - These design principles will need to be elaborated
   on when implementing use cases that require "unstructure" data mapping.
   For example, OMOP source to concept mapping. For the "January project",
