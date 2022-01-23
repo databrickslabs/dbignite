@@ -156,8 +156,14 @@ display(dbinterop.bundle_df)
 
 # COMMAND ----------
 
-# TODO: import dbinterop
-exploratory_df = dbinterop.parse_fhir_bundles(path_to_my_fhir_bundles)
+def test_use_case_explore_fhir_bundle():
+  #import dbinterop
+  
+  person_dashboard: dbinterop.DataModel = dbinterop.transformers.fhir_bundles_to_person_dashboard(path_to_my_fhir_bundles)
+  dashboard.display()
+  person_dashboard.printSchema()
+  
+test_use_case_explore_fhir_bundle()
 
 # COMMAND ----------
 
