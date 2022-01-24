@@ -30,8 +30,9 @@ path_to_my_fhir_bundles = '/path/to/json/bundles'
 dashboard: dbinterop.DataModel = dbinterop.transformers.fhir_bundles_to_person_dashboard(path_to_my_fhir_bundles)
 dashboard.summary().display()
 ```
-> TODO: Screenshot of workflow for visualizing DF
-> Esp. diagnosis by patient
+![image](https://user-images.githubusercontent.com/1669062/150756656-dc7c8d87-b37f-40a7-9177-19fe30d99b0f.png)
+
+![image](https://user-images.githubusercontent.com/1669062/150756476-ced9d6f4-864a-4b4a-a644-df7dfc95fce0.png)
 
 > [See this in a notebook.](demo.py)
 
