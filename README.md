@@ -29,6 +29,7 @@ import dbinterop
 path_to_my_fhir_bundles = '/path/to/json/bundles'
 dashboard: dbinterop.DataModel = dbinterop.transformers.fhir_bundles_to_person_dashboard(path_to_my_fhir_bundles)
 dashboard.summary().display()
+
 ```
 ![image](https://user-images.githubusercontent.com/1669062/150756656-dc7c8d87-b37f-40a7-9177-19fe30d99b0f.png)
 
