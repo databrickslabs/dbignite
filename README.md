@@ -32,7 +32,7 @@ dashboard.summary().display()
 ```
 ![image](https://user-images.githubusercontent.com/1669062/150756656-dc7c8d87-b37f-40a7-9177-19fe30d99b0f.png)
 
-![image](https://user-images.githubusercontent.com/1669062/150756476-ced9d6f4-864a-4b4a-a644-df7dfc95fce0.png)
+![image](https://user-images.githubusercontent.com/1669062/150757341-8f9fd05e-fa1f-458b-b59d-8203f75a49c6.png)
 
 > [See this in a notebook.](demo.py)
 
