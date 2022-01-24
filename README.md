@@ -33,7 +33,7 @@ dashboard.summary().display()
 > TODO: Screenshot of workflow for visualizing DF
 > Esp. diagnosis by patient
 
-> [See this in a notebook.](https://github.com/search?l=&q=test_use_case_explore_fhir_bundle+repo%3ALovelytics%2FDatabricks-Health-Interop+filename%3Ademo.py&type=code)
+> [See this in a notebook.](demo.py)
 
 # Design Principles
 - Data Model Agnostic ("Interoperable"): The goal of this project is to
