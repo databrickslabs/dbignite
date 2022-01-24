@@ -1,5 +1,8 @@
-# Databricks-Health-Interop
-Health Data Interoperability Project with Databricks
+# dbinterop
+__Health Data Interoperability__
+
+Utilities to minimize friction in the Databricks
+health data Lakehouse.
 
 # Usage Examples
 In this first phase of development, we drive
@@ -25,10 +28,14 @@ import dbinterop
 
 path_to_my_fhir_bundles = '/path/to/json/bundles'
 dashboard: dbinterop.DataModel = dbinterop.transformers.fhir_bundles_to_person_dashboard(path_to_my_fhir_bundles)
-dashboard.display()
+dashboard.summary().display()
+
 ```
-> TODO: Screenshot of workflow for visualizing DF
-> Esp. diagnosis by patient
+![image](https://user-images.githubusercontent.com/1669062/150756656-dc7c8d87-b37f-40a7-9177-19fe30d99b0f.png)
+
+![image](https://user-images.githubusercontent.com/1669062/150757341-8f9fd05e-fa1f-458b-b59d-8203f75a49c6.png)
+
+> [See this in a notebook.](demo.py)
 
 # Design Principles
 - Data Model Agnostic ("Interoperable"): The goal of this project is to
@@ -61,7 +68,7 @@ with a target _DataModel_. For example, the _PersonDashboard DataModel_
 is designed to implement a _display()_ method that simplifies
 exploratory analysis of persons.
 
-[![](https://mermaid.ink/img/eyJjb2RlIjoiY2xhc3NEaWFncmFtXG4gICAgRGlzcGxheWFibGUgPHwtLSBEYXRhTW9kZWxcbiAgICBEYXRhTW9kZWwgPHwtLSBQZXJzb25EYXNoYm9hcmRcbiAgICBEYXRhTW9kZWwgPHwtLSBPbW9wQ2RtXG4gICAgRGF0YU1vZGVsOiArbGlzdERhdGFiYXNlcygpIExpc3R-RGF0YWJhc2V-XG4gICAgRGlzcGxheWFibGU6ICtkaXNwbGF5KCkqXG5cbiAgICBcbiAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9)](https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiY2xhc3NEaWFncmFtXG4gICAgRGlzcGxheWFibGUgPHwtLSBEYXRhTW9kZWxcbiAgICBEYXRhTW9kZWwgPHwtLSBQZXJzb25EYXNoYm9hcmRcbiAgICBEYXRhTW9kZWwgPHwtLSBPbW9wQ2RtXG4gICAgRGF0YU1vZGVsOiArbGlzdERhdGFiYXNlcygpIExpc3R-RGF0YWJhc2V-XG4gICAgRGlzcGxheWFibGU6ICtkaXNwbGF5KCkqXG5cbiAgICBcbiAgICAiLCJtZXJtYWlkIjoie1xuICBcInRoZW1lXCI6IFwiZGVmYXVsdFwiXG59IiwidXBkYXRlRWRpdG9yIjpmYWxzZSwiYXV0b1N5bmMiOnRydWUsInVwZGF0ZURpYWdyYW0iOmZhbHNlfQ)
+[![](https://mermaid.ink/img/eyJjb2RlIjoiY2xhc3NEaWFncmFtXG4gICAgRGF0YU1vZGVsIDx8LS0gUGVyc29uRGFzaGJvYXJkXG4gICAgRGF0YU1vZGVsIDx8LS0gT21vcENkbVxuICAgIERhdGFNb2RlbDogK3N1bW1hcnkoKSBEYXRhRnJhbWVcbiAgICBEYXRhTW9kZWw6ICtsaXN0RGF0YWJhc2VzKCkgTGlzdH5EYXRhYmFzZX5cblxuICAgIFxuICAgICIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjpmYWxzZX0)](https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiY2xhc3NEaWFncmFtXG4gICAgRGF0YU1vZGVsIDx8LS0gUGVyc29uRGFzaGJvYXJkXG4gICAgRGF0YU1vZGVsIDx8LS0gT21vcENkbVxuICAgIERhdGFNb2RlbDogK3N1bW1hcnkoKSBEYXRhRnJhbWVcbiAgICBEYXRhTW9kZWw6ICtsaXN0RGF0YWJhc2VzKCkgTGlzdH5EYXRhYmFzZX5cblxuICAgIFxuICAgICIsIm1lcm1haWQiOiJ7XG4gIFwidGhlbWVcIjogXCJkZWZhdWx0XCJcbn0iLCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9)
 
 [![](https://mermaid.ink/img/eyJjb2RlIjoiY2xhc3NEaWFncmFtXG4gICAgY2xhc3MgdHJhbnNmb3JtZXJ-QSwgQiBleHRlbmRzIERhdGFNb2RlbH5cbiAgICB0cmFuc2Zvcm1lciA8fC4uIGZoaXJfYnVuZGxlc190b19wZXJzb25fZGFzaGJvYXJkXG4gICAgdHJhbnNmb3JtZXIgPHwuLiBmaGlyX2J1bmRsZXNfdG9fb21vcF9jZG1cbiAgICB0cmFuc2Zvcm1lciA8fC4uIG9tb3BfY2RtX3RvX3BlcnNvbl9kYXNoYm9hcmRcbiAgICB0cmFuc2Zvcm1lcjogK19fY2FsbF9fKEEgaW5wdXQpKiBCXG4gICAgZmhpcl9idW5kbGVzX3RvX3BlcnNvbl9kYXNoYm9hcmQ6ICtfX2NhbGxfXyhTdHJpbmcgYnVuZGxlX3BhdGgpKiBQZXJzb25EYXNoYm9hcmRcbiAgICBmaGlyX2J1bmRsZXNfdG9fb21vcF9jZG06ICtfX2NhbGxfXyhTdHJpbmcgYnVuZGxlX3BhdGgpKiBPbW9wQ2RtXG4gICAgb21vcF9jZG1fdG9fcGVyc29uX2Rhc2hib2FyZDogK19fY2FsbF9fKFN0cmluZyBjZG1fZGF0YWJhc2UsIFN0cmluZyBtYXBwaW5nX2RhdGFiYXNlKSogUGVyc29uRGFzaGJvYXJkXG5cbiAgICBcbiAgICAiLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9)](https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiY2xhc3NEaWFncmFtXG4gICAgY2xhc3MgdHJhbnNmb3JtZXJ-QSwgQiBleHRlbmRzIERhdGFNb2RlbH5cbiAgICB0cmFuc2Zvcm1lciA8fC4uIGZoaXJfYnVuZGxlc190b19wZXJzb25fZGFzaGJvYXJkXG4gICAgdHJhbnNmb3JtZXIgPHwuLiBmaGlyX2J1bmRsZXNfdG9fb21vcF9jZG1cbiAgICB0cmFuc2Zvcm1lciA8fC4uIG9tb3BfY2RtX3RvX3BlcnNvbl9kYXNoYm9hcmRcbiAgICB0cmFuc2Zvcm1lcjogK19fY2FsbF9fKEEgaW5wdXQpKiBCXG4gICAgZmhpcl9idW5kbGVzX3RvX3BlcnNvbl9kYXNoYm9hcmQ6ICtfX2NhbGxfXyhTdHJpbmcgYnVuZGxlX3BhdGgpKiBQZXJzb25EYXNoYm9hcmRcbiAgICBmaGlyX2J1bmRsZXNfdG9fb21vcF9jZG06ICtfX2NhbGxfXyhTdHJpbmcgYnVuZGxlX3BhdGgpKiBPbW9wQ2RtXG4gICAgb21vcF9jZG1fdG9fcGVyc29uX2Rhc2hib2FyZDogK19fY2FsbF9fKFN0cmluZyBjZG1fZGF0YWJhc2UsIFN0cmluZyBtYXBwaW5nX2RhdGFiYXNlKSogUGVyc29uRGFzaGJvYXJkXG5cbiAgICBcbiAgICAiLCJtZXJtYWlkIjoie1xuICBcInRoZW1lXCI6IFwiZGVmYXVsdFwiXG59IiwidXBkYXRlRWRpdG9yIjpmYWxzZSwiYXV0b1N5bmMiOnRydWUsInVwZGF0ZURpYWdyYW0iOmZhbHNlfQ)
 
@@ -98,7 +105,7 @@ For example:
 ```
 omop_cdm = dbinterop.transformers.fhir_bundles_to_omop_cdm(path_to_my_fhir_bundles)
 omop_cdm.listDatabases() # Spark DDL is the main interface for something like the CDM.
-omop_cdm.display() # `display()` can be used for summary statistics or telemetry.
+omop_cdm.summary().display() # `summary()` can be used for summary statistics or telemetry.
 ```
 
 ## Non-patient centric analytics
@@ -107,7 +114,7 @@ Other dashboard _DataModels_ may have different granularity:
 ```
 # Note: the only change is "person" -> "procedure"
 dashboard = dbinterop.transformers.fhir_bundles_to_procedure_dashboard(path_to_my_fhir_bundles)
-dashboard.display()
+dashboard.summary().display()
 )
 ```
 
