@@ -61,7 +61,7 @@ class PersonDashboard(DataModel):
   @classmethod
   def builder(cls, from_: DataModel):
     if isinstance(from_, FhirBundles):
-      cls._from_fhir_bundles(from_)
+      return cls._from_fhir_bundles(from_)
     else:
       raise NotImplementedError()
   
