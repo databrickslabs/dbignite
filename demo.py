@@ -1,10 +1,16 @@
 # Databricks notebook source
-dbutils.widgets.text('repo', 'dbinterop')
-dbutils.widgets.text('branch', '')
+try:
+  dbutils.widgets.text('repo', 'dbinterop')
+  dbutils.widgets.text('branch', '')
 
-# COMMAND ----------
-
-assert dbutils.widgets.get("branch") != ''
+  assert dbutils.widgets.get("branch") != ''
+  
+  REPO = dbutils.widgets.get('repo')
+  BRANCH = dbutils.widgets.get('branch')
+except NameError: # NameError: name 'dbutils' is not defined
+  import os
+  REPO = os.environ.get('repo', 'dbinterop')
+  BRANCH = os.environ['branch']
 
 # COMMAND ----------
 
@@ -76,8 +82,10 @@ from pyspark.sql import DataFrame
 from pyspark.sql.types import *
 from pyspark.sql.functions import udf
 
+
 PERSON_TABLE = 'person'
 CONDITION_TABLE = 'condition'
+
 
 ENTRY_SCHEMA = StructType([
   StructField('resource', StructType([
@@ -91,17 +99,18 @@ ENTRY_SCHEMA = StructType([
   ]))
 ])
 
+
 def fhir_bundles_to_omop_cdm(path: str) -> OmopCdm:
   entries_df = (
     spark.read.text(path, wholetext=True)
-    .select(explode(_struct_and_json('value')).alias('entry_json'))
+    .select(explode(_entry_json_strings('value')).alias('entry_json'))
     .withColumn('entry', from_json('entry_json', schema=ENTRY_SCHEMA))
   ).cache()
   person_df = _entries_to_person(entries_df)
   condition_df = _entries_to_condition(entries_df)
   
-  cdm_database = f'cdm_{dbutils.widgets.get("repo")}_{dbutils.widgets.get("branch")}'
-  mapping_database = f'cdm_mapping_{dbutils.widgets.get("repo")}_{dbutils.widgets.get("branch")}'
+  cdm_database = f'cdm_{REPO}_{BRANCH}'
+  mapping_database = f'cdm_mapping_{REPO}_{BRANCH}'
   spark.sql(f'CREATE DATABASE IF NOT EXISTS {cdm_database}')
   spark.sql(f'CREATE DATABASE IF NOT EXISTS {mapping_database}')
   spark.catalog.setCurrentDatabase(cdm_database)
@@ -109,14 +118,16 @@ def fhir_bundles_to_omop_cdm(path: str) -> OmopCdm:
   condition_df.writeTo(CONDITION_TABLE).createOrReplace()
   return OmopCdm(cdm_database, mapping_database)
 
+
 @udf(ArrayType(StringType()))
-def _struct_and_json(value):
+def _entry_json_strings(value):
   '''
   UDF takes raw text, returns the
   parsed struct and raw JSON.
   '''
   bundle_json = json.loads(value)
   return [json.dumps(e) for e in bundle_json['entry']]
+
 
 def _entries_to_person(entries_df):
   entry_schema = deepcopy(ENTRY_SCHEMA)
@@ -144,6 +155,7 @@ def _entries_to_person(entries_df):
       col('patient.address').alias('address'),
     )
   )
+
 
 def _entries_to_condition(entries_df):
   entry_schema = deepcopy(ENTRY_SCHEMA)
@@ -213,7 +225,7 @@ from pyspark.sql import DataFrame
 from pyspark.sql.functions import *
 
 TEST_BUNDLE_PATH = 'dbfs:/FileStore/tables/fhirbundles/Synthea FHIR/'
-TEST_DATABASE = f'test_{dbutils.widgets.get("repo")}_{dbutils.widgets.get("branch")}'
+TEST_DATABASE = f'test_{REPO}_{BRANCH}'
 BUNDLES_TABLE = 'bundles'
     
 class TestTransformers(TestCase):
@@ -254,7 +266,10 @@ class TestTransformers(TestCase):
 
 # COMMAND ----------
 
-display(dbutils.fs.ls(TEST_BUNDLE_PATH))
+try:
+  display(dbutils.fs.ls(TEST_BUNDLE_PATH))
+except NameError: # NameError: name 'dbutils' is not defined
+  pass
 
 # COMMAND ----------
 
