@@ -102,7 +102,7 @@ from copy import deepcopy
 
 from pyspark.sql import DataFrame
 from pyspark.sql.types import *
-from pyspark.sql.functions import udf
+from pyspark.sql.functions import *
 
 
 PERSON_TABLE = 'person'

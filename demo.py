@@ -1,4 +1,8 @@
 # Databricks notebook source
+# %fs mv /FileStore/tables/dbinterop-1.0-py2.py3-none-any.whl /FileStore/jars/1a27c6ae_75dd_45fa_9259_add4d51a045c/dbinterop-1.0-py2.py3-none-any.whl
+
+# COMMAND ----------
+
 # MAGIC %pip install --force-reinstall /dbfs/FileStore/jars/1a27c6ae_75dd_45fa_9259_add4d51a045c/dbinterop-1.0-py2.py3-none-any.whl
 
 # COMMAND ----------
@@ -62,11 +66,6 @@ except NameError: # NameError: name 'dbutils' is not defined
 bundles_df = spark.read.json(TEST_BUNDLE_PATH, multiLine=True)
 bundles_df.printSchema()
 bundles_df.display()
-
-# COMMAND ----------
-
-import dbinterop
-dir(dbinterop)
 
 # COMMAND ----------
 
