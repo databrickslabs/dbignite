@@ -293,7 +293,7 @@ except NameError: # NameError: name 'dbutils' is not defined
 
 # COMMAND ----------
 
-bundles_df = spark.read.json(path, multiLine=True)
+bundles_df = spark.read.json(TEST_BUNDLE_PATH, multiLine=True)
 bundles_df.printSchema()
 bundles_df.display()
 
