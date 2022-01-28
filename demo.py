@@ -9,8 +9,8 @@ try:
   BRANCH = dbutils.widgets.get('branch')
 except NameError: # NameError: name 'dbutils' is not defined
   import os
-  REPO = os.environ.get('repo', 'dbinterop')
-  BRANCH = os.environ['branch']
+  REPO = os.environ.get('REPO', 'dbinterop')
+  BRANCH = os.environ['BRANCH']
 
 # COMMAND ----------
 
