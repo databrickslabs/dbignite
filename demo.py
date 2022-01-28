@@ -1,4 +1,8 @@
 # Databricks notebook source
+# MAGIC %pip install /dbfs/FileStore/jars/1a27c6ae_75dd_45fa_9259_add4d51a045c/dbinterop-1.0-py2.py3-none-any.whl
+
+# COMMAND ----------
+
 try:
   dbutils.widgets.text('repo', 'dbinterop')
   dbutils.widgets.text('branch', '')
@@ -59,10 +63,9 @@ bundles_df.display()
 
 # COMMAND ----------
 
-import dbinterop
+from dbinterop.data_model import FhirBundles, PersonDashboard
 
-person_dashboard = \
-  dbinterop.transformers.fhir_bundles_to_person_dashboard(TEST_BUNDLE_PATH)
+person_dashboard = PersonDashboard.builder(from_=FhirBundles(TEST_BUNDLE_PATH))
 person_dashboard.summary().display()
 
 # COMMAND ----------
