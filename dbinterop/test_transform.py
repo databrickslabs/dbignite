@@ -229,6 +229,7 @@ def _summarize_condition(condition_df):
 # COMMAND ----------
 
 # transformers/test.py
+import unittest
 from unittest import TestCase
 
 from pyspark.sql import DataFrame
