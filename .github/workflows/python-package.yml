@@ -10,7 +10,7 @@ on:
     branches: [ main ]
 
 env:
-  BRANCH: ${{ github.ref }}
+  BRANCH: ${{ github.ref_name }}
 
 jobs:
   build:
