@@ -11,6 +11,13 @@ except NameError: # NameError: name 'dbutils' is not defined
   import os
   REPO = os.environ.get('REPO', 'dbinterop')
   BRANCH = os.environ['BRANCH']
+  
+  from pyspark.sql import SparkSession
+
+  spark = SparkSession \
+    .builder \
+    .appName("PyTest") \
+    .getOrCreate()
 
 # COMMAND ----------
 
