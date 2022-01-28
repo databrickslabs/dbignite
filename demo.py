@@ -76,18 +76,8 @@ person_dashboard.summary().display()
 
 # COMMAND ----------
 
-from dbinterop.data_model import FhirBundles, PersonDashboard
-
-person_dashboard = PersonDashboard.builder(from_=FhirBundles(TEST_BUNDLE_PATH))
-person_dashboard.summary().display()
-
-# COMMAND ----------
-
 from pyspark.sql.functions import *
 
-person_dashboard: dbinterop.DataModel = \
-  dbinterop.transformers.fhir_bundles_to_person_dashboard(TEST_BUNDLE_PATH)
-  
 (
   person_dashboard.summary()
   .withColumn(
