@@ -17,11 +17,22 @@ health data models on the Databricks analytics platform.
 In this example, the _dbinterop_ package enables
 quick exploratory analysis of the people in a FHIR bundle.
 
-The _transformers_ module contains a suite of
-"Data Model A" to "Data Model B" transformer classes. In this
+> Direct exploratory analysis of 
+> FHIR bundles requires complex queries and ETL
+> pipelines. In many cases, ad-hoc analysis may not 
+> be computationally feasible. _dbinterop_ greatly 
+> simplifies "running SQL queries
+> on FHIR bundles". 
+
+The _data_model_ module contains a suite of common
+health data models such as FHIR, or OMOP CDM. 
+_DataModel_ objects can be initialized from other
+_DataModel_ objects using a "builder pattern". In this
 case we transform the FHIR bundle to a proprietary
 "person dashboard" model intended for low friction
 exploratory analytics of the people in the bundle.
+
+See: [DataModels](#datamodels)
 
 ```
 from dbinterop.data_model import FhirBundles, PersonDashboard
