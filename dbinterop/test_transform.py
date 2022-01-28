@@ -236,7 +236,8 @@ from pyspark.sql.functions import *
 
 TEST_DATABASE = f'test_{REPO}_{BRANCH}'
 BUNDLES_TABLE = 'bundles'
-    
+
+@unittest.skip("Not yet running as github action")
 class TestTransformers(TestCase):
   
   @classmethod
