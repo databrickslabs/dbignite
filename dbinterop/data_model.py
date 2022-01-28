@@ -240,8 +240,4 @@ def _summarize_condition(condition_df):
 
 # COMMAND ----------
 
-person_dashboard = PersonDashboard.builder(from_=FhirBundles(TEST_BUNDLE_PATH))
-
-# COMMAND ----------
-
 

@@ -1,7 +1,9 @@
 # Databricks notebook source
-# MAGIC %pip install /dbfs/FileStore/jars/1a27c6ae_75dd_45fa_9259_add4d51a045c/dbinterop-1.0-py2.py3-none-any.whl
+# MAGIC %pip install --force-reinstall /dbfs/FileStore/jars/1a27c6ae_75dd_45fa_9259_add4d51a045c/dbinterop-1.0-py2.py3-none-any.whl
 
 # COMMAND ----------
+
+import os
 
 try:
   dbutils.widgets.text('repo', 'dbinterop')
@@ -9,14 +11,11 @@ try:
 
   assert dbutils.widgets.get("branch") != ''
   
-  REPO = dbutils.widgets.get('repo')
-  BRANCH = dbutils.widgets.get('branch')
+  os.environ['REPO'] = dbutils.widgets.get('repo')
+  os.environ['BRANCH'] = dbutils.widgets.get('branch')
   TEST_BUNDLE_PATH = 'dbfs:/FileStore/tables/fhirbundles/Synthea FHIR/'
   
 except NameError: # NameError: name 'dbutils' is not defined
-  import os
-  REPO = os.environ.get('REPO', 'dbinterop')
-  BRANCH = os.environ['BRANCH']
   TEST_BUNDLE_PATH = None
   
   from pyspark.sql import SparkSession
@@ -25,6 +24,9 @@ except NameError: # NameError: name 'dbutils' is not defined
     .builder \
     .appName("PyTest") \
     .getOrCreate()
+  
+REPO = os.environ.get('REPO', 'dbinterop')
+BRANCH = os.environ['BRANCH']
 
 # COMMAND ----------
 
@@ -60,6 +62,18 @@ except NameError: # NameError: name 'dbutils' is not defined
 bundles_df = spark.read.json(TEST_BUNDLE_PATH, multiLine=True)
 bundles_df.printSchema()
 bundles_df.display()
+
+# COMMAND ----------
+
+import dbinterop
+dir(dbinterop)
+
+# COMMAND ----------
+
+from dbinterop.data_model import FhirBundles, PersonDashboard
+
+person_dashboard = PersonDashboard.builder(from_=FhirBundles(TEST_BUNDLE_PATH))
+person_dashboard.summary().display()
 
 # COMMAND ----------
 
