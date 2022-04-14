@@ -109,6 +109,8 @@ PERSON_TABLE = 'person'
 CONDITION_TABLE = 'condition'
 PROCEDURE_OCCURRENCE_TABLE = 'procedure_occurrence'
 
+ENCOUNTER_TABLE = 'encounter'
+
 
 ENTRY_SCHEMA = StructType([
   StructField('resource', StructType([
@@ -133,6 +135,8 @@ def fhir_bundles_to_omop_cdm(path: str) -> OmopCdm:
   condition_df = _entries_to_condition(entries_df)
   procedure_occurrence_df = _entries_to_procedure_occurrence(entries_df)
   
+  encounter_df = _entries_to_encounter(entries_df)
+  
   cdm_database = f'cdm_{REPO}_{BRANCH}'
   mapping_database = f'cdm_mapping_{REPO}_{BRANCH}'
   spark.sql(f'CREATE DATABASE IF NOT EXISTS {cdm_database}')
@@ -142,6 +146,9 @@ def fhir_bundles_to_omop_cdm(path: str) -> OmopCdm:
   person_df.writeTo(PERSON_TABLE).createOrReplace()
   condition_df.writeTo(CONDITION_TABLE).createOrReplace()
   procedure_occurrence_df.writeTo(PROCEDURE_OCCURRENCE_TABLE).createOrReplace()
+  
+  encounter_df.writeTo(ENCOUNTER_TABLE).createOrReplace()
+  
   return OmopCdm(cdm_database, mapping_database)
 
 
@@ -274,6 +281,92 @@ def _entries_to_procedure_occurrence(entries_df):
             col('procedure_occurrence.location.display').alias('location_display')
            )
         )
+  
+def _entries_to_encounter(entries_df):
+  
+  entry_schema = deepcopy(ENTRY_SCHEMA)
+  encounter_schema = next(f.dataType for f in entry_schema.fields if f.name == 'resource')
+  
+  encounter_schema.fields.extend([
+
+    StructField('subject', StructType([
+      StructField('reference', StringType())
+    ])),  
+    
+    StructField('period', StructType([
+      StructField('start', TimestampType()),
+      StructField('end', TimestampType())
+    ])),
+    
+    
+    StructField('serviceProvider', StructType([
+      StructField('reference', StringType()),
+      StructField('display', StringType())
+    ])),
+    
+   
+    StructField('type', ArrayType(StructType([
+      StructField('coding', ArrayType(StructType([
+        StructField('code', StringType()),
+        StructField('display', StringType()),
+        StructField('system', StringType())
+      ]))),
+      StructField('text', StringType())
+    ]))),
+    
+    
+    StructField('participant',ArrayType(StructType([                                                                  
+      StructField('type', ArrayType(StructType([
+      StructField('coding', ArrayType(StructType([
+        StructField('code', StringType()),
+        StructField('display', StringType()),
+        StructField('system', StringType())
+      ]))),
+      StructField('text', StringType())
+    ])))]))),  
+  
+    StructField('status', StringType()),
+    
+    StructField('identifier', ArrayType(StructType([
+        StructField('use', StringType()),
+        StructField('system', StringType()),
+        StructField('value', StringType())
+      ]))), 
+    
+    StructField('location', ArrayType(StructType([
+        StructField("location",StructType([
+        StructField('reference', StringType()),
+        StructField('display', StringType())
+      ]))]))),  
+     
+
+  ])
+  
+  return (
+    entries_df
+    .where(col('entry.request.url') == 'Encounter')
+    .withColumn('encounter', from_json('entry_json', schema=entry_schema)['resource'])
+    .select(
+      col('encounter.id').alias('encounter_id'),
+      regexp_replace(col('encounter.subject.reference'),'urn:uuid:','').alias('person_id'),
+#       regexp_replace(col('encounter.encounter.reference'),'urn:uuid:','').alias('visit_occurrence_id'),
+      col('encounter.period.start').alias('encounter_period_start'),
+      col('encounter.period.end').alias('encounter_period_end'),
+#       col('encounter.serviceProvider.reference').alias('serviceProvider_reference'),
+      col('encounter.serviceProvider.display').alias('serviceProvider'),
+      col('encounter.type')[0]['coding'][0]['display'].alias('encounter_status'),
+      col('encounter.type')[0]['coding'][0]['code'].alias('encounter_code'),
+#       col('encounter.type')[0]['coding'][0]['system'].alias('encounter_system'),
+      col('encounter.type')[0]['text'].alias('encounter_status_text'),
+      col('encounter.participant'),
+      col('encounter.status'),
+      col('encounter.identifier'),
+      col('encounter.location')
+      
+
+
+    )
+  )
 
 # COMMAND ----------
 
@@ -284,8 +377,12 @@ def omop_cdm_to_person_dashboard(cdm_database: str, mapping_database: str) -> Pe
   condition_df = spark.read.table(CONDITION_TABLE)
   procedure_occurrence_df = spark.read.table(PROCEDURE_OCCURRENCE_TABLE)
   
+  encounter_df = spark.read.table(ENCOUNTER_TABLE
+  
   condition_summary_df = _summarize_condition(condition_df)
   procedure_occurrence_summary_df = _summarize_procedure_occurrence(procedure_occurrence_df)
+                                  
+  encounter_summary_df = _summarize_encounter(encounter_df)
   
   return PersonDashboard(
     person_df
@@ -312,6 +409,17 @@ def _summarize_procedure_occurrence(condition_df):
     .groupBy('person_id')
     .agg(
       collect_list('procedure_occurrence').alias('procedure_occurrences'),
+    )
+  )
+
+def _summarize_encounter(encounter_df): ####add
+  return (
+    encounter_df
+    .orderBy('encounter_period_start')
+    .select(col('person_id'), struct('*').alias('encounter'))
+    .groupBy('person_id')
+    .agg(
+      collect_list('encounter').alias('encounters'),
     )
   )
 
