@@ -17,8 +17,15 @@ try:
   
 except NameError: # NameError: name 'dbutils' is not defined
   import os
-  DATABASE_NAME = None
+  DATABASE_NAME = os.environ.get('DATABASE_NAME', 'dbinterop')
   TEST_BUNDLE_PATH = None 
+  
+  from pyspark.sql import SparkSession
+
+  spark = SparkSession \
+    .builder \
+    .appName("PyTest") \
+    .getOrCreate()
 
 # COMMAND ----------
 
