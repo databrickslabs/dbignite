@@ -377,7 +377,7 @@ def omop_cdm_to_person_dashboard(cdm_database: str, mapping_database: str) -> Pe
   condition_df = spark.read.table(CONDITION_TABLE)
   procedure_occurrence_df = spark.read.table(PROCEDURE_OCCURRENCE_TABLE)
   
-  encounter_df = spark.read.table(ENCOUNTER_TABLE
+  encounter_df = spark.read.table(ENCOUNTER_TABLE)
   
   condition_summary_df = _summarize_condition(condition_df)
   procedure_occurrence_summary_df = _summarize_procedure_occurrence(procedure_occurrence_df)
@@ -412,7 +412,7 @@ def _summarize_procedure_occurrence(condition_df):
     )
   )
 
-def _summarize_encounter(encounter_df): ####add
+def _summarize_encounter(encounter_df):
   return (
     encounter_df
     .orderBy('encounter_period_start')
