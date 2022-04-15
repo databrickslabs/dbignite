@@ -45,8 +45,8 @@ class FhirBundles(DataModel):
   
   def __init__(self, path: str, cdm_database : str, cdm_mapping_database: str):
     self.path = path
-    self.cdm_database = path
-    self.cdm_mapping_database = path
+    self.cdm_database = cdm_database
+    self.cdm_mapping_database = cdm_mapping_database
     
   def listDatabases():
     raise NotImplementedError()
