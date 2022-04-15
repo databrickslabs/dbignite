@@ -388,6 +388,7 @@ def omop_cdm_to_person_dashboard(cdm_database: str, mapping_database: str) -> Pe
     person_df
     .join(condition_summary_df, 'person_id', 'left')
     .join(procedure_occurrence_summary_df, 'person_id', 'left')
+    .join(encounter_summary_df, 'person_id', 'left')
   )
   
 def _summarize_condition(condition_df):
