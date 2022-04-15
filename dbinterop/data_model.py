@@ -7,17 +7,17 @@ from pyspark.sql import DataFrame
 from pyspark.sql.catalog import Database
 
 try:
-  dbutils.widgets.text('database_name', 'dbinterop')
-  dbutils.widgets.text('bundle_path', '')
+#   dbutils.widgets.text('database_name', 'dbinterop')
+#   dbutils.widgets.text('bundle_path', '')
 
-  assert dbutils.widgets.get("bundle_path") != ''  
+#   assert dbutils.widgets.get("bundle_path") != ''  
   
-  DATABASE_NAME = dbutils.widgets.get('database_name')
-  TEST_BUNDLE_PATH = dbutils.widgets.get('bundle_path')
+#   DATABASE_NAME = dbutils.widgets.get('database_name')
+#   TEST_BUNDLE_PATH = dbutils.widgets.get('bundle_path')
   
 except NameError: # NameError: name 'dbutils' is not defined
   import os
-  DATABASE_NAME = os.environ.get('DATABASE_NAME', 'dbinterop')
+  DATABASE_NAME = None
   TEST_BUNDLE_PATH = None 
   
   from pyspark.sql import SparkSession
@@ -43,8 +43,10 @@ class DataModel(ABC):
 
 class FhirBundles(DataModel):
   
-  def __init__(self, path: str):
+  def __init__(self, path: str, cdm_database : str, cdm_mapping_database: str):
     self.path = path
+    self.cdm_database = path
+    self.cdm_mapping_database = path
     
   def listDatabases():
     raise NotImplementedError()
@@ -74,7 +76,7 @@ class PersonDashboard(DataModel):
     
   @staticmethod
   def _from_fhir_bundles(from_: FhirBundles):
-    omop_cdm = fhir_bundles_to_omop_cdm(from_.path)
+    omop_cdm = fhir_bundles_to_omop_cdm(from_.path,from_.cdm_database,from_.cdm_mapping_database)
     person_dashboard = omop_cdm_to_person_dashboard(*omop_cdm.listDatabases())
     return person_dashboard
 
@@ -123,7 +125,7 @@ ENTRY_SCHEMA = StructType([
 ])
 
 
-def fhir_bundles_to_omop_cdm(path: str) -> OmopCdm:
+def fhir_bundles_to_omop_cdm(path: str, cdm_database: str, mapping_database: str ) -> OmopCdm:
   entries_df = (
     spark.read.text(path, wholetext=True)
     .select(explode(_entry_json_strings('value')).alias('entry_json'))
@@ -135,8 +137,8 @@ def fhir_bundles_to_omop_cdm(path: str) -> OmopCdm:
   
   encounter_df = _entries_to_encounter(entries_df)
   
-  cdm_database = f'cdm_{DATABASE_NAME}'
-  mapping_database = f'cdm_mapping_{DATABASE_NAME}'
+#   cdm_database = f'cdm_{DATABASE_NAME}'
+#   mapping_database = f'cdm_mapping_{DATABASE_NAME}'
   spark.sql(f'CREATE DATABASE IF NOT EXISTS {cdm_database}')
   spark.sql(f'CREATE DATABASE IF NOT EXISTS {mapping_database}')
   spark.catalog.setCurrentDatabase(cdm_database)
