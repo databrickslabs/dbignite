@@ -7,13 +7,13 @@ from pyspark.sql import DataFrame
 from pyspark.sql.catalog import Database
 
 try:
-#   dbutils.widgets.text('database_name', 'dbinterop')
-#   dbutils.widgets.text('bundle_path', '')
+  dbutils.widgets.text('database_name', 'dbinterop')
+  dbutils.widgets.text('bundle_path', '')
 
-#   assert dbutils.widgets.get("bundle_path") != ''  
+  assert dbutils.widgets.get("bundle_path") != ''  
   
-#   DATABASE_NAME = dbutils.widgets.get('database_name')
-#   TEST_BUNDLE_PATH = dbutils.widgets.get('bundle_path')
+  DATABASE_NAME = dbutils.widgets.get('database_name')
+  TEST_BUNDLE_PATH = dbutils.widgets.get('bundle_path')
   
 except NameError: # NameError: name 'dbutils' is not defined
   import os
