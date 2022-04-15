@@ -7,27 +7,18 @@ from pyspark.sql import DataFrame
 from pyspark.sql.catalog import Database
 
 try:
-  dbutils.widgets.text('repo', 'dbinterop')
-  dbutils.widgets.text('branch', '')
+  dbutils.widgets.text('database_name', 'dbinterop')
+  dbutils.widgets.text('bundle_path', '')
 
-  assert dbutils.widgets.get("branch") != ''
+  assert dbutils.widgets.get("bundle_path") != ''  
   
-  REPO = dbutils.widgets.get('repo')
-  BRANCH = dbutils.widgets.get('branch')
-  TEST_BUNDLE_PATH = 'dbfs:/FileStore/tables/fhirbundles/Synthea FHIR/'
+  DATABASE_NAME = dbutils.widgets.get('database_name')
+  TEST_BUNDLE_PATH = dbutils.widgets.get('bundle_path')
   
 except NameError: # NameError: name 'dbutils' is not defined
   import os
-  REPO = os.environ.get('REPO', 'dbinterop')
-  BRANCH = os.environ['BRANCH']
-  TEST_BUNDLE_PATH = None
-  
-  from pyspark.sql import SparkSession
-
-  spark = SparkSession \
-    .builder \
-    .appName("PyTest") \
-    .getOrCreate()
+  DATABASE_NAME = None
+  TEST_BUNDLE_PATH = None 
 
 # COMMAND ----------
 
@@ -137,8 +128,8 @@ def fhir_bundles_to_omop_cdm(path: str) -> OmopCdm:
   
   encounter_df = _entries_to_encounter(entries_df)
   
-  cdm_database = f'cdm_{REPO}_{BRANCH}'
-  mapping_database = f'cdm_mapping_{REPO}_{BRANCH}'
+  cdm_database = f'cdm_{DATABASE_NAME}'
+  mapping_database = f'cdm_mapping_{DATABASE_NAME}'
   spark.sql(f'CREATE DATABASE IF NOT EXISTS {cdm_database}')
   spark.sql(f'CREATE DATABASE IF NOT EXISTS {mapping_database}')
   spark.catalog.setCurrentDatabase(cdm_database)
@@ -372,7 +363,7 @@ def _entries_to_encounter(entries_df):
 
 # transformers/omop_cdm_to_person_dashboard.py
 def omop_cdm_to_person_dashboard(cdm_database: str, mapping_database: str) -> PersonDashboard:
-  spark.catalog.setCurrentDatabase(cdm_database)
+  spark.sql(f'USE {cdm_database}')
   person_df = spark.read.table(PERSON_TABLE)
   condition_df = spark.read.table(CONDITION_TABLE)
   procedure_occurrence_df = spark.read.table(PROCEDURE_OCCURRENCE_TABLE)
