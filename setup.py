@@ -1,8 +1,8 @@
 from setuptools import setup
 
 setup(
-    name='dbinterop',
+    name='dbignite',
     version='1.0',
-    packages=['dbinterop'],
-    py_modules=['dbinterop.data_model']
+    packages=['dbignite'],
+    py_modules=['dbignite.data_model']
 )

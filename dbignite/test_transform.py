@@ -1,6 +1,6 @@
 # Databricks notebook source
 try:
-  dbutils.widgets.text('repo', 'dbinterop')
+  dbutils.widgets.text('repo', 'dbignite')
   dbutils.widgets.text('branch', '')
 
   assert dbutils.widgets.get("branch") != ''
@@ -11,7 +11,7 @@ try:
   
 except NameError: # NameError: name 'dbutils' is not defined
   import os
-  REPO = os.environ.get('REPO', 'dbinterop')
+  REPO = os.environ.get('REPO', 'dbignite')
   BRANCH = os.environ['BRANCH']
   TEST_BUNDLE_PATH = None
   

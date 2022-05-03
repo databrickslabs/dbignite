@@ -1,12 +1,12 @@
 # Databricks notebook source
-# MAGIC %pip install --force-reinstall /dbfs/FileStore/jars/1a27c6ae_75dd_45fa_9259_add4d51a045c/dbinterop-1.0-py2.py3-none-any.whl
+# MAGIC %pip install --force-reinstall /dbfs/FileStore/jars/1a27c6ae_75dd_45fa_9259_add4d51a045c/dbignite-1.0-py2.py3-none-any.whl
 
 # COMMAND ----------
 
 import os
 
 try:
-  dbutils.widgets.text('repo', 'dbinterop')
+  dbutils.widgets.text('repo', 'dbignite')
   dbutils.widgets.text('branch', '')
 
   assert dbutils.widgets.get("branch") != ''
@@ -25,7 +25,7 @@ except NameError: # NameError: name 'dbutils' is not defined
     .appName("PyTest") \
     .getOrCreate()
   
-REPO = os.environ.get('REPO', 'dbinterop')
+REPO = os.environ.get('REPO', 'dbignite')
 BRANCH = os.environ['BRANCH']
 
 # COMMAND ----------
@@ -65,7 +65,7 @@ bundles_df.display()
 
 # COMMAND ----------
 
-from dbinterop.data_model import FhirBundles, PersonDashboard
+from dbignite.data_model import FhirBundles, PersonDashboard
 
 person_dashboard = PersonDashboard.builder(from_=FhirBundles(TEST_BUNDLE_PATH))
 person_dashboard.summary().display()

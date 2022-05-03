@@ -7,7 +7,7 @@ from pyspark.sql import DataFrame
 from pyspark.sql.catalog import Database
 
 try:
-  dbutils.widgets.text('database_name', 'dbinterop')
+  dbutils.widgets.text('database_name', 'dbignite')
   dbutils.widgets.text('bundle_path', '')
 
   assert dbutils.widgets.get("bundle_path") != ''  
