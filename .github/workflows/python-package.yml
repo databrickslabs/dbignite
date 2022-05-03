@@ -5,9 +5,9 @@ name: Python package
 
 on:
   push:
-    branches: [ main, nate ]
+    branches: [ master, amir ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 env:
   BRANCH: ${{ github.ref_name }}
@@ -40,12 +40,12 @@ jobs:
         # flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest dbinterop/test_transform.py
+        pytest dbignite/test_transform.py
     - name: Build
       run: |
         python setup.py bdist_wheel --universal
 
     - uses: actions/upload-artifact@v2
       with:
-        name: dbinterop-1.0-py2.py3-none-any.whl
-        path: dist/dbinterop-1.0-py2.py3-none-any.whl
+        name: dbignite-1.0-py2.py3-none-any.whl
+        path: dist/dbignite-1.0-py2.py3-none-any.whl
