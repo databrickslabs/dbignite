@@ -1,4 +1,4 @@
-# dbinterop
+# dbignite
 __Health Data Interoperability__
 
 Utilities to minimize friction in the Databricks
@@ -11,16 +11,16 @@ time we ensure the spec. is [extensible for the future
 use cases](#future-extensions).
 
 ## Core Use Case: Quick Exploratory Analysis of a FHIR Bundle
-The utilities in the _dbinterop_ package can be used
+The utilities in the _dbi_ package can be used
 to minimize friction when dealing with a variety of
 health data models on the Databricks analytics platform.
-In this example, the _dbinterop_ package enables
+In this example, the _dbignite_ package enables
 quick exploratory analysis of the people in a FHIR bundle.
 
 > Direct exploratory analysis of 
 > FHIR bundles requires complex queries and ETL
 > pipelines. In many cases, ad-hoc analysis may not 
-> be computationally feasible. _dbinterop_ greatly 
+> be computationally feasible. _dbignite_ greatly 
 > simplifies "running SQL queries
 > on FHIR bundles". 
 
@@ -35,7 +35,7 @@ exploratory analytics of the people in the bundle.
 See: [DataModels](#datamodels)
 
 ```
-from dbinterop.data_model import FhirBundles, PersonDashboard
+from dbignite.data_model import FhirBundles, PersonDashboard
 
 person_dashboard = PersonDashboard.builder(from_=FhirBundles(TEST_BUNDLE_PATH))
 person_dashboard.summary().display()
@@ -61,7 +61,7 @@ person_dashboard.summary().display()
   pattern could in theory be extended to include integration -
   the _Transformer_ can take any arbitrary input to
   find the data.
-- FHIR Bundles: dbinterop has support for the convention of data for one patient per bundle
+- FHIR Bundles: dbignite has support for the convention of data for one patient per bundle
   in a directory. In general, we make no assumptions about what resources will be found in
   a FHIR bundle, or what the relationships between them will be.
 - These design principles will need to be elaborated
@@ -110,7 +110,7 @@ For example:
 - Transactional FHIR output.
 
 ```
-omop_cdm = dbinterop.transformers.fhir_bundles_to_omop_cdm(path_to_my_fhir_bundles)
+omop_cdm = dbignite.transformers.fhir_bundles_to_omop_cdm(path_to_my_fhir_bundles)
 omop_cdm.listDatabases() # Spark DDL is the main interface for something like the CDM.
 omop_cdm.summary().display() # `summary()` can be used for summary statistics or telemetry.
 ```
@@ -120,15 +120,15 @@ The _PersonDashborad DataModel_ is person oriented - every row is a person.
 Other dashboard _DataModels_ may have different granularity:
 ```
 # Note: the only change is "person" -> "procedure"
-dashboard = dbinterop.transformers.fhir_bundles_to_procedure_dashboard(path_to_my_fhir_bundles)
+dashboard = dbignite.transformers.fhir_bundles_to_procedure_dashboard(path_to_my_fhir_bundles)
 dashboard.summary().display()
 )
 ```
 
 ## Support for additional input data models
-The `dbinterop` package can be extended with additional parsers to support
+The `dbignite` package can be extended with additional parsers to support
 other health data models. For example:
 ```
-omop_cdm = dbinterop.transformers.hl7v2_to_omop_cdm(path_to_my_hl7_messages, ser='xml')
+omop_cdm = dbignite.transformers.hl7v2_to_omop_cdm(path_to_my_hl7_messages, ser='xml')
 ```
 
