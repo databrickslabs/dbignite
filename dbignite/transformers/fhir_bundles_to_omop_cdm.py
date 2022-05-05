@@ -251,21 +251,16 @@ def _entries_to_encounter(entries_df):
     .select(
       col('encounter.id').alias('encounter_id'),
       regexp_replace(col('encounter.subject.reference'),'urn:uuid:','').alias('person_id'),
-#       regexp_replace(col('encounter.encounter.reference'),'urn:uuid:','').alias('visit_occurrence_id'),
       col('encounter.period.start').alias('encounter_period_start'),
       col('encounter.period.end').alias('encounter_period_end'),
-#       col('encounter.serviceProvider.reference').alias('serviceProvider_reference'),
       col('encounter.serviceProvider.display').alias('serviceProvider'),
       col('encounter.type')[0]['coding'][0]['display'].alias('encounter_status'),
       col('encounter.type')[0]['coding'][0]['code'].alias('encounter_code'),
-#       col('encounter.type')[0]['coding'][0]['system'].alias('encounter_system'),
       col('encounter.type')[0]['text'].alias('encounter_status_text'),
       col('encounter.participant'),
       col('encounter.status'),
       col('encounter.identifier'),
       col('encounter.location')
-      
-
 
     )
   )

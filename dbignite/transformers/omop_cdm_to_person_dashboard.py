@@ -1,3 +1,18 @@
+import json
+from copy import deepcopy
+
+from pyspark.sql import DataFrame
+from pyspark.sql.types import *
+from pyspark.sql.functions import *
+
+
+PERSON_TABLE = 'person'
+CONDITION_TABLE = 'condition'
+PROCEDURE_OCCURRENCE_TABLE = 'procedure_occurrence'
+
+ENCOUNTER_TABLE = 'encounter'
+
+
 def omop_cdm_to_person_dashboard(cdm_database: str, mapping_database: str) -> PersonDashboard:
   spark.sql(f'USE {cdm_database}')
   person_df = spark.read.table(PERSON_TABLE)
