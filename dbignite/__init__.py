@@ -1,3 +1,2 @@
-from dbignite.data_model import FhirBundles, PersonDashboard, OmopCdm
 from dbignite.transformers.omop_cdm_to_person_dashboard import omop_cdm_to_person_dashboard
 from dbignite.transformers.fhir_bundles_to_omop_cdm import fhir_bundles_to_omop_cdm

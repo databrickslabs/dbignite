@@ -3,12 +3,24 @@ from unittest import TestCase
 
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import *
+  
+import os
 
-REPO='dbignite'
-BRANCH = 'amir'
+REPO = os.environ.get('REPO', 'dbignite')
+BRANCH = os.environ['BRANCH']
+TEST_BUNDLE_PATH = None
 
 TEST_DATABASE = f'test_{REPO}_{BRANCH}'
 BUNDLES_TABLE = 'bundles'
+
+from pyspark.sql import SparkSession
+
+spark = SparkSession \
+ .builder \
+ .appName("PyTest") \
+ .getOrCreate()
+
+
 
 @unittest.skip("Not yet running as github action")
 class TestTransformers(TestCase):

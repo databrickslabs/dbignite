@@ -12,7 +12,6 @@ PROCEDURE_OCCURRENCE_TABLE = 'procedure_occurrence'
 
 ENCOUNTER_TABLE = 'encounter'
 
-
 def omop_cdm_to_person_dashboard(cdm_database: str, mapping_database: str) -> PersonDashboard:
   spark.sql(f'USE {cdm_database}')
   person_df = spark.read.table(PERSON_TABLE)
