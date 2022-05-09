@@ -25,46 +25,7 @@ ENTRY_SCHEMA = StructType([
   ]))
 ])
 
-
-def fhir_bundles_to_omop_cdm(path: str, cdm_database: str, mapping_database: str ) -> OmopCdm:
-  entries_df = (
-    spark.read.text(path, wholetext=True)
-    .select(explode(_entry_json_strings('value')).alias('entry_json'))
-    .withColumn('entry', from_json('entry_json', schema=ENTRY_SCHEMA))
-  ).cache()
-
-  person_df = _entries_to_person(entries_df)
-  condition_df = _entries_to_condition(entries_df)
-  procedure_occurrence_df = _entries_to_procedure_occurrence(entries_df)
-  
-  encounter_df = _entries_to_encounter(entries_df)
-  
-#   cdm_database = f'cdm_{DATABASE_NAME}'
-#   mapping_database = f'cdm_mapping_{DATABASE_NAME}'
-  spark.sql(f'CREATE DATABASE IF NOT EXISTS {cdm_database}')
-  spark.sql(f'CREATE DATABASE IF NOT EXISTS {mapping_database}')
-  spark.catalog.setCurrentDatabase(cdm_database)
-  
-  person_df.writeTo(PERSON_TABLE).createOrReplace()
-  condition_df.writeTo(CONDITION_TABLE).createOrReplace()
-  procedure_occurrence_df.writeTo(PROCEDURE_OCCURRENCE_TABLE).createOrReplace()
-  
-  encounter_df.writeTo(ENCOUNTER_TABLE).createOrReplace()
-  
-  return OmopCdm(cdm_database, mapping_database)
-
-
-@udf(ArrayType(StringType()))
-def _entry_json_strings(value):
-  '''
-  UDF takes raw text, returns the
-  parsed struct and raw JSON.
-  '''
-  bundle_json = json.loads(value)
-  return [json.dumps(e) for e in bundle_json['entry']]
-
-
-def _entries_to_person(entries_df):
+def entries_to_person(entries_df):
   entry_schema = deepcopy(ENTRY_SCHEMA)
   patient_schema = next(f.dataType for f in entry_schema.fields if f.name == 'resource')
   patient_schema.fields.extend([
@@ -92,7 +53,7 @@ def _entries_to_person(entries_df):
   )
 
 
-def _entries_to_condition(entries_df):
+def entries_to_condition(entries_df):
   entry_schema = deepcopy(ENTRY_SCHEMA)
   condition_schema = next(f.dataType for f in entry_schema.fields if f.name == 'resource')
   condition_schema.fields.extend([
@@ -128,7 +89,7 @@ def _entries_to_condition(entries_df):
   )
 
 
-def _entries_to_procedure_occurrence(entries_df):
+def entries_to_procedure_occurrence(entries_df):
   entry_schema = deepcopy(ENTRY_SCHEMA)
   procedure_occurrence_schema = next(f.dataType for f in entry_schema.fields if f.name == 'resource')
   procedure_occurrence_schema.fields.extend([
@@ -184,7 +145,7 @@ def _entries_to_procedure_occurrence(entries_df):
            )
         )
   
-def _entries_to_encounter(entries_df):
+def entries_to_encounter(entries_df):
   
   entry_schema = deepcopy(ENTRY_SCHEMA)
   encounter_schema = next(f.dataType for f in entry_schema.fields if f.name == 'resource')
@@ -262,5 +223,38 @@ def _entries_to_encounter(entries_df):
       col('encounter.identifier'),
       col('encounter.location')
 
+    )
+  )
+
+def summarize_condition(condition_df):
+  return (
+    condition_df
+    .orderBy('condition_start_datetime')
+    .select(col('person_id'), struct('*').alias('condition'))
+    .groupBy('person_id')
+    .agg(
+      collect_list('condition').alias('conditions'),
+    )
+  )
+
+def summarize_procedure_occurrence(condition_df):
+  return (
+    condition_df
+    .orderBy('procedure_start_date')
+    .select(col('person_id'), struct('*').alias('procedure_occurrence'))
+    .groupBy('person_id')
+    .agg(
+      collect_list('procedure_occurrence').alias('procedure_occurrences'),
+    )
+  )
+
+def summarize_encounter(encounter_df):
+  return (
+    encounter_df
+    .orderBy('encounter_period_start')
+    .select(col('person_id'), struct('*').alias('encounter'))
+    .groupBy('person_id')
+    .agg(
+      collect_list('encounter').alias('encounters'),
     )
   )

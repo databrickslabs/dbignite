@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='dbignite',
-    version='1.0',
+    version='0.1',
     packages=['dbignite'],
     py_modules=['dbignite.data_model']
 )
