@@ -15,10 +15,10 @@ from pyspark.sql.functions import *
 from pyspark.sql.types import *
 
 
-# spark = SparkSession \
-#  .builder \
-#  .appName("PyTest") \
-#  .getOrCreate()
+spark = SparkSession \
+ .builder \
+ .appName("PyTest") \
+ .getOrCreate()
 
 
 
@@ -35,14 +35,12 @@ class DataModel(ABC):
 
 class FhirBundles(DataModel):
   
-  def __init__(self, path: str, cdm_database : str, cdm_mapping_database: str):
+  def __init__(self, path: str):
     self.path = path
-    self.cdm_database = cdm_database
-    self.cdm_mapping_database = cdm_mapping_database
     
   def listDatabases():
-    raise NotImplementedError() #TODO change to list database
-    
+    raise NotImplementedError()
+
   def summary():
     raise NotImplementedError() 
 
@@ -50,9 +48,9 @@ class FhirBundles(DataModel):
 class PersonDashboard(DataModel):
   
   @classmethod
-  def builder(cls, from_: DataModel):
+  def builder(cls, from_: DataModel, cdm_database : str, cdm_mapping_database: str, append: bool):
     if isinstance(from_, FhirBundles):
-      return cls._from_fhir_bundles(from_)
+      return cls._from_fhir_bundles(from_,cdm_database,cdm_mapping_database, append)
     else:
       raise NotImplementedError()
   
@@ -63,11 +61,11 @@ class PersonDashboard(DataModel):
     return self.df
   
   def listDatabases(self):
-    raise NotImplementedError('TODO: persist the person dashboard')
+    raise NotImplementedError()
     
   @staticmethod
-  def _from_fhir_bundles(from_: FhirBundles):
-    omop_cdm = fhir_bundles_to_omop_cdm(from_.path,from_.cdm_database,from_.cdm_mapping_database)
+  def _from_fhir_bundles(from_: FhirBundles, cdm_database : str, cdm_mapping_database: str, append: bool):
+    omop_cdm = fhir_bundles_to_omop_cdm(from_.path, cdm_database, cdm_mapping_database, append)
     person_dashboard = omop_cdm_to_person_dashboard(*omop_cdm.listDatabases())
     return person_dashboard
 
@@ -79,14 +77,14 @@ class OmopCdm(DataModel):
     self.mapping_database = mapping_database
     
   def summary(self) -> DataFrame:
-    raise NotImplementedError('TODO: summarize OMOP CDM in a DataFrame')
+    raise NotImplementedError()
   
   def listDatabases(self):
     return (self.cdm_database, self.mapping_database)
 
 ## transformers
 
-def fhir_bundles_to_omop_cdm(path: str, cdm_database: str, mapping_database: str ) -> OmopCdm:
+def fhir_bundles_to_omop_cdm(path: str, cdm_database: str, mapping_database: str, append: bool) -> OmopCdm:
   entries_df = (
     spark.read.text(path, wholetext=True)
     .select(explode(_entry_json_strings('value')).alias('entry_json'))
@@ -96,20 +94,24 @@ def fhir_bundles_to_omop_cdm(path: str, cdm_database: str, mapping_database: str
   person_df = entries_to_person(entries_df)
   condition_df = entries_to_condition(entries_df)
   procedure_occurrence_df = entries_to_procedure_occurrence(entries_df)
-  
   encounter_df = entries_to_encounter(entries_df)
   
-#   cdm_database = f'cdm_{DATABASE_NAME}'
-#   mapping_database = f'cdm_mapping_{DATABASE_NAME}'
-  spark.sql(f'CREATE DATABASE IF NOT EXISTS {cdm_database}')
-  spark.sql(f'CREATE DATABASE IF NOT EXISTS {mapping_database}')
-  spark.catalog.setCurrentDatabase(cdm_database)
-  
-  person_df.writeTo(PERSON_TABLE).createOrReplace()
-  condition_df.writeTo(CONDITION_TABLE).createOrReplace()
-  procedure_occurrence_df.writeTo(PROCEDURE_OCCURRENCE_TABLE).createOrReplace()
-  
-  encounter_df.writeTo(ENCOUNTER_TABLE).createOrReplace()
+  if not append:
+    spark.sql(f'CREATE DATABASE IF NOT EXISTS {cdm_database}')
+    spark.sql(f'CREATE DATABASE IF NOT EXISTS {mapping_database}')
+    spark.catalog.setCurrentDatabase(cdm_database)
+    
+    person_df.writeTo(PERSON_TABLE).createOrReplace()
+    condition_df.writeTo(CONDITION_TABLE).createOrReplace()
+    procedure_occurrence_df.writeTo(PROCEDURE_OCCURRENCE_TABLE).createOrReplace()
+    encounter_df.writeTo(ENCOUNTER_TABLE).createOrReplace()
+
+  else:
+    spark.catalog.setCurrentDatabase(cdm_database)
+    person_df.writeTo(PERSON_TABLE).append()
+    condition_df.writeTo(CONDITION_TABLE).append()
+    procedure_occurrence_df.writeTo(PROCEDURE_OCCURRENCE_TABLE).append()
+    encounter_df.writeTo(ENCOUNTER_TABLE).append()
   
   return OmopCdm(cdm_database, mapping_database)
 
