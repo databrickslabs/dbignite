@@ -1,1 +1,2 @@
-pyspark
+pyarrow==8.0.0
+pyspark==3.2.1
