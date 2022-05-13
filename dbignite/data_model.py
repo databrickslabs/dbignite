@@ -15,10 +15,10 @@ from pyspark.sql.functions import *
 from pyspark.sql.types import *
 
 
-spark = SparkSession \
- .builder \
- .appName("PyTest") \
- .getOrCreate()
+# spark = SparkSession \
+#  .builder \
+#  .appName("PyTest") \
+#  .getOrCreate()
 
 
 
@@ -101,17 +101,17 @@ def fhir_bundles_to_omop_cdm(path: str, cdm_database: str, mapping_database: str
     spark.sql(f'CREATE DATABASE IF NOT EXISTS {mapping_database}')
     spark.catalog.setCurrentDatabase(cdm_database)
     
-    person_df.writeTo(PERSON_TABLE).createOrReplace()
-    condition_df.writeTo(CONDITION_TABLE).createOrReplace()
-    procedure_occurrence_df.writeTo(PROCEDURE_OCCURRENCE_TABLE).createOrReplace()
-    encounter_df.writeTo(ENCOUNTER_TABLE).createOrReplace()
+    person_df.write.format("delta").saveAsTable(PERSON_TABLE)
+    condition_df.write.format("delta").saveAsTable(CONDITION_TABLE)
+    procedure_occurrence_df.format("delta").saveAsTable(PROCEDURE_OCCURRENCE_TABLE)
+    encounter_df.format("delta").saveAsTable(ENCOUNTER_TABLE)
 
   else:
     spark.catalog.setCurrentDatabase(cdm_database)
-    person_df.writeTo(PERSON_TABLE).append()
-    condition_df.writeTo(CONDITION_TABLE).append()
-    procedure_occurrence_df.writeTo(PROCEDURE_OCCURRENCE_TABLE).append()
-    encounter_df.writeTo(ENCOUNTER_TABLE).append()
+    person_df.write.format("delta").mode("overwrite").saveAsTable(PERSON_TABLE)
+    condition_df.write.format("delta").mode("overwrite").saveAsTable(CONDITION_TABLE)
+    procedure_occurrence_df.format("delta").mode("overwrite").saveAsTable(PROCEDURE_OCCURRENCE_TABLE)
+    encounter_df.format("delta").mode("overwrite").saveAsTable(ENCOUNTER_TABLE)
   
   return OmopCdm(cdm_database, mapping_database)
 
