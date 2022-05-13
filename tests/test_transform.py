@@ -73,6 +73,7 @@ class TestTransformers(TestCase):
 #     self.spark.read.table(CONDITION_TABLE).display()
     
   def test_fhir_bundles_to_omop_cdm(self):
+    self.setUpClass()
     omop_cdm = fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, False)
     assert TEST_DATABASE in omop_cdm.listDatabases()
     logging.info('delta table count ' + str(self.spark.table("person").count()))
