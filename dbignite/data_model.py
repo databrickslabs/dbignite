@@ -88,7 +88,7 @@ class OmopCdm(DataModel):
 
 ## transformers
 
-def fhir_bundles_to_omop_cdm(path: str, cdm_database: str, mapping_database: str, append: bool) -> OmopCdm:
+def fhir_bundles_to_omop_cdm(path: str, cdm_database: str, mapping_database: str, overwrite: bool) -> OmopCdm:
   entries_df = (
     spark.read.text(path, wholetext=True)
     .select(explode(_entry_json_strings('value')).alias('entry_json'))
@@ -99,24 +99,23 @@ def fhir_bundles_to_omop_cdm(path: str, cdm_database: str, mapping_database: str
   condition_df = entries_to_condition(entries_df)
   procedure_occurrence_df = entries_to_procedure_occurrence(entries_df)
   encounter_df = entries_to_encounter(entries_df)
-  
-  if not append:
-    spark.sql(f'CREATE DATABASE IF NOT EXISTS {cdm_database}')
-    spark.sql(f'CREATE DATABASE IF NOT EXISTS {mapping_database}')
-    spark.catalog.setCurrentDatabase(cdm_database)
-    
-    person_df.write.format("delta").saveAsTable(PERSON_TABLE)
-    condition_df.write.format("delta").saveAsTable(CONDITION_TABLE)
-    procedure_occurrence_df.format("delta").saveAsTable(PROCEDURE_OCCURRENCE_TABLE)
-    encounter_df.format("delta").saveAsTable(ENCOUNTER_TABLE)
 
-  else:
-    spark.catalog.setCurrentDatabase(cdm_database)
+  spark.sql(f'CREATE DATABASE IF NOT EXISTS {cdm_database}')
+  spark.sql(f'CREATE DATABASE IF NOT EXISTS {mapping_database}')
+  spark.catalog.setCurrentDatabase(cdm_database)
+  
+  if overwrite:
     person_df.write.format("delta").mode("overwrite").saveAsTable(PERSON_TABLE)
     condition_df.write.format("delta").mode("overwrite").saveAsTable(CONDITION_TABLE)
-    procedure_occurrence_df.format("delta").mode("overwrite").saveAsTable(PROCEDURE_OCCURRENCE_TABLE)
-    encounter_df.format("delta").mode("overwrite").saveAsTable(ENCOUNTER_TABLE)
-  
+    procedure_occurrence_df.write.format("delta").mode("overwrite").saveAsTable(PROCEDURE_OCCURRENCE_TABLE)
+    encounter_df.write.format("delta").mode("overwrite").saveAsTable(ENCOUNTER_TABLE)
+
+  else:
+    person_df.write.format("delta").saveAsTable(PERSON_TABLE)
+    condition_df.write.format("delta").saveAsTable(CONDITION_TABLE)
+    procedure_occurrence_df.write.format("delta").saveAsTable(PROCEDURE_OCCURRENCE_TABLE)
+    encounter_df.write.format("delta").saveAsTable(ENCOUNTER_TABLE)
+
   return OmopCdm(cdm_database, mapping_database)
 
 

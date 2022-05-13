@@ -34,7 +34,6 @@ class TestTransformers(TestCase):
                       .master("local") \
                       .getOrCreate())
     cls.spark.conf.set("spark.sql.shuffle.partitions", 1)
-    # cls.spark = SparkSession.builder.appName("PyTest").getOrCreate()
     cls.spark.sql(f'CREATE DATABASE IF NOT EXISTS {TEST_DATABASE}')
     cls.spark.catalog.setCurrentDatabase(TEST_DATABASE)
 
@@ -44,7 +43,7 @@ class TestTransformers(TestCase):
 
   def test_fhir_bundles_to_omop_cdm(self):
     self.setUpClass()
-    omop_cdm = fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, False)
+    omop_cdm = fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, True)
     assert TEST_DATABASE in omop_cdm.listDatabases()
     logging.info('delta table count ' + str(self.spark.table("person").count()))
     assert self.spark.table(f"{TEST_DATABASE}.person").count() == 3
