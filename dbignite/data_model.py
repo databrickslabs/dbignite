@@ -15,11 +15,15 @@ from pyspark.sql.functions import *
 from pyspark.sql.types import *
 
 
-# spark = SparkSession \
-#  .builder \
-#  .appName("PyTest") \
-#  .getOrCreate()
-
+spark = (SparkSession.builder.appName("myapp") \
+                      .config("spark.jars.packages", "io.delta:delta-core_2.12:1.1.0") \
+                      .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
+                      .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
+                      .config("spark.driver.extraJavaOptions", "-Dio.netty.tryReflectionSetAccessible=true") \
+                      .config("spark.executor.extraJavaOptions", "-Dio.netty.tryReflectionSetAccessible=true") \
+                      .master("local") \
+                      .getOrCreate())
+spark.conf.set("spark.sql.shuffle.partitions", 1)
 
 
 class DataModel(ABC):
