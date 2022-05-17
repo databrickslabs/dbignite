@@ -121,7 +121,7 @@ class TestTransformers(SparkTest):
 
   def test_fhir_bundles_to_omop_cdm(self):
     omop_cdm = fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, True)
-    tables = [t.tableName for t in sql(f"SHOW TABLES FROM {TEST_DATABASE}").collect()]
+    tables = [t.tableName for t in self.spark.sql(f"SHOW TABLES FROM {TEST_DATABASE}").collect()]
 
     assert TEST_DATABASE in omop_cdm.listDatabases()
     assert PERSON_TABLE in tables
