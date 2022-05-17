@@ -16,7 +16,7 @@ from dbignite.data_model import fhir_bundles_to_omop_cdm, omop_cdm_to_person_das
 
 REPO = os.environ.get('REPO', 'dbignite')
 BRANCH = re.sub(r'\W+', '', os.environ['BRANCH'])
-TEST_BUNDLE_PATH = '../sampledata/'
+TEST_BUNDLE_PATH = './sampledata/'
 TEST_DATABASE = f'test_{REPO}_{BRANCH}'
 
 
