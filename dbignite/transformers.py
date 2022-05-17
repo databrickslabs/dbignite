@@ -6,12 +6,6 @@ from pyspark.sql.types import *
 from pyspark.sql.functions import *
 
 
-PERSON_TABLE = 'person'
-CONDITION_TABLE = 'condition'
-PROCEDURE_OCCURRENCE_TABLE = 'procedure_occurrence'
-
-ENCOUNTER_TABLE = 'encounter'
-
 
 ENTRY_SCHEMA = StructType([
   StructField('resource', StructType([

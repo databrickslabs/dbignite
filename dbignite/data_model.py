@@ -26,6 +26,12 @@ spark = (SparkSession.builder.appName("myapp") \
 spark.conf.set("spark.sql.shuffle.partitions", 1)
 
 
+PERSON_TABLE = 'person'
+CONDITION_TABLE = 'condition'
+PROCEDURE_OCCURRENCE_TABLE = 'procedure_occurrence'
+ENCOUNTER_TABLE = 'encounter'
+
+
 class DataModel(ABC):
   
   @abstractmethod
@@ -52,9 +58,9 @@ class FhirBundles(DataModel):
 class PersonDashboard(DataModel):
   
   @classmethod
-  def builder(cls, from_: DataModel, cdm_database : str, cdm_mapping_database: str, append: bool):
+  def builder(cls, from_: DataModel, cdm_database : str, cdm_mapping_database: str, overwrite: bool):
     if isinstance(from_, FhirBundles):
-      return cls._from_fhir_bundles(from_,cdm_database,cdm_mapping_database, append)
+      return cls._from_fhir_bundles(from_,cdm_database,cdm_mapping_database, overwrite)
     else:
       raise NotImplementedError()
   
@@ -68,8 +74,8 @@ class PersonDashboard(DataModel):
     raise NotImplementedError()
     
   @staticmethod
-  def _from_fhir_bundles(from_: FhirBundles, cdm_database : str, cdm_mapping_database: str, append: bool):
-    omop_cdm = fhir_bundles_to_omop_cdm(from_.path, cdm_database, cdm_mapping_database, append)
+  def _from_fhir_bundles(from_: FhirBundles, cdm_database : str, cdm_mapping_database: str, overwrite: bool):
+    omop_cdm = fhir_bundles_to_omop_cdm(from_.path, cdm_database, cdm_mapping_database, overwrite)
     person_dashboard = omop_cdm_to_person_dashboard(*omop_cdm.listDatabases())
     return person_dashboard
 
