@@ -15,22 +15,22 @@ from pyspark.sql.functions import *
 from pyspark.sql.types import *
 
 
-spark = (SparkSession.builder.appName("myapp") \
-                      .config("spark.jars.packages", "io.delta:delta-core_2.12:1.1.0") \
-                      .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
-                      .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
-                      .config("spark.driver.extraJavaOptions", "-Dio.netty.tryReflectionSetAccessible=true") \
-                      .config("spark.executor.extraJavaOptions", "-Dio.netty.tryReflectionSetAccessible=true") \
-                      .master("local") \
-                      .getOrCreate())
-spark.conf.set("spark.sql.shuffle.partitions", 1)
+# spark = (SparkSession.builder.appName("myapp") \
+#                       .config("spark.jars.packages", "io.delta:delta-core_2.12:1.1.0") \
+#                       .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
+#                       .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
+#                       .config("spark.driver.extraJavaOptions", "-Dio.netty.tryReflectionSetAccessible=true") \
+#                       .config("spark.executor.extraJavaOptions", "-Dio.netty.tryReflectionSetAccessible=true") \
+#                       .master("local") \
+#                       .getOrCreate())
+# spark.conf.set("spark.sql.shuffle.partitions", 1)
 
 
 PERSON_TABLE = 'person'
 CONDITION_TABLE = 'condition'
 PROCEDURE_OCCURRENCE_TABLE = 'procedure_occurrence'
 ENCOUNTER_TABLE = 'encounter'
-
+TEST_OBJECT = 'test'
 
 class DataModel(ABC):
   
@@ -40,8 +40,7 @@ class DataModel(ABC):
     
   @abstractmethod
   def listDatabases(self) -> Iterable[Database]:
-    ...
-    
+    ...    
 
 class FhirBundles(DataModel):
   
@@ -56,14 +55,7 @@ class FhirBundles(DataModel):
 
 
 class PersonDashboard(DataModel):
-  
-  @classmethod
-  def builder(cls, from_: DataModel, cdm_database : str, cdm_mapping_database: str, overwrite: bool):
-    if isinstance(from_, FhirBundles):
-      return cls._from_fhir_bundles(from_,cdm_database,cdm_mapping_database, overwrite)
-    else:
-      raise NotImplementedError()
-  
+
   def __init__(self, df: DataFrame):
     self.df = df
     
@@ -72,12 +64,6 @@ class PersonDashboard(DataModel):
   
   def listDatabases(self):
     raise NotImplementedError()
-    
-  @staticmethod
-  def _from_fhir_bundles(from_: FhirBundles, cdm_database : str, cdm_mapping_database: str, overwrite: bool):
-    omop_cdm = fhir_bundles_to_omop_cdm(from_.path, cdm_database, cdm_mapping_database, overwrite)
-    person_dashboard = omop_cdm_to_person_dashboard(*omop_cdm.listDatabases())
-    return person_dashboard
 
 
 class OmopCdm(DataModel):
@@ -92,65 +78,88 @@ class OmopCdm(DataModel):
   def listDatabases(self):
     return (self.cdm_database, self.mapping_database)
 
-## transformers
+class Transformer():
 
-def fhir_bundles_to_omop_cdm(path: str, cdm_database: str, mapping_database: str, overwrite: bool) -> OmopCdm:
-  entries_df = (
-    spark.read.text(path, wholetext=True)
-    .select(explode(_entry_json_strings('value')).alias('entry_json'))
-    .withColumn('entry', from_json('entry_json', schema=ENTRY_SCHEMA))
-  ).cache()
+  def __init__(self, spark):
+    self.spark = spark 
 
-  person_df = entries_to_person(entries_df)
-  condition_df = entries_to_condition(entries_df)
-  procedure_occurrence_df = entries_to_procedure_occurrence(entries_df)
-  encounter_df = entries_to_encounter(entries_df)
+  def fhir_bundles_to_omop_cdm(self, path, cdm_database, mapping_database, overwrite):
+    entries_df = (
+      self.spark.read.text(path, wholetext=True)
+      .select(explode(self._entry_json_strings('value')).alias('entry_json'))
+      .withColumn('entry', from_json('entry_json', schema=ENTRY_SCHEMA))
+    ).cache()
 
-  spark.sql(f'CREATE DATABASE IF NOT EXISTS {cdm_database}')
-  spark.sql(f'CREATE DATABASE IF NOT EXISTS {mapping_database}')
-  spark.catalog.setCurrentDatabase(cdm_database)
-  
-  if overwrite:
-    person_df.write.format("delta").mode("overwrite").saveAsTable(PERSON_TABLE)
-    condition_df.write.format("delta").mode("overwrite").saveAsTable(CONDITION_TABLE)
-    procedure_occurrence_df.write.format("delta").mode("overwrite").saveAsTable(PROCEDURE_OCCURRENCE_TABLE)
-    encounter_df.write.format("delta").mode("overwrite").saveAsTable(ENCOUNTER_TABLE)
+    person_df = entries_to_person(entries_df)
+    condition_df = entries_to_condition(entries_df)
+    procedure_occurrence_df = entries_to_procedure_occurrence(entries_df)
+    encounter_df = entries_to_encounter(entries_df)
 
-  else:
-    person_df.write.format("delta").saveAsTable(PERSON_TABLE)
-    condition_df.write.format("delta").saveAsTable(CONDITION_TABLE)
-    procedure_occurrence_df.write.format("delta").saveAsTable(PROCEDURE_OCCURRENCE_TABLE)
-    encounter_df.write.format("delta").saveAsTable(ENCOUNTER_TABLE)
+    self.spark.sql(f'CREATE DATABASE IF NOT EXISTS {cdm_database}')
+    self.spark.sql(f'CREATE DATABASE IF NOT EXISTS {mapping_database}')
+    self.spark.catalog.setCurrentDatabase(cdm_database)
+    
+    if overwrite:
+      person_df.write.format("delta").mode("overwrite").saveAsTable(PERSON_TABLE)
+      condition_df.write.format("delta").mode("overwrite").saveAsTable(CONDITION_TABLE)
+      procedure_occurrence_df.write.format("delta").mode("overwrite").saveAsTable(PROCEDURE_OCCURRENCE_TABLE)
+      encounter_df.write.format("delta").mode("overwrite").saveAsTable(ENCOUNTER_TABLE)
 
-  return OmopCdm(cdm_database, mapping_database)
+    else:
+      person_df.write.format("delta").saveAsTable(PERSON_TABLE)
+      condition_df.write.format("delta").saveAsTable(CONDITION_TABLE)
+      procedure_occurrence_df.write.format("delta").saveAsTable(PROCEDURE_OCCURRENCE_TABLE)
+      encounter_df.write.format("delta").saveAsTable(ENCOUNTER_TABLE)
+
+    return OmopCdm(cdm_database, mapping_database)
+
+  @staticmethod
+  @udf(ArrayType(StringType()))
+  def _entry_json_strings(value):
+    '''
+    UDF takes raw text, returns the
+    parsed struct and raw JSON.
+    '''
+    bundle_json = json.loads(value)
+    return [json.dumps(e) for e in bundle_json['entry']]
 
 
-@udf(ArrayType(StringType()))
-def _entry_json_strings(value):
-  '''
-  UDF takes raw text, returns the
-  parsed struct and raw JSON.
-  '''
-  bundle_json = json.loads(value)
-  return [json.dumps(e) for e in bundle_json['entry']]
+  def omop_cdm_to_person_dashboard(self, cdm_database, mapping_database):
+    self.spark.sql(f'USE {cdm_database}')
+    person_df = self.spark.read.table(PERSON_TABLE)
+    condition_df = self.spark.read.table(CONDITION_TABLE)
+    procedure_occurrence_df = self.spark.read.table(PROCEDURE_OCCURRENCE_TABLE)
+    
+    encounter_df = self.spark.read.table(ENCOUNTER_TABLE)
+    
+    condition_summary_df = summarize_condition(condition_df)
+    procedure_occurrence_summary_df = summarize_procedure_occurrence(procedure_occurrence_df)
+                                    
+    encounter_summary_df = summarize_encounter(encounter_df)
+    
+    return PersonDashboard(
+      person_df
+      .join(condition_summary_df, 'person_id', 'left')
+      .join(procedure_occurrence_summary_df, 'person_id', 'left')
+      .join(encounter_summary_df, 'person_id', 'left')
+    )
 
 
-def omop_cdm_to_person_dashboard(cdm_database: str, mapping_database: str) -> PersonDashboard:
-  spark.sql(f'USE {cdm_database}')
-  person_df = spark.read.table(PERSON_TABLE)
-  condition_df = spark.read.table(CONDITION_TABLE)
-  procedure_occurrence_df = spark.read.table(PROCEDURE_OCCURRENCE_TABLE)
-  
-  encounter_df = spark.read.table(ENCOUNTER_TABLE)
-  
-  condition_summary_df = summarize_condition(condition_df)
-  procedure_occurrence_summary_df = summarize_procedure_occurrence(procedure_occurrence_df)
-                                  
-  encounter_summary_df = summarize_encounter(encounter_df)
-  
-  return PersonDashboard(
-    person_df
-    .join(condition_summary_df, 'person_id', 'left')
-    .join(procedure_occurrence_summary_df, 'person_id', 'left')
-    .join(encounter_summary_df, 'person_id', 'left')
-  )
+# def transform(cls, from_: DataModel, to_: DataModel, cdm_database, cdm_mapping_database, overwrite):
+#   if isinstance(from_, FhirBundles) and isinstance (to_, OmopCdm):
+#     omop_cdm = cls.fhir_bundles_to_omop_cdm(from_.path, cdm_database, cdm_mapping_database, overwrite)
+#     return(omop_cdm)
+#   elif isinstance(from_, OmopCdm) and isinstance(to_, PersonDashboard)
+
+# def _from_fhir_bundles(from_: FhirBundles, cdm_database : str, cdm_mapping_database: str, overwrite: bool):
+#   omop_cdm = fhir_bundles_to_omop_cdm(from_.path, cdm_database, cdm_mapping_database, overwrite)
+#   person_dashboard = omop_cdm_to_person_dashboard(*omop_cdm.listDatabases())
+#   return person_dashboard
+
+# @classmethod
+# def transform(cls, from_: DataModel, cdm_database : str, cdm_mapping_database: str, overwrite: bool):
+#   if isinstance(from_, FhirBundles):
+#     return cls._from_fhir_bundles(from_,cdm_database,cdm_mapping_database, overwrite)
+#   else:
+#     raise NotImplementedError()
+
