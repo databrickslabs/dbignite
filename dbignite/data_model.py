@@ -8,29 +8,17 @@ from pyspark.sql import DataFrame
 from pyspark.sql.catalog import Database
 
 
-from dbignite.transformers import *
+from dbignite.utils import *
 
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
 
 
-# spark = (SparkSession.builder.appName("myapp") \
-#                       .config("spark.jars.packages", "io.delta:delta-core_2.12:1.1.0") \
-#                       .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
-#                       .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
-#                       .config("spark.driver.extraJavaOptions", "-Dio.netty.tryReflectionSetAccessible=true") \
-#                       .config("spark.executor.extraJavaOptions", "-Dio.netty.tryReflectionSetAccessible=true") \
-#                       .master("local") \
-#                       .getOrCreate())
-# spark.conf.set("spark.sql.shuffle.partitions", 1)
-
-
 PERSON_TABLE = 'person'
 CONDITION_TABLE = 'condition'
 PROCEDURE_OCCURRENCE_TABLE = 'procedure_occurrence'
 ENCOUNTER_TABLE = 'encounter'
-TEST_OBJECT = 'test'
 
 class DataModel(ABC):
   
@@ -98,23 +86,27 @@ class Transformer():
     self.spark.sql(f'CREATE DATABASE IF NOT EXISTS {cdm_database}')
     self.spark.sql(f'CREATE DATABASE IF NOT EXISTS {mapping_database}')
     self.spark.catalog.setCurrentDatabase(cdm_database)
-    
+
+    print(f'created {cdm_database} and {mapping_database} databases')
+
     if overwrite:
       person_df.write.format("delta").mode("overwrite").saveAsTable(PERSON_TABLE)
       condition_df.write.format("delta").mode("overwrite").saveAsTable(CONDITION_TABLE)
       procedure_occurrence_df.write.format("delta").mode("overwrite").saveAsTable(PROCEDURE_OCCURRENCE_TABLE)
       encounter_df.write.format("delta").mode("overwrite").saveAsTable(ENCOUNTER_TABLE)
+      print(f'created {PERSON_TABLE,CONDITION_TABLE,PROCEDURE_OCCURRENCE_TABLE} and {ENCOUNTER_TABLE} tables.')
 
     else:
       person_df.write.format("delta").saveAsTable(PERSON_TABLE)
       condition_df.write.format("delta").saveAsTable(CONDITION_TABLE)
       procedure_occurrence_df.write.format("delta").saveAsTable(PROCEDURE_OCCURRENCE_TABLE)
       encounter_df.write.format("delta").saveAsTable(ENCOUNTER_TABLE)
+      print(f'updated {PERSON_TABLE,CONDITION_TABLE,PROCEDURE_OCCURRENCE_TABLE} and {ENCOUNTER_TABLE} tables.')
 
     return OmopCdm(cdm_database, mapping_database)
 
   @staticmethod
-  @udf(ArrayType(StringType()))
+  @udf(ArrayType(StringType())) ## TODO change to pandas_udf
   def _entry_json_strings(value):
     '''
     UDF takes raw text, returns the

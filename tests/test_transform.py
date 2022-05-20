@@ -12,7 +12,7 @@ from pyspark.sql.types import *
 import os
 import re
 
-from dbignite.data_model import fhir_bundles_to_omop_cdm, omop_cdm_to_person_dashboard, OmopCdm, PERSON_TABLE,CONDITION_TABLE, PROCEDURE_OCCURRENCE_TABLE, ENCOUNTER_TABLE
+from dbignite.data_model import Transformer, OmopCdm, PERSON_TABLE,CONDITION_TABLE, PROCEDURE_OCCURRENCE_TABLE, ENCOUNTER_TABLE
 
 REPO = os.environ.get('REPO', 'dbignite')
 BRANCH = re.sub(r'\W+', '', os.environ['BRANCH'])
@@ -101,26 +101,8 @@ class SparkTest(TestCase):
 
 class TestTransformers(SparkTest):
   
-  @classmethod
-  def setUpClass(cls):
-    cls.spark = (SparkSession.builder.appName("myapp") \
-                      .config("spark.jars.packages", "io.delta:delta-core_2.12:1.1.0") \
-                      .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
-                      .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
-                      .config("spark.driver.extraJavaOptions", "-Dio.netty.tryReflectionSetAccessible=true") \
-                      .config("spark.executor.extraJavaOptions", "-Dio.netty.tryReflectionSetAccessible=true") \
-                      .master("local") \
-                      .getOrCreate())
-    cls.spark.conf.set("spark.sql.shuffle.partitions", 1)
-    cls.spark.sql(f'CREATE DATABASE IF NOT EXISTS {TEST_DATABASE}')
-    cls.spark.catalog.setCurrentDatabase(TEST_DATABASE)
-
-  @classmethod
-  def tearDownClass(cls):
-    cls.spark.stop()
-
   def test_fhir_bundles_to_omop_cdm(self):
-    omop_cdm = fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, True)
+    omop_cdm = Transformer(self.spark).fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, True)
     tables = [t.tableName for t in self.spark.sql(f"SHOW TABLES FROM {TEST_DATABASE}").collect()]
 
     assert TEST_DATABASE in omop_cdm.listDatabases()
@@ -132,8 +114,9 @@ class TestTransformers(SparkTest):
     assert self.spark.table(f"{TEST_DATABASE}.person").count() == 3
 
   def test_omop_cdm_to_person_dashboard(self):
-    omop_cdm = fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, True)
-    person_dashboard = omop_cdm_to_person_dashboard(*omop_cdm.listDatabases()).summary()
+    transformer=Transformer(self.spark)
+    omop_cdm = transformer.fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, True)
+    person_dashboard = transformer.omop_cdm_to_person_dashboard(*omop_cdm.listDatabases()).summary()
     self.assertSchemasEqual(CONDITION_SCMEA,person_dashboard.select('conditions').schema)
 
 ## MAIN
