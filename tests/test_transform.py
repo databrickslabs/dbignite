@@ -113,6 +113,13 @@ class TestTransformers(SparkTest):
 
     assert self.spark.table(f"{TEST_DATABASE}.person").count() == 3
 
+  def test_debug_testing(self):
+    omop_cdm = Transformer(self.spark).fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, True)
+    tables = [t.tableName for t in self.spark.sql(f"SHOW TABLES FROM {TEST_DATABASE}").collect()]
+
+    assert TEST_DATABASE in omop_cdm.listDatabases()
+    assert self.spark.table(f"{TEST_DATABASE}.person").count() == 3
+
   @unittest.skip("Not yet running as github action")
   def test_omop_cdm_to_person_dashboard(self):
     transformer=Transformer(self.spark)
