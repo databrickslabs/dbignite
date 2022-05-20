@@ -46,8 +46,8 @@ class SparkTest(TestCase):
         self.spark.conf.set("spark.sql.shuffle.partitions", 1)
 
     def tearDown(self) -> None:
-        self.spark.stop()
-
+        # self.spark.stop()
+        pass
     
     def assertFieldsEqual(self, fieldA, fieldB):
         """
