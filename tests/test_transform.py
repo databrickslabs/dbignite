@@ -113,6 +113,7 @@ class TestTransformers(SparkTest):
 
     assert self.spark.table(f"{TEST_DATABASE}.person").count() == 3
 
+  @unittest.skip("Not yet running as github action")
   def test_omop_cdm_to_person_dashboard(self):
     transformer=Transformer(self.spark)
     omop_cdm = transformer.fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, True)
