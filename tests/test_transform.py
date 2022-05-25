@@ -46,8 +46,7 @@ class SparkTest(TestCase):
         self.spark.conf.set("spark.sql.shuffle.partitions", 1)
 
     def tearDown(self) -> None:
-        # self.spark.stop()
-        pass
+        self.spark.sql(f'DROP DATABASE IF EXISTS {TEST_DATABASE}')
     
     def assertFieldsEqual(self, fieldA, fieldB):
         """
@@ -120,7 +119,7 @@ class TestTransformers(SparkTest):
     assert TEST_DATABASE in omop_cdm.listDatabases()
     assert self.spark.table(f"{TEST_DATABASE}.person").count() == 3
 
-  @unittest.skip("Not yet running as github action")
+  # @unittest.skip("Not yet running as github action")
   def test_omop_cdm_to_person_dashboard(self):
     transformer=Transformer(self.spark)
     omop_cdm = transformer.fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, True)
