@@ -46,7 +46,7 @@ class SparkTest(TestCase):
         self.spark.conf.set("spark.sql.shuffle.partitions", 1)
 
     def tearDown(self) -> None:
-        self.spark.sql(f'DROP DATABASE IF EXISTS {TEST_DATABASE}')
+        self.spark.sql(f'DROP DATABASE IF EXISTS {TEST_DATABASE} CASCADE')
     
     def assertFieldsEqual(self, fieldA, fieldB):
         """
