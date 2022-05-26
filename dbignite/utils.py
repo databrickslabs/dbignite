@@ -7,17 +7,6 @@ from pyspark.sql.functions import *
 
 
 
-ENTRY_SCHEMA = StructType([
-  StructField('resource', StructType([
-    StructField('id', StringType()),
-    # Not named in the spec.
-    StructField('resourceType', StringType()) 
-  ])),
-  StructField('request', StructType([
-    # Not technically required, but named in spec.
-    StructField('url',  StringType())
-  ]))
-])
 
 
 

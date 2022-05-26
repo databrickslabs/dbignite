@@ -9,6 +9,7 @@ from pyspark.sql.catalog import Database
 
 
 from dbignite.utils import *
+from dbignite.schemas import ENTRY_SCHEMA
 
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
