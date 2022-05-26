@@ -1,3 +1,5 @@
+from pyspark.sql.types import *
+
 JSON_ENTRY_SCHEMA = StructType([
                       StructField('entry_json',StringType()),
                       StructField('entry',ENTRY_SCHEMA)
