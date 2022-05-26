@@ -4,10 +4,7 @@ from copy import deepcopy
 from pyspark.sql import DataFrame
 from pyspark.sql.types import *
 from pyspark.sql.functions import *
-
-
-
-
+from dbignite.schemas import ENTRY_SCHEMA
 
 
 def entries_to_person(entries_df):
