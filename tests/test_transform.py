@@ -184,7 +184,7 @@ class SparkTest(TestCase):
         self.assertEqual(sortedA.subtract(sortedB).count(), 0)
         self.assertEqual(sortedB.subtract(sortedA).count(), 0)
 
-cclass TestUtils(SparkTest):
+class TestUtils(SparkTest):
   
   def test_entries_to_person(self):
     entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
