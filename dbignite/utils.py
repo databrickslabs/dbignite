@@ -19,6 +19,8 @@ ENTRY_SCHEMA = StructType([
   ]))
 ])
 
+
+
 def entries_to_person(entries_df):
   entry_schema = deepcopy(ENTRY_SCHEMA)
   patient_schema = next(f.dataType for f in entry_schema.fields if f.name == 'resource')

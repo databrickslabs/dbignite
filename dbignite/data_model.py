@@ -71,13 +71,27 @@ class Transformer():
   def __init__(self, spark):
     self.spark = spark 
 
-  def fhir_bundles_to_omop_cdm(self, path, cdm_database, mapping_database, overwrite):
+  def load_entries_df(self, path):
     entries_df = (
       self.spark.read.text(path, wholetext=True)
       .select(explode(self._entry_json_strings('value')).alias('entry_json'))
       .withColumn('entry', from_json('entry_json', schema=ENTRY_SCHEMA))
     ).cache()
+    return(entries_df)
 
+  @staticmethod
+  @udf(ArrayType(StringType())) ## TODO change to pandas_udf
+  def _entry_json_strings(value):
+    '''
+    UDF takes raw text, returns the
+    parsed struct and raw JSON.
+    '''
+    bundle_json = json.loads(value)
+    return [json.dumps(e) for e in bundle_json['entry']]
+
+  def fhir_bundles_to_omop_cdm(self, path, cdm_database, mapping_database, overwrite):
+    
+    entries_df=self.load_entries_df(path)
     person_df = entries_to_person(entries_df)
     condition_df = entries_to_condition(entries_df)
     procedure_occurrence_df = entries_to_procedure_occurrence(entries_df)
@@ -105,17 +119,7 @@ class Transformer():
 
     return OmopCdm(cdm_database, mapping_database)
 
-  @staticmethod
-  @udf(ArrayType(StringType())) ## TODO change to pandas_udf
-  def _entry_json_strings(value):
-    '''
-    UDF takes raw text, returns the
-    parsed struct and raw JSON.
-    '''
-    bundle_json = json.loads(value)
-    return [json.dumps(e) for e in bundle_json['entry']]
-
-
+  
   def omop_cdm_to_person_dashboard(self, cdm_database, mapping_database):
     self.spark.sql(f'USE {cdm_database}')
     person_df = self.spark.read.table(PERSON_TABLE)
@@ -135,23 +139,3 @@ class Transformer():
       .join(procedure_occurrence_summary_df, 'person_id', 'left')
       .join(encounter_summary_df, 'person_id', 'left')
     )
-
-
-# def transform(cls, from_: DataModel, to_: DataModel, cdm_database, cdm_mapping_database, overwrite):
-#   if isinstance(from_, FhirBundles) and isinstance (to_, OmopCdm):
-#     omop_cdm = cls.fhir_bundles_to_omop_cdm(from_.path, cdm_database, cdm_mapping_database, overwrite)
-#     return(omop_cdm)
-#   elif isinstance(from_, OmopCdm) and isinstance(to_, PersonDashboard)
-
-# def _from_fhir_bundles(from_: FhirBundles, cdm_database : str, cdm_mapping_database: str, overwrite: bool):
-#   omop_cdm = fhir_bundles_to_omop_cdm(from_.path, cdm_database, cdm_mapping_database, overwrite)
-#   person_dashboard = omop_cdm_to_person_dashboard(*omop_cdm.listDatabases())
-#   return person_dashboard
-
-# @classmethod
-# def transform(cls, from_: DataModel, cdm_database : str, cdm_mapping_database: str, overwrite: bool):
-#   if isinstance(from_, FhirBundles):
-#     return cls._from_fhir_bundles(from_,cdm_database,cdm_mapping_database, overwrite)
-#   else:
-#     raise NotImplementedError()
-

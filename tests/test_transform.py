@@ -13,6 +13,7 @@ import os
 import re
 
 from dbignite.data_model import Transformer, OmopCdm, PERSON_TABLE,CONDITION_TABLE, PROCEDURE_OCCURRENCE_TABLE, ENCOUNTER_TABLE
+from dbignite.utils import *
 
 REPO = os.environ.get('REPO', 'dbignite')
 BRANCH = re.sub(r'\W+', '', os.environ['BRANCH'])
@@ -20,15 +21,101 @@ TEST_BUNDLE_PATH = './sampledata/'
 TEST_DATABASE = f'test_{REPO}_{BRANCH}'
 
 
-CONDITION_SCMEA = StructType([StructField('conditions',ArrayType(StructType([
-                    StructField('condition_occurrence_id',StringType(),'true'),
-                    StructField('person_id',StringType(),'true'),
-                    StructField('visit_occurrence_id',StringType(),'true'),
-                    StructField('condition_start_datetime',TimestampType(),'true'),
-                    StructField('condition_end_datetime',TimestampType(),'true'),
-                    StructField('condition_status',StringType(),'true'),
-                    StructField('condition_code',StringType(),'true')
-                ]), 'false'),'true')])
+JSON_ENTRY_SCHEMA = StructType([
+                      StructField('entry_json',StringType()),
+                      StructField('entry',ENTRY_SCHEMA)
+                    ])
+
+PERSON_SCHEMA = StructType([
+                  StructField('person_id',StringType()),
+                  StructField('name',StringType()),
+                  StructField('gender_source_value',StringType()),
+                  StructField('year_of_birth',IntegerType()),
+                  StructField('month_of_birth',IntegerType()),
+                  StructField('day_of_birth',IntegerType()),
+                  StructField('address',StringType())
+                ])
+
+CONDITION_SCHEMA = StructType([
+                     StructField('condition_occurrence_id',StringType()),
+                     StructField('person_id',StringType()),
+                     StructField('visit_occurrence_id',StringType()),
+                     StructField('condition_start_datetime',TimestampType()),
+                     StructField('condition_end_datetime',TimestampType()),
+                     StructField('condition_status',StringType()),
+                     StructField('condition_code',StringType())
+                  ])
+
+PROCEDURE_OCCURRENCE_SCHEMA = StructType([
+                                StructField('procedure_occurrence_id',StringType()),
+                                StructField('person_id',StringType()),
+                                StructField('procedure_code',StringType()),
+                                StructField('procedure_code_display',StringType()),
+                                StructField('procedure_code_system',StringType()),
+                                StructField('procedure_start_date',DateType()),
+                                StructField('procedure_end_date',DateType()),
+                                StructField('procedure_type',StringType()),
+                                StructField('provider_id',StringType()),
+                                StructField('visit_occurrence_id',StringType()),
+                                StructField('location_id',StringType()),
+                                StructField('location_display',StringType())
+                              ])
+
+CODING_SCHEMA = StructType([
+                  StructField('code',StringType()),
+                  StructField('display',StringType()),
+                  StructField('system',StringType())
+                ])
+
+
+ENCOUNTER_SCHEMA=StructType([
+  StructField('encounter_id',StringType()),
+  StructField('person_id',StringType()),
+  StructField('encounter_period_start',TimestampType()),
+  StructField('encounter_period_end',TimestampType()),
+  StructField('serviceProvider',StringType()),
+  StructField('encounter_status',StringType()),
+  StructField('encounter_code',StringType()),
+  StructField('encounter_status_text',StringType()),
+  StructField('participant',ArrayType(PARTICIPANT_SCHEMA)),
+  StructField('status',StringType()),
+  StructField('identifier',ArrayType(IDENTIFIER_SCHEMA)),
+  StructField('location',ArrayType(LOCATION_SCHEMA))
+])
+
+PARTICIPANT_SCHEMA=StructType([
+  StructField('type',ArrayType(
+    StructType([
+      StructField('coding',ArrayType(
+        StructType([
+          StructField('code',StringType()),
+          StructField('display',StringType()),
+          StructField('system',StringType())
+        ])
+      )),
+      StructField('text',StringType())
+    ])
+  ))
+])
+
+
+IDENTIFIER_SCHEMA=StructType([
+  StructField('use',StringType()),
+  StructField('system',StringType()),
+  StructField('value',StringType())
+])
+
+
+LOCATION_SCHEMA=StructType([
+  StructField('location',StructType([
+    StructField('reference',StringType()),
+    StructField('display',StringType())])
+  )
+])
+
+CONDITION_SUMMARY_SCHEMA = StructType([
+                    StructField('conditions',ArrayType(CONDITION_SCHEMA, 'false'))
+                    ])
 
 class SparkTest(TestCase):
     ##
@@ -71,9 +158,8 @@ class SparkTest(TestCase):
         """
         # both schemas must have the same length
         self.assertEqual(len(schemaA.fields), len(schemaB.fields))
-        # schemaA must contain every field in schemaB
-        for field in schemaB.fields:
-            self.assertSchemaContainsField(schemaA, field)
+        # schemaA must equal schemaB
+        self.assertEqual(schemaA.simpleString(),schemaB.simpleString())
 
     def assertHasSchema(self, df, expectedSchema):
         """
@@ -98,8 +184,39 @@ class SparkTest(TestCase):
         self.assertEqual(sortedA.subtract(sortedB).count(), 0)
         self.assertEqual(sortedB.subtract(sortedA).count(), 0)
 
+cclass TestUtils(SparkTest):
+  
+  def test_entries_to_person(self):
+    entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
+    person_df = entries_to_person(entries_df)
+    assert person_df.count() == 3
+    self.assertSchemasEqual(person_df.schema,PERSON_SCHEMA)
+    
+  def test_entries_to_condition(self):
+    entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
+    condition_df = entries_to_condition(entries_df)
+    assert condition_df.count() == 103
+    self.assertSchemasEqual(condition_df.schema,CONDITION_SCHEMA)
+
+  def test_entries_to_procedure_occurrence(self):
+    entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
+    procedure_occurrence_df = entries_to_procedure_occurrence(entries_df)
+    assert procedure_occurrence_df.count()==119
+    self.assertSchemasEqual(procedure_occurrence_df.schema,PROCEDURE_OCCURRENCE_SCHEMA)
+  
+  def test_entries_to_encounter(self):
+    entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
+    encounter_df = entries_to_encounter(entries_df)
+    assert encounter_df.count()==128
+    self.assertSchemasEqual(encounter_df.schema,ENCOUNTER_SCHEMA)
+
 class TestTransformers(SparkTest):
   
+  def test_load_entries_df(self):
+    entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
+    assert entries_df.count()==1872
+    self.assertSchemasEqual(entries_df.schema,JSON_ENTRY_SCHEMA)
+
   def test_fhir_bundles_to_omop_cdm(self):
     omop_cdm = Transformer(self.spark).fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, True)
     tables = [t.tableName for t in self.spark.sql(f"SHOW TABLES FROM {TEST_DATABASE}").collect()]
@@ -112,19 +229,12 @@ class TestTransformers(SparkTest):
 
     assert self.spark.table(f"{TEST_DATABASE}.person").count() == 3
 
-  def test_debug_testing(self):
-    omop_cdm = Transformer(self.spark).fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, True)
-    tables = [t.tableName for t in self.spark.sql(f"SHOW TABLES FROM {TEST_DATABASE}").collect()]
-
-    assert TEST_DATABASE in omop_cdm.listDatabases()
-    assert self.spark.table(f"{TEST_DATABASE}.person").count() == 3
-
   # @unittest.skip("Not yet running as github action")
   def test_omop_cdm_to_person_dashboard(self):
     transformer=Transformer(self.spark)
     omop_cdm = transformer.fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, True)
     person_dashboard = transformer.omop_cdm_to_person_dashboard(*omop_cdm.listDatabases()).summary()
-    self.assertSchemasEqual(CONDITION_SCMEA,person_dashboard.select('conditions').schema)
+    self.assertSchemasEqual(CONDITION_SUMMARY_SCHEMA,person_dashboard.select('conditions').schema)
 
 ## MAIN
 if __name__ == '__main__':
