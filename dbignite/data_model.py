@@ -57,7 +57,7 @@ class PersonDashboard(DataModel):
 
 class OmopCdm(DataModel):
   
-  def __init__(self, cdm_database: str, mapping_database: str):
+  def __init__(self, cdm_database: str, mapping_database: str = None):
     self.cdm_database = cdm_database
     self.mapping_database = mapping_database
     
@@ -72,7 +72,7 @@ class Transformer():
   def __init__(self, spark):
     self.spark = spark 
 
-  def load_entries_df(self, path):
+  def load_entries_df(self, path: str):
     entries_df = (
       self.spark.read.text(path, wholetext=True)
       .select(explode(self._entry_json_strings('value')).alias('entry_json'))
@@ -90,7 +90,7 @@ class Transformer():
     bundle_json = json.loads(value)
     return [json.dumps(e) for e in bundle_json['entry']]
 
-  def fhir_bundles_to_omop_cdm(self, path, cdm_database, mapping_database, overwrite):
+  def fhir_bundles_to_omop_cdm(self, path: str, cdm_database: str, mapping_database: str=None, overwrite: bool=True) -> OmopCdm:
     
     entries_df=self.load_entries_df(path)
     person_df = entries_to_person(entries_df)
@@ -119,9 +119,9 @@ class Transformer():
       print(f'updated {PERSON_TABLE,CONDITION_TABLE,PROCEDURE_OCCURRENCE_TABLE} and {ENCOUNTER_TABLE} tables.')
 
     return OmopCdm(cdm_database, mapping_database)
-
   
-  def omop_cdm_to_person_dashboard(self, cdm_database, mapping_database):
+  def omop_cdm_to_person_dashboard(self, omop_cdm:OmopCdm)-> PersonDashboard:
+    cdm_database=omop_cdm.listDatabases()[0]
     self.spark.sql(f'USE {cdm_database}')
     person_df = self.spark.read.table(PERSON_TABLE)
     condition_df = self.spark.read.table(CONDITION_TABLE)

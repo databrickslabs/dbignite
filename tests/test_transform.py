@@ -138,7 +138,7 @@ class TestTransformers(SparkTest):
   def test_omop_cdm_to_person_dashboard(self):
     transformer=Transformer(self.spark)
     omop_cdm = transformer.fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, True)
-    person_dashboard = transformer.omop_cdm_to_person_dashboard(*omop_cdm.listDatabases()).summary()
+    person_dashboard = transformer.omop_cdm_to_person_dashboard(omop_cdm).summary()
     self.assertSchemasEqual(CONDITION_SUMMARY_SCHEMA,person_dashboard.select('conditions').schema)
 
 ## MAIN
