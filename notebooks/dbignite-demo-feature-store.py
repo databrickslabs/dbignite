@@ -12,7 +12,7 @@
 # MAGIC   5. Create a feature store of patient features, and use the feature store to create a training dataset for downstream ML workloads, using [databricks feture store](https://docs.databricks.com/applications/machine-learning/feature-store/index.html#databricks-feature-store). 
 # MAGIC <br>
 # MAGIC </br>
-# MAGIC <img src="https://hls-eng-data-public.s3.amazonaws.com/img/FHIR-RA.png" width = 70%>
+# MAGIC <img src="https://hls-eng-data-public.s3.amazonaws.com/img/FHIR-RA.png" width = 50%>
 # MAGIC 
 # MAGIC ### Data
 # MAGIC The data used in this demo is generated using [synthea](https://synthetichealth.github.io/synthea/). We used [covid infections module](https://github.com/synthetichealth/synthea/blob/master/src/main/resources/modules/covid19/infection.json), which incorporates patient risk factors such as diabetes, hypertension and SDOH in determining outcomes. The data is available at `s3://hls-eng-data-public/data/synthea/fhir/fhir/`. 
@@ -73,7 +73,7 @@ display(files,10)
 # COMMAND ----------
 
 sample_bundle=dbutils.fs.ls(BUNDLE_PATH)[0].path
-print(dbutils.fs.head(sample_bundle,500))
+print(dbutils.fs.head(sample_bundle,200))
 
 # COMMAND ----------
 
@@ -87,6 +87,11 @@ print(dbutils.fs.head(sample_bundle,500))
 cdm_database='dbignite_demo' 
 transformer=Transformer(spark)
 cdm=transformer.fhir_bundles_to_omop_cdm(BUNDLE_PATH, cdm_database=cdm_database)
+
+# COMMAND ----------
+
+# DBTITLE 1,show database name
+cdm.listDatabases()
 
 # COMMAND ----------
 
@@ -127,6 +132,12 @@ display(sql('show tables'))
 
 # COMMAND ----------
 
+# DBTITLE 1,Database Tables
+sql(f'use {cdm_database}')
+sql('show tables').display()
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC ### Person Table
 
@@ -134,7 +145,15 @@ display(sql('show tables'))
 
 # MAGIC %sql
 # MAGIC select * from person
-# MAGIC limit 10
+
+# COMMAND ----------
+
+# DBTITLE 1,Age distribution 
+# MAGIC %sql
+# MAGIC select gender_source_value,year(current_date())-year_of_birth as age, count(*) as count
+# MAGIC from person
+# MAGIC group by 1,2
+# MAGIC order by 2
 
 # COMMAND ----------
 
@@ -145,7 +164,6 @@ display(sql('show tables'))
 
 # MAGIC %sql
 # MAGIC select * from condition
-# MAGIC limit 10
 
 # COMMAND ----------
 
@@ -176,16 +194,21 @@ display(sql('show tables'))
 
 # MAGIC %sql 
 # MAGIC select * from procedure_occurrence
-# MAGIC limit 10
 
 # COMMAND ----------
 
-# DBTITLE 1,to 10 most common procedures
+# DBTITLE 1,distribution of procedures per-patient
+# MAGIC %sql
+# MAGIC select person_id,count(procedure_occurrence_id) as procedure_count from procedure_occurrence
+# MAGIC   group by 1
+
+# COMMAND ----------
+
+# DBTITLE 1,most common procedures
 # MAGIC %sql
 # MAGIC select procedure_code,procedure_code_display, count(*) as count from procedure_occurrence
 # MAGIC group by 1,2
 # MAGIC order by 3 desc
-# MAGIC limit 10
 
 # COMMAND ----------
 
@@ -197,11 +220,9 @@ display(sql('show tables'))
 # DBTITLE 1,Encounters
 # MAGIC %sql
 # MAGIC select * from encounter
-# MAGIC limit 10
 
 # COMMAND ----------
 
-# DBTITLE 1,top 10 encounters
 # MAGIC %sql
 # MAGIC select encounter_status, count(*) as count
 # MAGIC from encounter
@@ -224,7 +245,7 @@ display(person_dashboard)
 # COMMAND ----------
 
 from pyspark.sql.functions import *
-person_dashboard.filter("person_id='6efa4cd6-923d-2b91-272a-0f5c78a637b8'").select(explode('conditions')).display()
+patient_dashboard.filter("person_id='6efa4cd6-923d-2b91-272a-0f5c78a637b8'").select(explode('conditions')).display()
 
 
 # COMMAND ----------
@@ -292,7 +313,6 @@ create_cohort('admission','patients admitted','encounter','encounter_period_star
 # MAGIC %sql
 # MAGIC select *
 # MAGIC from cohort_definition
-# MAGIC limit 10
 
 # COMMAND ----------
 
@@ -361,7 +381,7 @@ def create_patient_history_table(conditions_list):
 # COMMAND ----------
 
 patient_history_df = create_patient_history_table(conditions_list)
-display(patient_history_df,10)
+display(patient_history_df)
 
 # COMMAND ----------
 
@@ -381,7 +401,7 @@ patient_covid_hist_df=(
   patient_history_df
   .join(covid_admissions_df.select('person_id','is_admitted'), on='person_id')
 )
-patient_covid_hist_df.display(10)
+patient_covid_hist_df.display()
 
 # COMMAND ----------
 
@@ -416,7 +436,187 @@ plot_pdf.style.background_gradient(cmap='Blues')
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## License
+# MAGIC ## 5. Adding Features to Feature Store
+# MAGIC Now, we can easily add the extartced features, such as disease history, socio-economic status and demographic information to databricks feature store, which can be used later for training ML models.
+# MAGIC For a better deepdive into databricks feature store see [feature store docs](https://docs.databricks.com/applications/machine-learning/feature-store/index.html#databricks-feature-store) and checkout this [notebook](https://docs.databricks.com/_static/notebooks/machine-learning/feature-store-taxi-example.html).
+
+# COMMAND ----------
+
+sdoh_cols=['person_id',
+ 'history_of_full-time-employment',
+ 'history_of_part-time-employment',
+ 'history_of_not-in-labor-force',
+ 'history_of_received-higher-education',
+ 'history_of_has-a-criminal-record',
+ 'history_of_unemployed',
+ 'history_of_refugee',
+ 'history_of_misuses-drugs']
+
+disease_history_cols=['person_id',
+ 'history_of_obesity',
+ 'history_of_prediabetes',
+ 'history_of_hypertension',
+ 'history_of_diabetes',
+ 'history_of_coronary-heart-disease',
+]
+
+# COMMAND ----------
+
+demographics_df = person_dashboard.summary().selectExpr('person_id','gender_source_value as gender','year(current_date) - year_of_birth as age')
+sdoh_df=patient_history_df.select(sdoh_cols)
+disease_history_df=patient_history_df.select(disease_history_cols)
+
+# COMMAND ----------
+
+# MAGIC %md First, create the database where our feature tables will be stored.
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC DROP DATABASE IF EXISTS patients_feature_store CASCADE;
+
+# COMMAND ----------
+
+# MAGIC %sql 
+# MAGIC CREATE DATABASE patients_feature_store;
+
+# COMMAND ----------
+
+# MAGIC %md Next, create an instance of the Feature Store client.
+
+# COMMAND ----------
+
+from databricks import feature_store
+fs = feature_store.FeatureStoreClient()
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC Use either the `create_table` API (Databricks Runtime 10.2 ML or above) or the `create_feature_table` API (Databricks Runtime 10.1 ML or below) to define schema and unique ID keys. If the optional argument `df` (Databricks Runtime 10.2 ML or above) or `features_df` (Databricks Runtime 10.1 ML or below) is passed, the API also writes the data to Feature Store.
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC If you want to drop the feature tables from the feature store, use the following:
+# MAGIC ```
+# MAGIC fs.drop_table("patients_feature_store.demographics_features")
+# MAGIC fs.drop_table("patients_feature_store.sdoh_features")
+# MAGIC fs.drop_table("patients_feature_store.disease_history_features")
+# MAGIC ```
+# MAGIC Note: this API only works with ML Runtime `10.5` alternatively you can use the UI or
+# MAGIC ```
+# MAGIC %sql DROP TABLE IF EXISTS <feature_table_name>;
+# MAGIC ```
+# MAGIC see the [docs](https://docs.databricks.com/applications/machine-learning/feature-store/ui.html#delete-a-feature-table) for more information.
+
+# COMMAND ----------
+
+# This cell uses an API introduced with Databricks Runtime 10.2 ML.
+
+spark.conf.set("spark.sql.shuffle.partitions", "5")
+
+fs.create_table(
+    name="patients_feature_store.demographics_features",
+    primary_keys=["person_id"],
+    df=demographics_df,
+    description="Patient's demographics features",
+)
+
+fs.create_table(
+    name="patients_feature_store.sdoh_features",
+    primary_keys=["person_id"],
+    df=sdoh_df,
+    description="Social Determinants of Health (SDOH) features",
+)
+
+fs.create_table(
+    name="patients_feature_store.disease_history_features",
+    primary_keys=["person_id"],
+    df=disease_history_df,
+    description="Disease history features",
+)
+
+# COMMAND ----------
+
+from databricks.feature_store import FeatureLookup
+import mlflow
+ 
+demographics_feature_lookups = [
+    FeatureLookup( 
+      table_name = "patients_feature_store.demographics_features",
+      feature_names = ["gender","age"],
+      lookup_key = ["person_id"]
+    )
+]
+ 
+sdoh_feature_lookups = [
+    FeatureLookup( 
+      table_name = "patients_feature_store.sdoh_features",
+      feature_names = ["history_of_part-time-employment","history_of_has-a-criminal-record","history_of_unemployed"],
+      lookup_key = ["person_id"]
+    )
+]
+
+disease_history_feature_lookups = [
+    FeatureLookup( 
+      table_name = "patients_feature_store.disease_history_features",
+      feature_names = ["history_of_obesity","history_of_hypertension","history_of_coronary-heart-disease"],
+      lookup_key = ["person_id"]
+    )
+]
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ### Create a Training Dataset
+# MAGIC When `fs.create_training_set(..)` is invoked below, the following steps will happen:
+# MAGIC 
+# MAGIC 1. A TrainingSet object will be created, which will select specific features from Feature Store to use in training your model. Each feature is specified by the FeatureLookup's created above.
+# MAGIC 
+# MAGIC 2. Features are joined with the raw input data according to each FeatureLookup's lookup_key.
+# MAGIC 
+# MAGIC 3. The TrainingSet is then transformed into a DataFrame to train on. This DataFrame includes the columns of taxi_data, as well as the features specified in the FeatureLookups.
+# MAGIC 
+# MAGIC See [Create a Training Dataset](https://docs.databricks.com/applications/machine-learning/feature-store/feature-tables.html#create-a-training-dataset) for more information.
+
+# COMMAND ----------
+
+# End any existing runs (in the case this notebook is being run for a second time)
+mlflow.end_run()
+ 
+# Start an mlflow run, which is needed for the feature store to log the model
+mlflow.start_run() 
+ 
+# Create the training set that includes the raw input data merged with corresponding features from both feature tables
+
+training_set = fs.create_training_set(
+  patient_covid_data_df,
+  feature_lookups = demographics_feature_lookups + sdoh_feature_lookups + disease_history_feature_lookups,
+  label = "is_admitted",
+)
+ 
+# Load the TrainingSet into a dataframe which can be passed into sklearn for training a model
+training_df = training_set.load_df()
+
+# COMMAND ----------
+
+display(training_df)
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC As an exercise, train a binary classifier to predict the outcome (`is_admitted`) based on the features provided in the training data.
+# MAGIC See this [notebook](https://docs.databricks.com/_static/notebooks/mlflow/mlflow-end-to-end-example.html) for some ideas!
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## ⚖️
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ### License
 # MAGIC Copyright / License info of the notebook. Copyright Databricks, Inc. [2021].  The source in this notebook is provided subject to the [Databricks License](https://databricks.com/db-license-source).  All included or referenced third party libraries are subject to the licenses set forth below.
 # MAGIC 
 # MAGIC |Library Name|Library License|Library License URL|Library Source URL| 
