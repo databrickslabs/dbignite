@@ -1,18 +1,13 @@
-import logging
 import unittest
 
 from unittest import TestCase
 
-from pyspark.sql import DataFrame
-from pyspark.sql.functions import *
 from pyspark.sql import SparkSession
-from pyspark.sql.types import *
-
 
 import os
 import re
 
-from dbignite.data_model import Transformer, OmopCdm, PERSON_TABLE,CONDITION_TABLE, PROCEDURE_OCCURRENCE_TABLE, ENCOUNTER_TABLE
+from dbignite.data_model import Transformer, PERSON_TABLE,CONDITION_TABLE, PROCEDURE_OCCURRENCE_TABLE, ENCOUNTER_TABLE
 from dbignite.utils import *
 from dbignite.schemas import *
 

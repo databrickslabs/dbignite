@@ -1,8 +1,7 @@
 import json
 
 from abc import ABC, abstractmethod
-from enum import Enum
-from typing import Iterable, Type
+from typing import Iterable
 
 from pyspark.sql import DataFrame
 from pyspark.sql.catalog import Database
@@ -11,10 +10,8 @@ from pyspark.sql.catalog import Database
 from dbignite.utils import *
 from dbignite.schemas import ENTRY_SCHEMA
 
-from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
-
 
 PERSON_TABLE = 'person'
 CONDITION_TABLE = 'condition'
