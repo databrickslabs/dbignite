@@ -9,7 +9,7 @@ setup(
     url="https://github.com/databrickslabs/dbignite",
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: databricks :: OSS",
+        "License :: Other/Proprietary License',
         "Operating System :: OS Independent",
     ],
     packages=['dbignite'],
