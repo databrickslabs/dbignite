@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession
 import os
+import re
 
 from dbignite.data_model import Transformer, PERSON_TABLE,CONDITION_TABLE, PROCEDURE_OCCURRENCE_TABLE, ENCOUNTER_TABLE
 from dbignite.utils import *
