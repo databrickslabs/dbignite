@@ -90,10 +90,11 @@ class Transformer():
   def fhir_bundles_to_omop_cdm(self, path: str, cdm_database: str, mapping_database: str=None, overwrite: bool=True) -> OmopCdm:
     
     entries_df=self.load_entries_df(path)
-    person_df = entries_to_person(entries_df)
-    condition_df = entries_to_condition(entries_df)
-    procedure_occurrence_df = entries_to_procedure_occurrence(entries_df)
-    encounter_df = entries_to_encounter(entries_df)
+
+    person_df = entries_df.transform(entries_to_person)
+    condition_df = entries_df.transform(entries_to_condition)
+    procedure_occurrence_df = entries_df.transform(entries_to_procedure_occurrence)
+    encounter_df = entries_df.transform(entries_to_encounter)
 
     self.spark.sql(f'CREATE DATABASE IF NOT EXISTS {cdm_database}')
     self.spark.sql(f'CREATE DATABASE IF NOT EXISTS {mapping_database}')
@@ -126,10 +127,10 @@ class Transformer():
     
     encounter_df = self.spark.read.table(ENCOUNTER_TABLE)
     
-    condition_summary_df = summarize_condition(condition_df)
-    procedure_occurrence_summary_df = summarize_procedure_occurrence(procedure_occurrence_df)
+    condition_summary_df = condition_df.transform(summarize_condition)
+    procedure_occurrence_summary_df = procedure_occurrence_df.transform(summarize_procedure_occurrence)
                                     
-    encounter_summary_df = summarize_encounter(encounter_df)
+    encounter_summary_df = encounter_df.transform(summarize_encounter)
     
     return PersonDashboard(
       person_df
