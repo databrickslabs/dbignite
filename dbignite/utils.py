@@ -6,8 +6,10 @@ from pyspark.sql.types import *
 from pyspark.sql.functions import *
 from dbignite.schemas import ENTRY_SCHEMA
 
+#TODO Add Type Hinting
+#TODO change to transform
 
-def entries_to_person(entries_df):
+def entries_to_person(entries_df:DataFrame ) -> DataFrame:
   entry_schema = deepcopy(ENTRY_SCHEMA)
   patient_schema = next(f.dataType for f in entry_schema.fields if f.name == 'resource')
   patient_schema.fields.extend([
@@ -35,7 +37,7 @@ def entries_to_person(entries_df):
   )
 
 
-def entries_to_condition(entries_df):
+def entries_to_condition(entries_df:DataFrame) -> DataFrame:
   entry_schema = deepcopy(ENTRY_SCHEMA)
   condition_schema = next(f.dataType for f in entry_schema.fields if f.name == 'resource')
   condition_schema.fields.extend([
@@ -71,7 +73,7 @@ def entries_to_condition(entries_df):
   )
 
 
-def entries_to_procedure_occurrence(entries_df):
+def entries_to_procedure_occurrence(entries_df:DataFrame)-> DataFrame:
   entry_schema = deepcopy(ENTRY_SCHEMA)
   procedure_occurrence_schema = next(f.dataType for f in entry_schema.fields if f.name == 'resource')
   procedure_occurrence_schema.fields.extend([
@@ -127,7 +129,7 @@ def entries_to_procedure_occurrence(entries_df):
            )
         )
   
-def entries_to_encounter(entries_df):
+def entries_to_encounter(entries_df:DataFrame) -> DataFrame:
   
   entry_schema = deepcopy(ENTRY_SCHEMA)
   encounter_schema = next(f.dataType for f in entry_schema.fields if f.name == 'resource')
@@ -208,7 +210,7 @@ def entries_to_encounter(entries_df):
     )
   )
 
-def summarize_condition(condition_df):
+def summarize_condition(condition_df:DataFrame )-> DataFrame:
   return (
     condition_df
     .orderBy('condition_start_datetime')
@@ -219,7 +221,7 @@ def summarize_condition(condition_df):
     )
   )
 
-def summarize_procedure_occurrence(condition_df):
+def summarize_procedure_occurrence(condition_df:DataFrame) -> DataFrame:
   return (
     condition_df
     .orderBy('procedure_start_date')
@@ -230,7 +232,7 @@ def summarize_procedure_occurrence(condition_df):
     )
   )
 
-def summarize_encounter(encounter_df):
+def summarize_encounter(encounter_df: DataFrame)-> DataFrame:
   return (
     encounter_df
     .orderBy('encounter_period_start')

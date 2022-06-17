@@ -1,7 +1,5 @@
 from pyspark.sql import SparkSession
-
 import os
-import re
 
 from dbignite.data_model import Transformer, PERSON_TABLE,CONDITION_TABLE, PROCEDURE_OCCURRENCE_TABLE, ENCOUNTER_TABLE
 from dbignite.utils import *
@@ -17,7 +15,7 @@ class SparkTest():
     ##
     ## Fixtures
     ##
-    def setup_class(self):
+    def setup_class(self) -> None:
         self.spark = (SparkSession.builder.appName("myapp") \
                       .config("spark.jars.packages", "io.delta:delta-core_2.12:1.1.0") \
                       .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
@@ -31,24 +29,7 @@ class SparkTest():
     def teardown_class(self) -> None:
         self.spark.sql(f'DROP DATABASE IF EXISTS {TEST_DATABASE} CASCADE')
 
-    def assertFieldsEqual(self, fieldA, fieldB):
-        """
-        Test that two fields are equivalent
-        """
-        assert fieldA.name.lower() == fieldB.name.lower()
-        assert fieldA.dataType.simpleString() == fieldB.dataType.simpleString()
-
-    def assertSchemaContainsField(self, schema, field):
-        """
-        Test that the given schema contains the given field
-        """
-        # the schema must contain a field with the right name
-        lc_fieldNames = [fc.lower() for fc in schema.fieldNames()]
-        assert field.name.lower() in lc_fieldNames
-        # the attributes of the fields must be equal
-        assert field==schema[field.name]
-
-    def assertSchemasEqual(self, schemaA, schemaB):
+    def assertSchemasEqual(self, schemaA: StructType, schemaB: StructType) -> None:
         """
         Test that the two given schemas are equivalent (column ordering ignored)
         """
@@ -57,13 +38,13 @@ class SparkTest():
         # schemaA must equal schemaB
         assert schemaA.simpleString() == schemaB.simpleString()
 
-    def assertHasSchema(self, df, expectedSchema):
+    def assertHasSchema(self, df: DataFrame, expectedSchema : StructType) -> None:
         """
         Test that the given Dataframe conforms to the expected schema
         """
         assert df.schema == expectedSchema
 
-    def assertDataFramesEqual(self, dfA, dfB):
+    def assertDataFramesEqual(self, dfA : DataFrame, dfB: DataFrame) -> None:
         """
         Test that the two given Dataframes are equivalent.
         That is, they have equivalent schemas, and both contain the same values
@@ -82,25 +63,25 @@ class SparkTest():
 
 class TestUtils(SparkTest):
 
-    def test_entries_to_person(self):
+    def test_entries_to_person(self) -> None:
         entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
         person_df = entries_to_person(entries_df)
         assert person_df.count() == 3
         self.assertSchemasEqual(person_df.schema,PERSON_SCHEMA)
 
-    def test_entries_to_condition(self):
+    def test_entries_to_condition(self) -> None:
         entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
         condition_df = entries_to_condition(entries_df)
         assert condition_df.count() == 103
         self.assertSchemasEqual(condition_df.schema,CONDITION_SCHEMA)
 
-    def test_entries_to_procedure_occurrence(self):
+    def test_entries_to_procedure_occurrence(self) -> None:
         entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
         procedure_occurrence_df = entries_to_procedure_occurrence(entries_df)
         assert procedure_occurrence_df.count()==119
         self.assertSchemasEqual(procedure_occurrence_df.schema,PROCEDURE_OCCURRENCE_SCHEMA)
 
-    def test_entries_to_encounter(self):
+    def test_entries_to_encounter(self) -> None:
         entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
         encounter_df = entries_to_encounter(entries_df)
         assert encounter_df.count()==128
@@ -108,12 +89,12 @@ class TestUtils(SparkTest):
 
 class TestTransformers(SparkTest):
 
-    def test_load_entries_df(self):
+    def test_load_entries_df(self) -> None:
         entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
         assert entries_df.count()==1872
         self.assertSchemasEqual(entries_df.schema,JSON_ENTRY_SCHEMA)
 
-    def test_fhir_bundles_to_omop_cdm(self):
+    def test_fhir_bundles_to_omop_cdm(self) -> None:
         omop_cdm = Transformer(self.spark).fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, True)
         tables = [t.tableName for t in self.spark.sql(f"SHOW TABLES FROM {TEST_DATABASE}").collect()]
 
@@ -126,7 +107,7 @@ class TestTransformers(SparkTest):
         assert self.spark.table(f"{TEST_DATABASE}.person").count() == 3
 
     # @unittest.skip("Not yet running as github action")
-    def test_omop_cdm_to_person_dashboard(self):
+    def test_omop_cdm_to_person_dashboard(self) -> None:
         transformer=Transformer(self.spark)
         omop_cdm = transformer.fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, True)
         person_dashboard = transformer.omop_cdm_to_person_dashboard(omop_cdm).summary()
