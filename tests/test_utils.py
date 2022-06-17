@@ -2,7 +2,7 @@ from pyspark.sql import SparkSession
 import os
 import re
 
-from dbignite.data_model import Transformer, PERSON_TABLE,CONDITION_TABLE, PROCEDURE_OCCURRENCE_TABLE, ENCOUNTER_TABLE
+from dbignite.data_model import Transformer, PERSON_TABLE, CONDITION_TABLE, PROCEDURE_OCCURRENCE_TABLE, ENCOUNTER_TABLE
 from dbignite.utils import *
 from dbignite.schemas import *
 
@@ -12,18 +12,20 @@ TEST_BUNDLE_PATH = './sampledata/'
 TEST_DATABASE = f'test_{REPO}_{BRANCH}'
 
 
+##TODO Add content-based data tests
+
 class SparkTest():
     ##
     ## Fixtures
     ##
     def setup_class(self) -> None:
-        self.spark = (SparkSession.builder.appName("myapp") \
-                      .config("spark.jars.packages", "io.delta:delta-core_2.12:1.1.0") \
-                      .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
-                      .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
-                      .config("spark.driver.extraJavaOptions", "-Dio.netty.tryReflectionSetAccessible=true") \
-                      .config("spark.executor.extraJavaOptions", "-Dio.netty.tryReflectionSetAccessible=true") \
-                      .master("local") \
+        self.spark = (SparkSession.builder.appName("myapp")
+                      .config("spark.jars.packages", "io.delta:delta-core_2.12:1.1.0")
+                      .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
+                      .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
+                      .config("spark.driver.extraJavaOptions", "-Dio.netty.tryReflectionSetAccessible=true")
+                      .config("spark.executor.extraJavaOptions", "-Dio.netty.tryReflectionSetAccessible=true")
+                      .master("local")
                       .getOrCreate())
         self.spark.conf.set("spark.sql.shuffle.partitions", 1)
 
@@ -39,13 +41,13 @@ class SparkTest():
         # schemaA must equal schemaB
         assert schemaA.simpleString() == schemaB.simpleString()
 
-    def assertHasSchema(self, df: DataFrame, expectedSchema : StructType) -> None:
+    def assertHasSchema(self, df: DataFrame, expectedSchema: StructType) -> None:
         """
         Test that the given Dataframe conforms to the expected schema
         """
         assert df.schema == expectedSchema
 
-    def assertDataFramesEqual(self, dfA : DataFrame, dfB: DataFrame) -> None:
+    def assertDataFramesEqual(self, dfA: DataFrame, dfB: DataFrame) -> None:
         """
         Test that the two given Dataframes are equivalent.
         That is, they have equivalent schemas, and both contain the same values
@@ -59,8 +61,9 @@ class SparkTest():
         # must have identical data
         # that is all rows in A must be in B, and vice-versa
 
-        assert sortedA.subtract(sortedB).count()==0
+        assert sortedA.subtract(sortedB).count() == 0
         assert sortedB.subtract(sortedA).count() == 0
+
 
 class TestUtils(SparkTest):
 
@@ -68,35 +71,36 @@ class TestUtils(SparkTest):
         entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
         person_df = entries_to_person(entries_df)
         assert person_df.count() == 3
-        self.assertSchemasEqual(person_df.schema,PERSON_SCHEMA)
+        self.assertSchemasEqual(person_df.schema, PERSON_SCHEMA)
 
     def test_entries_to_condition(self) -> None:
         entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
         condition_df = entries_to_condition(entries_df)
         assert condition_df.count() == 103
-        self.assertSchemasEqual(condition_df.schema,CONDITION_SCHEMA)
+        self.assertSchemasEqual(condition_df.schema, CONDITION_SCHEMA)
 
     def test_entries_to_procedure_occurrence(self) -> None:
         entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
         procedure_occurrence_df = entries_to_procedure_occurrence(entries_df)
-        assert procedure_occurrence_df.count()==119
-        self.assertSchemasEqual(procedure_occurrence_df.schema,PROCEDURE_OCCURRENCE_SCHEMA)
+        assert procedure_occurrence_df.count() == 119
+        self.assertSchemasEqual(procedure_occurrence_df.schema, PROCEDURE_OCCURRENCE_SCHEMA)
 
     def test_entries_to_encounter(self) -> None:
         entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
         encounter_df = entries_to_encounter(entries_df)
-        assert encounter_df.count()==128
-        self.assertSchemasEqual(encounter_df.schema,ENCOUNTER_SCHEMA)
+        assert encounter_df.count() == 128
+        self.assertSchemasEqual(encounter_df.schema, ENCOUNTER_SCHEMA)
+
 
 class TestTransformers(SparkTest):
 
     def test_load_entries_df(self) -> None:
         entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
-        assert entries_df.count()==1872
-        self.assertSchemasEqual(entries_df.schema,JSON_ENTRY_SCHEMA)
+        assert entries_df.count() == 1872
+        self.assertSchemasEqual(entries_df.schema, JSON_ENTRY_SCHEMA)
 
     def test_fhir_bundles_to_omop_cdm(self) -> None:
-        omop_cdm = Transformer(self.spark).fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, True)
+        omop_cdm = Transformer(self.spark).fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH, TEST_DATABASE, None, True)
         tables = [t.tableName for t in self.spark.sql(f"SHOW TABLES FROM {TEST_DATABASE}").collect()]
 
         assert TEST_DATABASE in omop_cdm.listDatabases()
@@ -109,12 +113,13 @@ class TestTransformers(SparkTest):
 
     # @unittest.skip("Not yet running as github action")
     def test_omop_cdm_to_person_dashboard(self) -> None:
-        transformer=Transformer(self.spark)
-        omop_cdm = transformer.fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH,TEST_DATABASE,None, True)
+        transformer = Transformer(self.spark)
+        omop_cdm = transformer.fhir_bundles_to_omop_cdm(TEST_BUNDLE_PATH, TEST_DATABASE, None, True)
         person_dashboard = transformer.omop_cdm_to_person_dashboard(omop_cdm).summary()
-        self.assertSchemasEqual(CONDITION_SUMMARY_SCHEMA,person_dashboard.select('conditions').schema)
+        self.assertSchemasEqual(CONDITION_SUMMARY_SCHEMA, person_dashboard.select('conditions').schema)
+
 
 ## MAIN
 if __name__ == '__main__':
     unittest.main()
-#%%
+# %%
