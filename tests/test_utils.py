@@ -12,8 +12,6 @@ TEST_BUNDLE_PATH = './sampledata/'
 TEST_DATABASE = f'test_{REPO}_{BRANCH}'
 
 
-##TODO Add content-based data tests
-
 class SparkTest():
     ##
     ## Fixtures
@@ -69,28 +67,62 @@ class TestUtils(SparkTest):
 
     def test_entries_to_person(self) -> None:
         entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
-        person_df = entries_to_person(entries_df)
+        person_df = entries_df.transform(entries_to_person)
         assert person_df.count() == 3
         self.assertSchemasEqual(person_df.schema, PERSON_SCHEMA)
 
     def test_entries_to_condition(self) -> None:
         entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
-        condition_df = entries_to_condition(entries_df)
+        condition_df = entries_df.transform(entries_to_condition)
         assert condition_df.count() == 103
         self.assertSchemasEqual(condition_df.schema, CONDITION_SCHEMA)
 
     def test_entries_to_procedure_occurrence(self) -> None:
         entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
-        procedure_occurrence_df = entries_to_procedure_occurrence(entries_df)
+        procedure_occurrence_df = entries_df.transform(entries_to_procedure_occurrence)
         assert procedure_occurrence_df.count() == 119
         self.assertSchemasEqual(procedure_occurrence_df.schema, PROCEDURE_OCCURRENCE_SCHEMA)
 
     def test_entries_to_encounter(self) -> None:
         entries_df = Transformer(self.spark).load_entries_df(TEST_BUNDLE_PATH)
-        encounter_df = entries_to_encounter(entries_df)
+        encounter_df = entries_df.transform(entries_to_encounter)
         assert encounter_df.count() == 128
         self.assertSchemasEqual(encounter_df.schema, ENCOUNTER_SCHEMA)
 
+    def test_summarize_condition(self) -> None:
+        entries_df = Transformer(spark).load_entries_df(TEST_BUNDLE_PATH)
+        summarize_condition_df = entries_df.transform(entries_to_condition).transform(summarize_condition)
+        summarize_condition_first = summarize_condition_df.first()
+        assert summarize_condition_df.count() == 3
+        assert summarize_condition_first.person_id == '4a0bf980-a2c9-36d6-da55-14d7aa5a85d9'
+        assert summarize_condition_first.conditions[0].condition_occurrence_id == 'a6425765-fb3a-3b1a-161b-4b5ad0fe0495'
+        assert summarize_condition_first.conditions[0].visit_occurrence_id == 'a6118cdf-24ea-94fe-6a6e-30e91c841e5a'
+        assert summarize_condition_first.conditions[0].condition_status == 'Hypertension'
+
+    def test_summarize_procedure_occurrence(self) -> None:
+        entries_df = Transformer(spark).load_entries_df(TEST_BUNDLE_PATH)
+        summarize_procedure_occurrence_df = entries_df.transform(entries_to_procedure_occurrence).transform(
+            summarize_procedure_occurrence)
+        summarize_procedure_occurrence_first = summarize_procedure_occurrence_df.first()
+        assert summarize_procedure_occurrence_df.count() == 3
+        assert summarize_procedure_occurrence_first.person_id == '4a0bf980-a2c9-36d6-da55-14d7aa5a85d9'
+        assert summarize_procedure_occurrence_first.procedure_occurrences[
+                   0].procedure_occurrence_id == '562ad62b-0671-c044-8dd1-4f60ad010bec'
+        assert len(summarize_procedure_occurrence_first) == 2
+
+    def test_summarize_encounter(self) -> None:
+        entries_df = Transformer(spark).load_entries_df(TEST_BUNDLE_PATH)
+        summarize_encounter_df = entries_df.transform(entries_to_encounter).transform(summarize_encounter)
+        summarize_encounter_first = summarize_encounter_df.first()
+        assert summarize_encounter_df.count() == 3
+        assert len(summarize_encounter_first.encounters) == 76
+        assert summarize_encounter_first.person_id == '4a0bf980-a2c9-36d6-da55-14d7aa5a85d9'
+        assert summarize_encounter_first.encounters[1].encounter_id == '83075051-3b84-b92a-cefb-66497ee9d602'
+        assert summarize_encounter_first.encounters[1].location[
+                   0].location.display == 'BETH ISRAEL DEACONESS HOSPITAL-MILTON INC'
+
+
+# summarize_encounter
 
 class TestTransformers(SparkTest):
 

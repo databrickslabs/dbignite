@@ -221,9 +221,9 @@ def summarize_condition(condition_df: DataFrame) -> DataFrame:
     )
 
 
-def summarize_procedure_occurrence(condition_df: DataFrame) -> DataFrame:
+def summarize_procedure_occurrence(procedure_occurrence_df: DataFrame) -> DataFrame:
     return (
-        condition_df
+        procedure_occurrence_df
             .orderBy('procedure_start_date')
             .select(col('person_id'), struct('*').alias('procedure_occurrence'))
             .groupBy('person_id')
