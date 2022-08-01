@@ -7,7 +7,7 @@ on:
   push:
     branches: ['*']
   pull_request:
-    branches: [ 'master' ]
+    branches: [ 'master' ,'main']
 
 env:
   BRANCH: ${{ github.ref_name }}
@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: "3.8"
+        python-version: ["3.8"]
 
     steps:
     - uses: actions/checkout@v2
