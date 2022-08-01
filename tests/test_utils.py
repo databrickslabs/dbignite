@@ -2,13 +2,7 @@ from pyspark.sql import SparkSession
 import os
 import re
 
-from dbignite.data_model import (
-    Transformer,
-    PERSON_TABLE,
-    CONDITION_TABLE,
-    PROCEDURE_OCCURRENCE_TABLE,
-    ENCOUNTER_TABLE,
-)
+from dbignite.data_model import *
 from dbignite.utils import *
 from dbignite.schemas import *
 
@@ -119,7 +113,6 @@ class TestTransformers(SparkTest):
 
         assert self.spark.table(f"{TEST_DATABASE}.person").count() == 3
 
-    # @unittest.skip("Not yet running as github action")
     def test_omop_cdm_to_person_dashboard(self) -> None:
         transformer = CdmToPersonDashboard(self.spark)
         fhir_model=FhirBundles(TEST_BUNDLE_PATH)
