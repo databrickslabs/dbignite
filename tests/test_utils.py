@@ -131,9 +131,3 @@ class TestTransformers(SparkTest):
         CdmToPersonDashboard(self.spark).transform(cdm_model,person_dash_model)
         person_dashboard_df=person_dash_model.summary()
         self.assertSchemasEqual(CONDITION_SUMMARY_SCHEMA, person_dashboard_df.select('conditions').schema)
-
-
-## MAIN
-if __name__ == "__main__":
-    unittest.main()
-# %%
