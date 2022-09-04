@@ -1,3 +1,5 @@
-pyarrow==8.0.0
-pyspark==3.2.1
-
+chispa
+spark-testing-base
+pytest-spark
+delta-spark==1.1.0
+psutil

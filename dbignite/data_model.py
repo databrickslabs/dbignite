@@ -81,7 +81,6 @@ class Transformer(ABC):
     def transform(self) -> DataModel:
         ...
 
-
 class FhirBundlesToCdm(Transformer):
 
     def __init__(self, spark):
