@@ -11,11 +11,7 @@ from dbignite.utils import *
 from dbignite.schemas import *
 
 REPO = os.environ.get("REPO", "dbignite")
-
-try:
-    BRANCH = re.sub(r"\W+", "", os.environ["BRANCH"])
-except KeyError:
-    BRANCH = 'local_test'
+BRANCH = re.sub(r"\W+", "", os.environ.get("BRANCH", 'local_test'))
 
 TEST_BUNDLE_PATH = "./sampledata/"
 TEST_DATABASE = f"test_{REPO}_{BRANCH}"
