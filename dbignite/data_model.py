@@ -1,4 +1,6 @@
 import json
+import logging
+
 
 from abc import ABC, abstractmethod
 from typing import Iterable
@@ -126,7 +128,7 @@ class FhirBundlesToCdm(Transformer):
         self.spark.sql(f"CREATE DATABASE IF NOT EXISTS {mapping_database}")
         self.spark.catalog.setCurrentDatabase(cdm_database)
 
-        print(f"created {cdm_database} and {mapping_database} databases")
+        logging.info(f"created {cdm_database} and {mapping_database} databases")
 
         if overwrite:
             person_df.write.format("delta").mode("overwrite").saveAsTable(PERSON_TABLE)
@@ -139,7 +141,7 @@ class FhirBundlesToCdm(Transformer):
             encounter_df.write.format("delta").mode("overwrite").saveAsTable(
                 ENCOUNTER_TABLE
             )
-            print(
+            logging.info(
                 f"created {PERSON_TABLE, CONDITION_TABLE, PROCEDURE_OCCURRENCE_TABLE} and {ENCOUNTER_TABLE} tables."
             )
 
@@ -150,7 +152,7 @@ class FhirBundlesToCdm(Transformer):
                 PROCEDURE_OCCURRENCE_TABLE
             )
             encounter_df.write.format("delta").saveAsTable(ENCOUNTER_TABLE)
-            print(
+            logging.info(
                 f"updated {PERSON_TABLE, CONDITION_TABLE, PROCEDURE_OCCURRENCE_TABLE} and {ENCOUNTER_TABLE} tables."
             )
 

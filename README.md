@@ -1,4 +1,4 @@
-# dbignite
+# 🔥 dbignite
 __Health Data Interoperability__
 
 This library is designed to provide a low friction entry to performing analytics on 
