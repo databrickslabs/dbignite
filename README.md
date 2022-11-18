@@ -2,7 +2,7 @@
 __Health Data Interoperability__
 
 This library is designed to provide a low friction entry to performing analytics on 
-[FHIR](https://hl7.org/fhir/bundle.html) bunldes, by extracting patient resources and
+[FHIR](https://hl7.org/fhir/bundle.html) bundles, by extracting patient resources and
 writing the data in deltalake. 
 
 # Usage Examples
@@ -22,8 +22,8 @@ See: [DataModels](#datamodels)
 
 ```
 from dbignite.data_model import Transformer
-transformer=Transformer(spark)
-cdm=transformer.fhir_bundles_to_omop_cdm(BUNDLE_PATH, cdm_database='dbignite_demo')
+transformer = Transformer(spark)
+cdm = transformer.fhir_bundles_to_omop_cdm(BUNDLE_PATH, cdm_database='dbignite_demo')
 ```
 
 The returned value of the `cdm` is an OmopCDM object with an associated database (`dbignite_demo`), containing the following tables:
