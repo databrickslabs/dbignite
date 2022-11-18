@@ -24,7 +24,13 @@
 
 # COMMAND ----------
 
+# MAGIC %sh
+# MAGIC pip install git+https://github.com/databrickslabs/dbignite.git
+
+# COMMAND ----------
+
 from dbignite.data_model import *
+from pyspark.sql import functions as F
 
 # COMMAND ----------
 
@@ -47,7 +53,6 @@ n_bundles=len(files)
 # COMMAND ----------
 
 # DBTITLE 1,list FHIR bundles
-
 files=dbutils.fs.ls(BUNDLE_PATH)
 data_size=spark.createDataFrame(files).select(F.sum('size').alias('sum')).collect()[0].sum//1e9
 n_bundles=len(files)
@@ -215,10 +220,6 @@ display(sql('show tables'))
 # MAGIC group by 1
 # MAGIC order by 2 desc
 # MAGIC limit 10
-
-# COMMAND ----------
-
-
 
 # COMMAND ----------
 
