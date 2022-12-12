@@ -18,12 +18,23 @@ health data models such as FHIR, or OMOP CDM.
 
 See: [DataModels](#datamodels)
 
-### Example usecase:
-
+### Example:
+Specify the name of the schema:
 ```
-from dbignite.data_model import Transformer
-transformer = Transformer(spark)
-cdm = transformer.fhir_bundles_to_omop_cdm(BUNDLE_PATH, cdm_database='dbignite_demo')
+cdm_database='dbignite_demo' 
+```
+create data model objects:
+```
+fhir_model=FhirBundles(BUNDLE_PATH)
+cdm_model=OmopCdm(cdm_database)
+```
+create a transformer:
+```
+fhir2omop_transformer=FhirBundlesToCdm(spark)
+```
+transform from FHIR to your CDM:
+```
+fhir2omop_transformer.transform(fhir_model,cdm_model)
 ```
 
 The returned value of the `cdm` is an OmopCDM object with an associated database (`dbignite_demo`), containing the following tables:
@@ -33,10 +44,11 @@ The returned value of the `cdm` is an OmopCDM object with an associated database
 - person
 - procedure_occurrence
 
-Which are automaically created and added to the specified database (`'dbignite_demo'` in the example above).
-As a usecase, one can simply construct cohorts based on these tables and add the cohorts to the same schema or a new schema.
+Which are automaically created and added to the specified schema (`'dbignite_demo'` in the example above).
+As a usecase, one can simply construct cohorts based on these tables and add the cohorts to the same schema or a new schema:
+For example to select all male patients born before 1982:
 
-For example you can write `select * from dbignite_demo.person where year_of_birth > 1982 and gender_source_value='male'` to select all male patients who are under 40. 
+`select * from dbignite_demo.person where year_of_birth < 1982 and gender_source_value='male'` 
 
 > [See this in a notebook.](demo.py)
 
