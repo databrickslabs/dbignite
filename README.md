@@ -50,7 +50,7 @@ For example to select all male patients born before 1982:
 
 `select * from dbignite_demo.person where year_of_birth < 1982 and gender_source_value='male'` 
 
-> [See this in a notebook.](demo.py)
+> [See this in a notebook.](notebooks/dbignite-demo.py)
 
 # Interop Pipeline Design
 
