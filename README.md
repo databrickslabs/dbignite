@@ -11,6 +11,11 @@ towards the following core use case. At the same
 time we ensure the spec. is [extensible for the future
 use cases](#future-extensions).
 
+## Install package
+```
+pip install git+https://github.com/databrickslabs/dbignite.git
+```
+
 ## Core Use Case: Quick Exploratory Analysis of a FHIR Bundle
 
 The _data_model_ module contains a suite of common
