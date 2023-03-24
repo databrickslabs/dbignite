@@ -33,10 +33,36 @@ class DataModel(ABC):
     def update(self) -> None:
         ...
 
-class FhirBundles(DataModel):
-    def __init__(self, path: str):
-        self.path = path
+class FhirBundles():
+    #
+    # Only supporting path representations currently
+    #
+    def __init__(self, fqPath: str = None):
+        self.path = fqPath
 
+    def numResourceFiles():
+        return len(dbutils.fs.ls(self.fqPath))
+
+    def estimateResourceSize():
+        return sum([x.size for x in dbutils.fs.ls(self.fqPath)])
+
+    #
+    # Default to read fhir data
+    #
+    def getResourceAsDataFrame():
+        entries_df = (
+            self.spark.read.text(path, wholetext=True)
+                .select(explode(self._entry_json_strings("value")).alias("entry_json"))
+                .withColumn("entry", from_json("entry_json", schema=ENTRY_SCHEMA))
+        ).cache()
+        return entries_df
+
+    #
+    # Supply your own function
+    #
+    def getResourceAsDataFrame(func):
+        return func
+    
     def listDatabases():
         raise NotImplementedError()
 
@@ -87,14 +113,6 @@ class FhirBundlesToCdm(Transformer):
 
     def __init__(self, spark):
         self.spark = spark
-
-    def loadEntries(self, path: str):
-        entries_df = (
-            self.spark.read.text(path, wholetext=True)
-                .select(explode(self._entry_json_strings("value")).alias("entry_json"))
-                .withColumn("entry", from_json("entry_json", schema=ENTRY_SCHEMA))
-        ).cache()
-        return entries_df
 
     @staticmethod
     @udf(ArrayType(StringType()))  ## TODO change to pandas_udf
