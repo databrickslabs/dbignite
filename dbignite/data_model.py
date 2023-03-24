@@ -37,31 +37,42 @@ class FhirBundles():
     #
     # Only supporting path representations currently
     #
-    def __init__(self, fqPath: str = None):
-        self.path = fqPath
+    def __init__(self, fqPath: str):
+        self.df = self._defaultResource(fqPath)
 
-    def numResourceFiles():
-        return len(dbutils.fs.ls(self.fqPath))
 
-    def estimateResourceSize():
-        return sum([x.size for x in dbutils.fs.ls(self.fqPath)])
+    def __init__(self, df: DataFrame):
+        pass
+    
+    #
+    # Return json bundles as a DF 
+    #
+    def loadEntries(self):
+        return self.df
 
     #
-    # Default to read fhir data
+    # ... 
     #
-    def getResourceAsDataFrame():
-        entries_df = (
-            self.spark.read.text(path, wholetext=True)
-                .select(explode(self._entry_json_strings("value")).alias("entry_json"))
-                .withColumn("entry", from_json("entry_json", schema=ENTRY_SCHEMA))
+    @staticmethod
+    @udf(ArrayType(StringType()))  ## TODO change to pandas_udf
+    def _entry_json_strings(value):
+        """
+        UDF takes raw text, returns the
+        parsed struct and raw JSON.
+        """
+        bundle_json = json.loads(value)
+        return [json.dumps(e) for e in bundle_json["entry"]]
+
+
+    #
+    # if only str is supplied, return a DF with a column added of parsed json resources
+    #
+    def _defaultResource(fqPath, columnName="entry"):
+        self.df = (
+            self.spark.read.text(fqPath, wholetext=True)
+            .select(explode(FhirBundles._entry_json_strings("value")).alias("entry_json"))
+            .withColumn(columnName, from_json("entry_json", schema=ENTRY_SCHEMA))
         ).cache()
-        return entries_df
-
-    #
-    # Supply your own function
-    #
-    def getResourceAsDataFrame(func):
-        return func
     
     def listDatabases():
         raise NotImplementedError()
@@ -114,15 +125,8 @@ class FhirBundlesToCdm(Transformer):
     def __init__(self, spark):
         self.spark = spark
 
-    @staticmethod
-    @udf(ArrayType(StringType()))  ## TODO change to pandas_udf
-    def _entry_json_strings(value):
-        """
-        UDF takes raw text, returns the
-        parsed struct and raw JSON.
-        """
-        bundle_json = json.loads(value)
-        return [json.dumps(e) for e in bundle_json["entry"]]
+    def loadEntries(self):
+        pass
 
     def transform(
             self,
@@ -131,11 +135,10 @@ class FhirBundlesToCdm(Transformer):
             overwrite: bool = True,
     ) -> OmopCdm:
 
-        path = source.path
         cdm_database = target.cdm_database
         mapping_database=target.mapping_database
 
-        entries_df = self.loadEntries(path)
+        entries_df = source.loadEntries()
 
         person_df = entries_df.transform(entries_to_person)
         condition_df = entries_df.transform(entries_to_condition)
