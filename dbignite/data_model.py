@@ -37,17 +37,22 @@ class FhirBundles():
     #
     # Only supporting path representations currently
     #
-    def __init__(self, fqPath: str):
-        self.df = self._defaultResource(fqPath)
+    def __init__(self, defaultResource = None, **args):
+        from pyspark.sql import SparkSession
+        self.spark = SparkSession.getActiveSession()
+        self.df = None #force lazy evaluation
+        if defaultResource is None:
+            self.defaultResource = self.asWholeTextfile
+        else:
+            self.defaultResource = defaultResource
+        self.args = args
 
-
-    def __init__(self, df: DataFrame):
-        pass
-    
     #
     # Return json bundles as a DF 
     #
     def loadEntries(self):
+        if self.df is None:
+            self.df = self.defaultResource(self.args)
         return self.df
 
     #
@@ -65,15 +70,21 @@ class FhirBundles():
 
 
     #
-    # if only str is supplied, return a DF with a column added of parsed json resources
-    #
-    def _defaultResource(fqPath, columnName="entry"):
-        self.df = (
-            self.spark.read.text(fqPath, wholetext=True)
+    # Read a fhir bundle reasource as a whole text file (1 resource per file)
+    # @param path of the json bundles
+    def asWholeTextfile(self, path):
+        return (
+            self.spark.read.text(path, wholetext=True)
             .select(explode(FhirBundles._entry_json_strings("value")).alias("entry_json"))
             .withColumn(columnName, from_json("entry_json", schema=ENTRY_SCHEMA))
         ).cache()
-    
+
+    #
+    # Read a fhir bundle resource as an inline json value (1 resource per line)
+    # 
+    def asInlineJson(self, path):
+        raise NotImplementedError("TODO...")
+        
     def listDatabases():
         raise NotImplementedError()
 
@@ -110,7 +121,7 @@ class OmopCdm(DataModel):
     def update(self,cdm_database: str,mapping_database: str = None):
         self.cdm_database = cdm_database
         self.mapping_database = mapping_database
-        
+
 class Transformer(ABC):
     @abstractmethod
     def loadEntries(self) -> DataFrame:
@@ -122,8 +133,8 @@ class Transformer(ABC):
 
 class FhirBundlesToCdm(Transformer):
 
-    def __init__(self, spark):
-        self.spark = spark
+    def __init__(self):
+        pass
 
     def loadEntries(self):
         pass
