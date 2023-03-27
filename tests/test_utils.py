@@ -22,7 +22,7 @@ class TestUtils(unittest.TestCase):
             .getOrCreate()
         )
         self.fhirBundles = FhirBundles(path=TEST_BUNDLE_PATH)
-        self.cdmModel = cdm_model=OmopCdm(TEST_DATABASE)
+        self.cdmModel = OmopCdm(TEST_DATABASE)
         self.entriesDF = self.fhirBundles.loadEntries()
 
     def tearDown(self):
@@ -58,12 +58,16 @@ class TestTransformers(unittest.TestCase):
             .appName("myapp")
             .config("spark.driver.bindAddress", "127.0.0.1")
             .getOrCreate()
-        )
-        self.fhirModel = FhirBundles(TEST_BUNDLE_PATH)
-        self.cdmModel = cdm_model=OmopCdm(TEST_DATABASE)
-        self.entriesDF = self.fhirModel.loadEntries()
-
+        )        
+        self.fhirBundles = FhirBundles(path=TEST_BUNDLE_PATH)
+        self.cdmModel = OmopCdm(TEST_DATABASE)
+        self.entriesDF = self.fhirBundles.loadEntries()
+        
     def tearDown(self):
+        self.spark.sql("DROP TABLE IF EXISTS procedure_occurrence")
+        self.spark.sql("DROP TABLE IF EXISTS condition")
+        self.spark.sql("DROP TABLE IF EXISTS person")
+        self.spark.sql("DROP TABLE IF EXISTS encounter")
         self.spark.stop()
 
 
@@ -72,10 +76,10 @@ class TestTransformers(unittest.TestCase):
         assert_schema_equality(self.entriesDF.schema, JSON_ENTRY_SCHEMA,ignore_nullable=True)
 
     def test_fhir_bundles_to_omop_cdm(self):
-        FhirBundlesToCdm(self.spark).transform(fhirModel, cdmModel, True)
+        FhirBundlesToCdm().transform(self.fhirBundles, self.cdmModel, True)
         tables = [t.tableName for t in self.spark.sql(f"SHOW TABLES FROM {TEST_DATABASE}").collect()]
 
-        assert TEST_DATABASE in cdm_model.listDatabases()
+        assert TEST_DATABASE in self.cdmModel.listDatabases()
         assert PERSON_TABLE in tables
         assert CONDITION_TABLE in tables
         assert PROCEDURE_OCCURRENCE_TABLE in tables
@@ -84,10 +88,14 @@ class TestTransformers(unittest.TestCase):
         assert self.spark.table(f"{TEST_DATABASE}.person").count() == 3
 
     def test_omop_cdm_to_person_dashboard(self):
-        transformer = CdmToPersonDashboard(self.spark)
+        transformer = CdmToPersonDashboard()
         person_dash_model=PersonDashboard()
-        
-        FhirBundlesToCdm(self.spark).transform(fhirModel, cdmModel, True)
-        CdmToPersonDashboard(self.spark).transform(cdmModel,person_dash_model)
+
+        FhirBundlesToCdm().transform(self.fhirBundles, self.cdmModel, True)
+        CdmToPersonDashboard().transform(self.cdmModel,person_dash_model)
         person_dashboard_df=person_dash_model.summary()
         assert_schema_equality(CONDITION_SUMMARY_SCHEMA, person_dashboard_df.select('conditions').schema, ignore_nullable=True)
+
+
+if __name__ == '__main__':
+    unittest.main()
