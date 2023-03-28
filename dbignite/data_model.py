@@ -90,8 +90,7 @@ class FhirBundles():
     # 
     def asInlineJsonSingleton(self, path):
         return (
-            self.spark.read.json(path)
-              .select(FhirBundles._entry_json_strings("value").alias("entry_json"))
+            self.spark.read.json(self.spark.read.json(path).rdd.map(lambda x: json.dumps({"entry_json": json.dumps(x.asDict())})))
               .withColumn("entry", from_json("entry_json", schema=ENTRY_SCHEMA))
         ).cache()
 
