@@ -52,7 +52,7 @@ class FhirBundles():
     #
     def loadEntries(self):
         if self.df is None:
-            self.df = self.defaultResource(self.args)
+            self.df = self.defaultResource(**self.args)
         return self.df
 
     #
@@ -75,8 +75,8 @@ class FhirBundles():
     def asWholeTextfile(self, path):
         return (
             self.spark.read.text(path, wholetext=True)
-            .select(explode(FhirBundles._entry_json_strings("value")).alias("entry_json"))
-            .withColumn(columnName, from_json("entry_json", schema=ENTRY_SCHEMA))
+              .select(explode(FhirBundles._entry_json_strings("value")).alias("entry_json"))
+              .withColumn("entry", from_json("entry_json", schema=ENTRY_SCHEMA))
         ).cache()
 
     #
@@ -84,7 +84,20 @@ class FhirBundles():
     # 
     def asInlineJson(self, path):
         raise NotImplementedError("TODO...")
-        
+
+    #
+    # Read a fhir bundle resource as an inline json value (1 resource per line, static 1 entry per bundle)
+    # 
+    def asInlineJsonSingleton(self, path):
+        return (
+            self.spark.read.json(path)
+              .select(FhirBundles._entry_json_strings("value").alias("entry_json"))
+              .withColumn("entry", from_json("entry_json", schema=ENTRY_SCHEMA))
+        ).cache()
+
+    def asStream(self, kwargs):
+        raise NotImplementedError("TODO...")
+
     def listDatabases():
         raise NotImplementedError()
 
@@ -132,10 +145,10 @@ class Transformer(ABC):
         ...
 
 class FhirBundlesToCdm(Transformer):
-
     def __init__(self):
-        pass
-
+        from pyspark.sql import SparkSession
+        self.spark = SparkSession.getActiveSession()
+        
     def loadEntries(self):
         pass
 
@@ -163,14 +176,14 @@ class FhirBundlesToCdm(Transformer):
         logging.info(f"created {cdm_database} and {mapping_database} databases")
 
         if overwrite:
-            person_df.write.format("delta").mode("overwrite").saveAsTable(PERSON_TABLE)
-            condition_df.write.format("delta").mode("overwrite").saveAsTable(
+            person_df.write.mode("overwrite").saveAsTable(PERSON_TABLE)
+            condition_df.write.mode("overwrite").saveAsTable(
                 CONDITION_TABLE
             )
-            procedure_occurrence_df.write.format("delta").mode("overwrite").saveAsTable(
+            procedure_occurrence_df.write.mode("overwrite").saveAsTable(
                 PROCEDURE_OCCURRENCE_TABLE
             )
-            encounter_df.write.format("delta").mode("overwrite").saveAsTable(
+            encounter_df.write.mode("overwrite").saveAsTable(
                 ENCOUNTER_TABLE
             )
             logging.info(
@@ -178,12 +191,12 @@ class FhirBundlesToCdm(Transformer):
             )
 
         else:
-            person_df.write.format("delta").saveAsTable(PERSON_TABLE)
-            condition_df.write.format("delta").saveAsTable(CONDITION_TABLE)
-            procedure_occurrence_df.write.format("delta").saveAsTable(
+            person_df.write.saveAsTable(PERSON_TABLE)
+            condition_df.write.saveAsTable(CONDITION_TABLE)
+            procedure_occurrence_df.write.saveAsTable(
                 PROCEDURE_OCCURRENCE_TABLE
             )
-            encounter_df.write.format("delta").saveAsTable(ENCOUNTER_TABLE)
+            encounter_df.write.saveAsTable(ENCOUNTER_TABLE)
             logging.info(
                 f"updated {PERSON_TABLE, CONDITION_TABLE, PROCEDURE_OCCURRENCE_TABLE} and {ENCOUNTER_TABLE} tables."
             )
@@ -191,8 +204,9 @@ class FhirBundlesToCdm(Transformer):
         target.update(cdm_database, mapping_database)
 
 class CdmToPersonDashboard(Transformer):
-    def __init__(self, spark):
-        self.spark = spark
+    def __init__(self):
+        from pyspark.sql import SparkSession
+        self.spark = SparkSession.getActiveSession()
         
     def loadEntries(self):
       raise NotImplementedError()
