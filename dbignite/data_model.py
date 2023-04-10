@@ -144,9 +144,9 @@ class Transformer(ABC):
         ...
 
 class FhirBundlesToCdm(Transformer):
-    def __init__(self):
+    def __init__(self, spark = None):
         from pyspark.sql import SparkSession
-        self.spark = SparkSession.getActiveSession()
+        self.spark = spark if spark is not None else SparkSession.getActiveSession()
         
     def loadEntries(self):
         pass
