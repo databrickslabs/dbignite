@@ -1,5 +1,5 @@
 pyspark==3.3.2
-delta-spark==2.2.0
+delta-spark==2.3.0
 pytest-spark==0.6.0
 spark-testing-base==0.10.0
 chispa==0.9.2
