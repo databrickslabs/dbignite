@@ -44,7 +44,7 @@ class TestUtils:
         assert_schema_equality(person_df.schema, PERSON_SCHEMA, ignore_nullable=True)
 
     def test_entries_to_person_inline(self, get_entries_inline_json_df):
-        pass
+        pass #TODO add in inline json data
 
     def test_entries_to_condition(self, get_entries_df) -> None:
         condition_df = entries_to_condition(get_entries_df)
