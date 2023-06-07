@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession
 import os, re, pytest
+from shutil import *
 
 from chispa import *
 from chispa.schema_comparer import *
@@ -14,6 +15,9 @@ BRANCH = re.sub(r"\W+", "", os.environ.get("BRANCH", 'local_test'))
 TEST_BUNDLE_PATH = "./sampledata/"
 TEST_DATABASE = f"test_{REPO}_{BRANCH}"
 
+@pytest.fixture
+def get_entries_inline_json_df(spark_session):
+    return FhirBundles(path=TEST_BUNDLE_PATH).loadEntries()
 
 @pytest.fixture
 def get_entries_df(spark_session):
@@ -31,27 +35,40 @@ def cdm_model():
 
 class TestUtils:
 
+    def test_setup(self):
+        rmtree("./spark-warehouse/", ignore_errors=True)
+
     def test_entries_to_person(self,get_entries_df) -> None:
         person_df = entries_to_person(get_entries_df)
         assert person_df.count() == 3
         assert_schema_equality(person_df.schema, PERSON_SCHEMA, ignore_nullable=True)
 
+    def test_entries_to_person_inline(self, get_entries_inline_json_df):
+        pass
 
     def test_entries_to_condition(self, get_entries_df) -> None:
         condition_df = entries_to_condition(get_entries_df)
         assert condition_df.count() == 103
         assert_schema_equality(condition_df.schema, CONDITION_SCHEMA,ignore_nullable=True)
 
+    def test_entries_to_person_inline(self, get_entries_inline_json_df):
+        pass
+
     def test_entries_to_procedure_occurrence(self, get_entries_df) -> None:
         procedure_occurrence_df = entries_to_procedure_occurrence(get_entries_df)
         assert procedure_occurrence_df.count() == 119
         assert_schema_equality(procedure_occurrence_df.schema, PROCEDURE_OCCURRENCE_SCHEMA, ignore_nullable=True)
+
+    def test_entries_to_procedure_occurence_inline_json(self, get_entries_inline_json_df):
+        pass
 
     def test_entries_to_encounter(self, get_entries_df) -> None:
         encounter_df = entries_to_encounter(get_entries_df)
         assert encounter_df.count() == 128
         assert_schema_equality(encounter_df.schema, ENCOUNTER_SCHEMA,ignore_nullable=True)
 
+    def test_entries_to_encounter_inline_json(self, get_entries_inline_json_df):
+        pass
 
 class TestTransformers:
 
