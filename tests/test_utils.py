@@ -43,32 +43,29 @@ class TestUtils:
         assert person_df.count() == 3
         assert_schema_equality(person_df.schema, PERSON_SCHEMA, ignore_nullable=True)
 
-    def test_entries_to_person_inline(self, get_entries_inline_json_df):
-        pass #TODO add in inline json data
-
+    def test_entries_inline_json(self, spark_session):
+        fhir=FhirBundles(defaultResource=FhirBundles().asInlineJsonSingleton, path="./sampledata/inline_records/")
+        assert fhir.loadEntries().count() == 29
+        import json
+        x = json.loads(fhir.loadEntries().take(1)[0]['entry_json'])
+        assert x['resourceType']=='Patient'
+        assert x['gender']=='male'
+        assert x['birthDate'] =='1963-06-09'
+            
     def test_entries_to_condition(self, get_entries_df) -> None:
         condition_df = entries_to_condition(get_entries_df)
         assert condition_df.count() == 103
         assert_schema_equality(condition_df.schema, CONDITION_SCHEMA,ignore_nullable=True)
-
-    def test_entries_to_person_inline(self, get_entries_inline_json_df):
-        pass
 
     def test_entries_to_procedure_occurrence(self, get_entries_df) -> None:
         procedure_occurrence_df = entries_to_procedure_occurrence(get_entries_df)
         assert procedure_occurrence_df.count() == 119
         assert_schema_equality(procedure_occurrence_df.schema, PROCEDURE_OCCURRENCE_SCHEMA, ignore_nullable=True)
 
-    def test_entries_to_procedure_occurence_inline_json(self, get_entries_inline_json_df):
-        pass
-
     def test_entries_to_encounter(self, get_entries_df) -> None:
         encounter_df = entries_to_encounter(get_entries_df)
         assert encounter_df.count() == 128
         assert_schema_equality(encounter_df.schema, ENCOUNTER_SCHEMA,ignore_nullable=True)
-
-    def test_entries_to_encounter_inline_json(self, get_entries_inline_json_df):
-        pass
 
 class TestTransformers:
 
