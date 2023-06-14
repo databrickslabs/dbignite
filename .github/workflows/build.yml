@@ -45,8 +45,6 @@ jobs:
         
     - name: Publish test coverage
       uses: codecov/codecov-action@v2
-      with:
-	files: ! ./test/test_utils.py
 
     - name: Build
       run: |
