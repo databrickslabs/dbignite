@@ -121,10 +121,6 @@ class OmopCdm(DataModel):
 
 class Transformer(ABC):
     @abstractmethod
-    def loadEntries(self) -> DataFrame:
-        ...
-
-    @abstractmethod
     def transform(self) -> DataModel:
         ...
 
