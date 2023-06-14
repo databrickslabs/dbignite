@@ -80,12 +80,6 @@ class FhirBundles():
         ).cache()
 
     #
-    # Read a fhir bundle resource as an inline json value (1 resource per line)
-    # 
-    def asInlineJson(self, path):
-        raise NotImplementedError("TODO...")
-
-    #
     # Read a fhir bundle resource as an inline json value (1 resource per line, static 1 entry per bundle)
     # 
     def asInlineJsonSingleton(self, path):
@@ -94,15 +88,6 @@ class FhirBundles():
               .withColumn("entry", from_json("entry_json", schema=ENTRY_SCHEMA))
         ).cache()
 
-    def asStream(self, kwargs):
-        raise NotImplementedError("TODO...")
-
-    def listDatabases():
-        raise NotImplementedError()
-
-    def summary():
-        raise NotImplementedError()
-    
     def update(self,path:str) -> None:
         self.path=path
 
@@ -148,9 +133,6 @@ class FhirBundlesToCdm(Transformer):
         from pyspark.sql import SparkSession
         self.spark = spark if spark is not None else SparkSession.getActiveSession()
         
-    def loadEntries(self):
-        pass
-
     def transform(
             self,
             source: FhirBundles,
