@@ -37,7 +37,7 @@ class TestUtils:
 
     def test_fake_test_codecov(self, spark_session):
         FhirBundles(path=TEST_BUNDLE_PATH).loadEntries()
-        spark_session.read.text(path, wholetext=True).select(explode(FhirBundles._entry_json_strings("value")).alias("entry_json"))
+        spark_session.read.text(TEST_BUNDLE_PATH, wholetext=True).select(explode(FhirBundles._entry_json_strings("value")).alias("entry_json"))
         #codecov requires this dummy test to be here to be counted as coverage
     
     def test_setup(self):
