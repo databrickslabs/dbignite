@@ -27,7 +27,6 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-	files: ! ./test/test_utils.py
     - name: Set Spark env
       run: |
         export SPARK_LOCAL_IP=127.0.0.1
@@ -46,6 +45,8 @@ jobs:
         
     - name: Publish test coverage
       uses: codecov/codecov-action@v2
+      with:
+	files: ! ./test/test_utils.py
 
     - name: Build
       run: |
