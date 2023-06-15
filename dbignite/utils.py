@@ -28,7 +28,7 @@ def entries_to_person(entries_df: DataFrame) -> DataFrame:
         ]
     )
     return (
-        entries_df.where(col("entry.request.url") == "Patient")
+        entries_df.where(col("entry.resource.resourceType") == "Patient")
             .withColumn("patient", from_json("entry_json", schema=entry_schema)["resource"])
             .select(
             col("patient.id").alias("person_id"),

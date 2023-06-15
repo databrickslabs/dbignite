@@ -33,9 +33,69 @@ class DataModel(ABC):
     def update(self) -> None:
         ...
 
-class FhirBundles(DataModel):
-    def __init__(self, path: str):
-        self.path = path
+class FhirBundles():
+    #
+    # Only supporting path representations currently
+    #
+    def __init__(self, defaultResource = None, **args):
+        from pyspark.sql import SparkSession
+        self.spark = SparkSession.getActiveSession()
+        self.df = None #force lazy evaluation
+        if defaultResource is None:
+            self.defaultResource = self.asWholeTextfile
+        else:
+            self.defaultResource = defaultResource
+        self.args = args
+
+    #
+    # Return json bundles as a DF 
+    #
+    def loadEntries(self):
+        if self.df is None:
+            self.df = self.defaultResource(**self.args)
+        return self.df
+
+    #
+    # ... 
+    #
+    @staticmethod
+    @udf(ArrayType(StringType()))  ## TODO change to pandas_udf
+    def _entry_json_strings(value):
+        """
+        UDF takes raw text, returns the
+        parsed struct and raw JSON.
+        """
+        bundle_json = json.loads(value)
+        return [json.dumps(e) for e in bundle_json["entry"]]
+
+
+    #
+    # Read a fhir bundle reasource as a whole text file (1 resource per file)
+    # @param path of the json bundles
+    def asWholeTextfile(self, path):
+        return (
+            self.spark.read.text(path, wholetext=True)
+              .select(explode(FhirBundles._entry_json_strings("value")).alias("entry_json"))
+              .withColumn("entry", from_json("entry_json", schema=ENTRY_SCHEMA))
+        ).cache()
+
+    #
+    # Read a fhir bundle resource as an inline json value (1 resource per line)
+    # 
+    def asInlineJson(self, path):
+        raise NotImplementedError("TODO...")
+
+    #
+    # Read a fhir bundle resource as an inline json value (1 resource per line, static 1 entry per bundle)
+    # 
+    def asInlineJsonSingleton(self, path):
+        return (
+            self.spark.read.json(self.spark.read.json(path).rdd.map(lambda x: json.dumps({"entry_json": json.dumps(x.asDict())})))
+              .withColumn("entry", from_json("entry_json", schema=ENTRY_SCHEMA))
+        ).cache()
+
+    def asStream(self, kwargs):
+        raise NotImplementedError("TODO...")
 
     def listDatabases():
         raise NotImplementedError()
@@ -73,7 +133,7 @@ class OmopCdm(DataModel):
     def update(self,cdm_database: str,mapping_database: str = None):
         self.cdm_database = cdm_database
         self.mapping_database = mapping_database
-        
+
 class Transformer(ABC):
     @abstractmethod
     def loadEntries(self) -> DataFrame:
@@ -84,27 +144,12 @@ class Transformer(ABC):
         ...
 
 class FhirBundlesToCdm(Transformer):
-
-    def __init__(self, spark):
-        self.spark = spark
-
-    def loadEntries(self, path: str):
-        entries_df = (
-            self.spark.read.text(path, wholetext=True)
-                .select(explode(self._entry_json_strings("value")).alias("entry_json"))
-                .withColumn("entry", from_json("entry_json", schema=ENTRY_SCHEMA))
-        ).cache()
-        return entries_df
-
-    @staticmethod
-    @udf(ArrayType(StringType()))  ## TODO change to pandas_udf
-    def _entry_json_strings(value):
-        """
-        UDF takes raw text, returns the
-        parsed struct and raw JSON.
-        """
-        bundle_json = json.loads(value)
-        return [json.dumps(e) for e in bundle_json["entry"]]
+    def __init__(self, spark = None):
+        from pyspark.sql import SparkSession
+        self.spark = spark if spark is not None else SparkSession.getActiveSession()
+        
+    def loadEntries(self):
+        pass
 
     def transform(
             self,
@@ -113,11 +158,10 @@ class FhirBundlesToCdm(Transformer):
             overwrite: bool = True,
     ) -> OmopCdm:
 
-        path = source.path
         cdm_database = target.cdm_database
         mapping_database=target.mapping_database
 
-        entries_df = self.loadEntries(path)
+        entries_df = source.loadEntries()
 
         person_df = entries_df.transform(entries_to_person)
         condition_df = entries_df.transform(entries_to_condition)
@@ -131,14 +175,14 @@ class FhirBundlesToCdm(Transformer):
         logging.info(f"created {cdm_database} and {mapping_database} databases")
 
         if overwrite:
-            person_df.write.format("delta").mode("overwrite").saveAsTable(PERSON_TABLE)
-            condition_df.write.format("delta").mode("overwrite").saveAsTable(
+            person_df.write.mode("overwrite").saveAsTable(PERSON_TABLE)
+            condition_df.write.mode("overwrite").saveAsTable(
                 CONDITION_TABLE
             )
-            procedure_occurrence_df.write.format("delta").mode("overwrite").saveAsTable(
+            procedure_occurrence_df.write.mode("overwrite").saveAsTable(
                 PROCEDURE_OCCURRENCE_TABLE
             )
-            encounter_df.write.format("delta").mode("overwrite").saveAsTable(
+            encounter_df.write.mode("overwrite").saveAsTable(
                 ENCOUNTER_TABLE
             )
             logging.info(
@@ -146,12 +190,12 @@ class FhirBundlesToCdm(Transformer):
             )
 
         else:
-            person_df.write.format("delta").saveAsTable(PERSON_TABLE)
-            condition_df.write.format("delta").saveAsTable(CONDITION_TABLE)
-            procedure_occurrence_df.write.format("delta").saveAsTable(
+            person_df.write.saveAsTable(PERSON_TABLE)
+            condition_df.write.saveAsTable(CONDITION_TABLE)
+            procedure_occurrence_df.write.saveAsTable(
                 PROCEDURE_OCCURRENCE_TABLE
             )
-            encounter_df.write.format("delta").saveAsTable(ENCOUNTER_TABLE)
+            encounter_df.write.saveAsTable(ENCOUNTER_TABLE)
             logging.info(
                 f"updated {PERSON_TABLE, CONDITION_TABLE, PROCEDURE_OCCURRENCE_TABLE} and {ENCOUNTER_TABLE} tables."
             )
@@ -159,8 +203,9 @@ class FhirBundlesToCdm(Transformer):
         target.update(cdm_database, mapping_database)
 
 class CdmToPersonDashboard(Transformer):
-    def __init__(self, spark):
-        self.spark = spark
+    def __init__(self):
+        from pyspark.sql import SparkSession
+        self.spark = SparkSession.getActiveSession()
         
     def loadEntries(self):
       raise NotImplementedError()

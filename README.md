@@ -11,6 +11,11 @@ towards the following core use case. At the same
 time we ensure the spec. is [extensible for the future
 use cases](#future-extensions).
 
+## Install package
+```
+pip install git+https://github.com/databrickslabs/dbignite.git
+```
+
 ## Core Use Case: Quick Exploratory Analysis of a FHIR Bundle
 
 The _data_model_ module contains a suite of common
@@ -50,7 +55,7 @@ For example to select all male patients born before 1982:
 
 `select * from dbignite_demo.person where year_of_birth < 1982 and gender_source_value='male'` 
 
-> [See this in a notebook.](demo.py)
+> [See this in a notebook.](notebooks/dbignite-demo.py)
 
 # Interop Pipeline Design
 
