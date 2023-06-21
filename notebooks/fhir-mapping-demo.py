@@ -1,46 +1,26 @@
 # Databricks notebook source
+from dbignite.fhir_mapping_model import *
+
+# COMMAND ----------
+
+fhir_resource_map = fhirSchemaModel()
+
+# COMMAND ----------
+
+fhir_resource_map.resource("Account")
+
+# COMMAND ----------
+
+fhir_resource_map.debug_print_keys()
+
+# COMMAND ----------
+
 import json 
 
 with open("../sampledata/Abe_Huels_cec871b4-8fe4-03d1-4318-b51bc279f004.json") as patient_file:
   patient_data = json.load(patient_file)
 
 patient_data["entry"][0]["resource"]
-
-# COMMAND ----------
-
-data_string = spark.sparkContext.parallelize(["""
-{
-  "id": "first",
-  "name": 
-  [{
-      "use": "official",
-      "given": ["Maya"],
-      "family": "XYZ"
-  }]
-}""",
-"""
-{
-  "id": "second",
-  "name": 
-  [{
-      "use": "official",
-      "given": ["Emma"],
-      "family": "XYZ"
-  }]
-}"""])
-
-# COMMAND ----------
-
-import json
-from pyspark.sql.types import *
-
-patient_schema = None
-with open("../schemas/Patient.json") as patient_schema:
-  patient_schema = StructType.fromJson(json.load(patient_schema))
-
-df = spark.read.option("multiline", True).schema(patient_schema).json(data_string)
-
-display(df)
 
 # COMMAND ----------
 
