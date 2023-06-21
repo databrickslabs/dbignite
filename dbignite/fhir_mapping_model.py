@@ -19,5 +19,9 @@ class fhirSchemaModel():
 
       return resource_map
     
-    def getResourceSchema(self, resourceName: str):
+    def resource(self, resourceName: str):
+      return self.mapping[resourceName]
+    
+    # Adding due to ambiguity on resource / schema retrieval call 
+    def schema(self, resourceName: str):
       return self.mapping[resourceName]
