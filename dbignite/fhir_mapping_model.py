@@ -15,7 +15,6 @@ class fhirSchemaModel():
         with open("../schemas/" + file) as schema_file:
           schema_struct = StructType.fromJson(json.load(schema_file))
           resource_map[file.replace('.json', '')] = schema_struct
-        break
       return resource_map
     
     def resource(self, resourceName: str) -> str:
