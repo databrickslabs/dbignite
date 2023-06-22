@@ -19,8 +19,10 @@ VERSION = __version__
 setup(
     name="dbignite",
     version=VERSION,
-    author="Amir Kermany, Nathan Buesgens, Rachel Sim",
+    author="Amir Kermany, Nathan Buesgens, Rachel Sim, Aaron Zavora, William Smith",
     author_email="labs@databricks.com",
+    data_files=[('schemas', ['*.json']),
+                  ('sampledata', ['*.json'])],
     description= DESCRIPTION,
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
