@@ -21,8 +21,6 @@ setup(
     version=VERSION,
     author="Amir Kermany, Nathan Buesgens, Rachel Sim, Aaron Zavora, William Smith",
     author_email="labs@databricks.com",
-    data_files=[('schemas', ['schemas/*.json']),
-                  ('sampledata', ['sampledata/*.json'])],
     description= DESCRIPTION,
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
@@ -33,5 +31,6 @@ setup(
         "Operating System :: OS Independent",
     ],
     packages=['dbignite'],
+    package_data={"schemas": ["*.json"]},
     py_modules=['dbignite.data_model']
 )
