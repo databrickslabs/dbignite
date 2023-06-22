@@ -4,7 +4,7 @@ from fhir_dict_object import fhir_dict_map
 
 class fhirSchemaModel():
     def __init__(self, mapping = None):
-        self.mapping = fhir_dict_map #.fhir_dict_map
+        self.mapping = fhir_dict_map
     
     def resource(self, resourceName: str) -> str:
       return self.mapping[resourceName]
