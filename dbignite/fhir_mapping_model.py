@@ -5,12 +5,12 @@ class fhirSchemaModel():
     def __init__(self, mapping = None):
         self.mapping = self.createFHIRMapping()
 
-    def createFHIRMapping(self) -> dict[str, str]:
-      schema_path = "../schemas"
-      schema_dir = os.listdir( schema_path )
-
+    # Returns dict with [str, StructType]
+    def createFHIRMapping(self):
+      # TODO from pip package, reference { streamread / fileread from package }
+      schema_dir = os.listdir( "../schemas" )
       resource_map = {}
-
+      # no FOR loops anymore for William :(
       for file in schema_dir:
         with open("../schemas/" + file) as schema_file:
           schema_struct = StructType.fromJson(json.load(schema_file))
@@ -24,6 +24,6 @@ class fhirSchemaModel():
     def schema(self, resourceName: str) -> str:
       return self.mapping[resourceName]
 
-    #debugging    
+    # Debugging    
     def debug_print_keys(self):
       print(self.mapping.keys())
