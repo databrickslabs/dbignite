@@ -1,6 +1,9 @@
 # Databricks notebook source
-pip install git+https://github.com/databricks-industry-solutions/dbignite.git@feature-FHIR-schema-dbignite-HLSSA-289
+dbutils.library.restartPython()
 
+# COMMAND ----------
+
+pip install git+https://github.com/databricks-industry-solutions/dbignite.git@feature-FHIR-schema-dbignite-HLSSA-289
 
 # COMMAND ----------
 
