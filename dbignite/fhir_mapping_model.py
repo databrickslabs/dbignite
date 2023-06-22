@@ -1,6 +1,6 @@
 import os, sys, json
 from pyspark.sql.types import *
-from fhir_dict_object import *
+from dbignite.fhir_dict_object import *
 
 class fhirSchemaModel():
     def __init__(self, mapping = None):
