@@ -1,5 +1,6 @@
 import os, sys, json
 from pyspark.sql.types import *
+from importlib.resources import files
 # from dbignite.fhir_dict_object import *
 
 class fhirSchemaModel():
@@ -21,7 +22,7 @@ class fhirSchemaModel():
           ): StructType.fromJson(json.load(open(x, "r")))
           for x in list(files("schemas").iterdir())
         }
-        
+
         # Quickest runtime from a single python file with struct information (0.1 seconds)
         # self.python_struct_fhir_resource_map = fhir_dict_map
 

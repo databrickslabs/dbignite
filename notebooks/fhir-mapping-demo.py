@@ -49,7 +49,3 @@ explicit.select("birthdate").show(truncate=False)
 
 #names all match
 explicit.select("name").show(truncate=False)
-
-# COMMAND ----------
-
-
