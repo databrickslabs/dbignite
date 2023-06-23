@@ -23,7 +23,6 @@ fhir_resource_map.debug_print_keys()
 
 # COMMAND ----------
 
-## Researching Issue with reading in patient info
 data = json.load(open("../sampledata/Abe_Huels_cec871b4-8fe4-03d1-4318-b51bc279f004.json", "r"))
 abe = data['entry'][0]['resource']
 
@@ -50,3 +49,7 @@ explicit.select("birthdate").show(truncate=False)
 
 #names all match
 explicit.select("name").show(truncate=False)
+
+# COMMAND ----------
+
+
