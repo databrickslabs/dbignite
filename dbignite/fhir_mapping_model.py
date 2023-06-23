@@ -1,10 +1,10 @@
 import os, sys, json
 from pyspark.sql.types import *
-from dbignite.fhir_dict_object import *
+# from dbignite.fhir_dict_object import *
 
 class fhirSchemaModel():
     def __init__(self, mapping = None):
-        self.mapping = fhir_dict_map
+        self.mapping = {x[:-5]: json.load(open("./schemas/" + x, "r")) for x in os.listdir("./schemas")}
     
     def resource(self, resourceName: str) -> str:
       return self.mapping[resourceName]
