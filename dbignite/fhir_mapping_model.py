@@ -4,7 +4,10 @@ from pyspark.sql.types import *
 
 class fhirSchemaModel():
     def __init__(self, mapping = None):
-        self.mapping = {x[:-5]: json.load(open("../schemas/" + x, "r")) for x in os.listdir("./schemas")}
+        self.mapping = load_from_dir()
+    
+    def load_from_dir:
+      return {x[:-5]: json.load(open("../schemas/" + x, "r")) for x in os.listdir("../schemas")}
     
     def resource(self, resourceName: str) -> str:
       return self.mapping[resourceName]
