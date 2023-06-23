@@ -4,8 +4,9 @@ from pyspark.sql.types import *
 
 class fhirSchemaModel():
     def __init__(self, fhir_resource_map = None):
-        self.fhir_resource_map = {x[:-5]: json.load(open("../schemas/" + x, "r")) for x in os.listdir("../schemas")}
-    
+        self.fhir_resource_map = {x[:-5]: StructType.fromJson(json.load(open("../schemas/" + x, "r")) for x in os.listdir("../schemas"))}
+        # self.packaged_fhir_resource_map = fhir_dict_map
+
     def resource(self, resourceName: str) -> str:
       return self.fhir_resource_map[resourceName]
     
@@ -13,6 +14,6 @@ class fhirSchemaModel():
     def schema(self, resourceName: str) -> str:
       return self.fhir_resource_map[resourceName]
 
-    # Debugging    
+    # Debugging keys  
     def debug_print_keys(self):
       print(self.fhir_resource_map.keys())
