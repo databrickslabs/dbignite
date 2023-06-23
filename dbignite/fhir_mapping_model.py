@@ -7,7 +7,7 @@ class fhirSchemaModel():
     def __init__(self, fhir_resource_map = None):
         
         # Quicker runtime with package_data so there is no reliance on directory structure 
-        self.fhir_resource_map = { x[:-5] : StructType.fromJson(json.load(open(x, "r"))) for x in list(files("schemas").iterdir())}
+        self.fhir_resource_map = { str(x)[:-5] : StructType.fromJson(json.load(open(x, "r"))) for x in list(files("schemas").iterdir())}
 
         # Quickest runtime from a single python file with struct information (0.1 seconds)
         # self.python_struct_fhir_resource_map = fhir_dict_map
