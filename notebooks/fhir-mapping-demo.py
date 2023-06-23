@@ -19,6 +19,10 @@ fhir_resource_map.resource("Account")
 
 # COMMAND ----------
 
+fhir_resource_map.list_packaged_data()
+
+# COMMAND ----------
+
 fhir_resource_map.debug_print_keys()
 
 # COMMAND ----------
