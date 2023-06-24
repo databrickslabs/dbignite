@@ -2,8 +2,7 @@
 __Health Data Interoperability__
 
 This library is designed to provide a low friction entry to performing analytics on 
-[FHIR](https://hl7.org/fhir/bundle.html) bundles, by extracting patient resources and
-writing the data in deltalake. 
+[FHIR](https://hl7.org/fhir/bundle.html) bundles by extracting resources and flattening. 
 
 # Usage Examples
 In this first phase of development, we drive
