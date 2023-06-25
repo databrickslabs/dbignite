@@ -1,31 +1,44 @@
 import os, sys, json, re
 from pyspark.sql.types import *
 from importlib.resources import files
-# from dbignite.fhir_dict_object import *
 
-class fhirSchemaModel():
+class FhirSchemaModel():
+
+    #
+    # Class that manages access to FHIR resourceType ->  Spark Schema mapping
+    #
     def __init__(self, fhir_resource_map = None):
-        
-        # Quicker runtime with package_data so there is no reliance on directory structure 
-        self.fhir_resource_map = { str(x).rsplit('/',1)[1][:-5] : StructType.fromJson(json.load(open(x, "r"))) for x in list(files("schemas").iterdir())}
-        # Quickest runtime from a single python file with struct information (0.1 seconds)
-        # self.python_struct_fhir_resource_map = fhir_dict_map
+        if fhir_resource_map is not None:
+            self.fhir_resource_map = { str(x).rsplit('/',1)[1][:-5] : StructType.fromJson(json.load(open(x, "r"))) for x in list(files("schemas").iterdir())}
+        else:
+            self.fhir_resource_map = fhir_resource_map
+    #
+    # Given a resourceName, return the spark schema representation
+    #
+    def schema(self, resourceName):
+        return self.fhir_resource_map[resourceName]
 
-        # Lookup of files from schema directory 
-        # self.fhir_resource_map = {x[:-5]: StructType.fromJson(json.load(open("../schemas/" + x, "r"))) for x in os.listdir("../schemas")}
+    #
+    # Return all keys of FHIR Resource Refernces
+    #
+    def list_keys(self):
+        return list(self.fhir_resource_map.keys())
 
-
-    def resource(self, resourceName: str) -> str:
-      return self.fhir_resource_map[resourceName]
-    
-    # Adding due to ambiguity on resource / schema retrieval call 
-    def schema(self, resourceName: str) -> str:
-      return self.fhir_resource_map[resourceName]
-
-    # Debugging keys  
-    def debug_print_keys(self):
-      print(self.fhir_resource_map.keys())
-
+    #
+    # Return all keys of FHIR Resources pacakged 
+    #
     def list_packaged_data(self):
-      for x in list(files("schemas").iterdir()):
-        print(x)
+        return list(files("schemas").iterdir())
+            
+
+    #
+    # Allow searching at the metadata level contained in the spark schema 
+    #
+    def search_metadata(self, search_expression, within_resource=None):
+        pass #TODO method to search JSON metadata
+
+    #
+    # Allow searching for fields contained in the spark schema 
+    #
+    def search_columns(self, search_expression, within_resource=None):
+        pass #TODO method to search column names
