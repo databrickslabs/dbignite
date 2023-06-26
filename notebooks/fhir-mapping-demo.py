@@ -11,19 +11,11 @@ from dbignite.fhir_mapping_model import *
 
 # COMMAND ----------
 
-fhir_resource_map = fhirSchemaModel()
+fhir_resource_map = FhirSchemaModel()
 
 # COMMAND ----------
 
-fhir_resource_map.resource("Account")
-
-# COMMAND ----------
-
-fhir_resource_map.list_packaged_data()
-
-# COMMAND ----------
-
-fhir_resource_map.debug_print_keys()
+fhir_resource_map.schema("Account")
 
 # COMMAND ----------
 
@@ -40,7 +32,7 @@ infer = spark.createDataFrame([abe])
 # COMMAND ----------
 
 #The explicit schema
-schema =  fhir_resource_map.resource("Patient")
+schema =  fhir_resource_map.schema("Patient")
 explicit = spark.createDataFrame([abe], schema) 
 
 display(explicit)
@@ -53,3 +45,7 @@ explicit.select("birthdate").show(truncate=False)
 
 #names all match
 explicit.select("name").show(truncate=False)
+
+# COMMAND ----------
+
+
