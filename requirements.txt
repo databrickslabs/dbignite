@@ -1,4 +1,4 @@
-pyspark==3.3.2
+pyspark==3.4.1
 delta-spark==2.2.0
 pytest-spark==0.6.0
 spark-testing-base==0.10.0
