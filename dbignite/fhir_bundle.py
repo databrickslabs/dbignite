@@ -26,19 +26,20 @@ class FhirBundles():
         self.load_data_frame_funct = load_data_frame_func
         self.args = args
         self.df = None
+        #self.schema = 
 
     def load_bundles(self):
         if self.df = None:
             self.df = self.load_data_frame_func(**self.args)
 
     #
-    # TODO parse into self.df...
+    # TODO apply schema to result of "read_json"
     #
     def as_whole_text_file(self, path):
         return (
             self.spark
               .read.text(path, wholetext=True)
-              .rdd.map(lambda x: parse_bundle_text(x(1)))
+              .rdd.map(lambda x: read_json(x.value))
         )
 
     #
@@ -54,10 +55,24 @@ class FhirBundles():
         ...
 
     #
-    # Todo parse json and return dataframe like structure
+    # Maps entries to one key per fhir_resource: value as list of resources contained
     #
-    def parse_bundle_text(self, str):
-        ...
+    def read_json(self, val): 
+        try:
+            j = json.loads(val)
+            return {
+                "raw_data": val, 
+                "is_valid": True,
+                "pk": None,
+                "entries": {z: list(map(lambda y: y.get('resource') ,filter(lambda x: x.get('resource','').get('resourceType','') == z , j.get('entry')))) for z in fhir_resource_map.list_keys()}
+            }
+        except:
+            return {
+                "raw_data": val,
+                "is_valid": False,
+                "pk": None,
+                "entries": None,
+            }
         
     def num_bundles(self):
         return self.df.count()

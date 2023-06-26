@@ -8,7 +8,7 @@ class FhirSchemaModel():
     # Class that manages access to FHIR resourceType ->  Spark Schema mapping
     #
     def __init__(self, fhir_resource_map = None):
-        if fhir_resource_map is not None:
+        if fhir_resource_map is None:
             self.fhir_resource_map = { str(x).rsplit('/',1)[1][:-5] : StructType.fromJson(json.load(open(x, "r"))) for x in list(files("schemas").iterdir())}
         else:
             self.fhir_resource_map = fhir_resource_map
@@ -29,7 +29,6 @@ class FhirSchemaModel():
     #
     def list_packaged_data(self):
         return list(files("schemas").iterdir())
-            
 
     #
     # Allow searching at the metadata level contained in the spark schema 
