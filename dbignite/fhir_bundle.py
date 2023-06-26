@@ -7,14 +7,56 @@ from pyspark.sql.functions import col, explode
 
 class FhirBundles():
     """
-     Internally represented as a DataFrame of:
+     Internally represented as a DataFrame (self.df) of:
        raw_data: String of original FHIR Bundle
+       pk: random id generated to maintain references
        entries: a flattening of all entries in a dataframe
        entries.XXX : Where each resourceType of FHIR is XXX and contains the values 
        is_valid: True if the bundle was a valid entry or not (non-valid is not parsed into entries)
     Note: 1 row per FHIRBundle
+
+    __init__ is responsible for reading in data from various data sources.
+      it's default beavhior is to read a single FhirBundle in a text file
+    
     """
-    def __init__(self):
+    def __init__(self, fhir_mapping, load_data_frame_func = as_whole_text_file, **args):
+        from pyspark.sql import SparkSession
+        self.spark = SparkSession.getActiveSession()
+        self.fhir_mapping = fhir_mapping
+        self.load_data_frame_funct = load_data_frame_func
+        self.args = args
+        self.df = None
+
+    def load_bundles(self):
+        if self.df = None:
+            self.df = self.load_data_frame_func(**self.args)
+
+    #
+    # TODO parse into self.df...
+    #
+    def as_whole_text_file(self, path):
+        return (
+            self.spark
+              .read.text(path, wholetext=True)
+              .rdd.map(lambda x: parse_bundle_text(x(1)))
+        )
+
+    #
+    # Generate random unique key for PK 
+    #
+    def uuid(self):
+        ...
+
+    #
+    # Generate an md5 from a string value
+    #
+    def md5(self, s):
+        ...
+
+    #
+    # Todo parse json and return dataframe like structure
+    #
+    def parse_bundle_text(self, str):
         ...
         
     def num_bundles(self):
@@ -22,7 +64,10 @@ class FhirBundles():
 
     def num_entries(self):
         ...
-        
+
+    def _parse_string_df(self):
+        ...
+    
     @abstractmethod
     def print_summary(self) -> None:
         ...
