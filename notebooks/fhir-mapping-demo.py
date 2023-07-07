@@ -35,8 +35,6 @@ infer = spark.createDataFrame([abe])
 schema =  fhir_resource_map.schema("Patient")
 explicit = spark.createDataFrame([abe], schema) 
 
-display(explicit)
-
 # COMMAND ----------
 
 
@@ -48,11 +46,23 @@ explicit.select("name").show(truncate=False)
 
 # COMMAND ----------
 
+print(explicit)
+
+# COMMAND ----------
+
 us_core_fhir_resource_map = FhirSchemaModel(subset="UScore")
 
 # COMMAND ----------
 
-print(us_core_fhir_resource_map.keys())
+print(us_core_fhir_resource_map.list_keys())
+
+# COMMAND ----------
+
+custom_fhir_resource_map = FhirSchemaModel(us_core_fhir_resource_map.fhir_resource_map)
+
+# COMMAND ----------
+
+print(custom_fhir_resource_map.list_keys())
 
 # COMMAND ----------
 
