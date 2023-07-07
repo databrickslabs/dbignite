@@ -15,12 +15,16 @@ class FhirSchemaModel():
         
         # Create mapping with FHIR US Core 
         if fhir_resource_map is None and subset == "UScore":
-            us_core_resources = ["AllergyIntolerance", "Bundle", "CarePlan", "CareTeam", "Condition", "Coverage", "Device", "DiagnosticReport", "DocumentReference", "Encounter", "Goal", "Immunization", "Location", "Medication", "MedicationDispense", "MedicationRequest", "Observation", "Organization", "Patient", "Practitioner", "Procedure", "Provenance", "Questionnaire", "QuestionnaireResponse", "RelatedPerson", "ServiceRequest", "Specimen
+            us_core_resources = ["AllergyIntolerance", "Bundle", "CarePlan", "CareTeam", "Condition", "Coverage", "Device", "DiagnosticReport", "DocumentReference", "Encounter", "Goal", "Immunization", "Location", "Medication", "MedicationDispense", "MedicationRequest", "Observation", "Organization", "Patient", "Practitioner", "Procedure", "Provenance", "Questionnaire", "QuestionnaireResponse", "RelatedPerson", "ServiceRequest", "Specimen"]
             self.fhir_resource_map = { x : StructType.fromJson(json.load(open(files('schemas').joinpath(x + ".json"), "r"))) for x in us_core_resources}
         
-        # Set the mapping with provided parameter 
+        # Set the mapping with provided paramete if the typing is correct
+        if type(fhir_resource_map) is dict:
+          self.fhir_resource_map = fhir_resource_map
+
+        # Fail gracefully 
         else:
-            self.fhir_resource_map = fhir_resource_map
+          raise Exception("Provided fhir_resource_map is not a valid. Please provide a dictionary or omit the fhir_resource_map parameter. You may have a subset=UScore to load the US Core Subset")
 
     #
     # Given a resourceName, return the spark schema representation

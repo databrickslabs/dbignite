@@ -22,7 +22,3 @@ print(us_core_mapping.keys())
 # COMMAND ----------
 
 print(us_core_mapping["Patient"])
-
-# COMMAND ----------
-
-
