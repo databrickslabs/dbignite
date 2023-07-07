@@ -19,7 +19,7 @@ VERSION = __version__
 setup(
     name="dbignite",
     version=VERSION,
-    author="Amir Kermany, Nathan Buesgens, Rachel Sim",
+    author="Amir Kermany, Nathan Buesgens, Rachel Sim, Aaron Zavora, William Smith",
     author_email="labs@databricks.com",
     description= DESCRIPTION,
     long_description=LONG_DESCRIPTION,
@@ -31,5 +31,6 @@ setup(
         "Operating System :: OS Independent",
     ],
     packages=['dbignite'],
+    package_data={"schemas": ["*.json"]},
     py_modules=['dbignite.data_model']
 )

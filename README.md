@@ -2,21 +2,18 @@
 __Health Data Interoperability__
 
 This library is designed to provide a low friction entry to performing analytics on 
-[FHIR](https://hl7.org/fhir/bundle.html) bundles, by extracting patient resources and
-writing the data in deltalake. 
+[FHIR](https://hl7.org/fhir/bundle.html) bundles by extracting resources and flattening. 
 
-# Usage Examples
-In this first phase of development, we drive
-towards the following core use case. At the same
-time we ensure the spec. is [extensible for the future
-use cases](#future-extensions).
+# Usage
 
-## Install package
+## Installation
 ```
-pip install git+https://github.com/databrickslabs/dbignite.git
+pip install git+https://github.com/databricks-industry-solutions/dbignite.git
 ```
 
-## Core Use Case: Quick Exploratory Analysis of a FHIR Bundle
+## Usage: Analysis of a FHIR Bundle
+
+## Usage: OMOP Common Data Model 
 
 The _data_model_ module contains a suite of common
 health data models such as FHIR, or OMOP CDM. 
