@@ -3,7 +3,7 @@ dbutils.library.restartPython()
 
 # COMMAND ----------
 
-pip install git+https://github.com/databricks-industry-solutions/dbignite.git@feature-FHIR-schema-dbignite-HLSSA-289
+pip install git+https://github.com/databricks-industry-solutions/dbignite.git@feature-FHIR-schema-dbignite-HLSSA-294
 
 # COMMAND ----------
 
@@ -45,6 +45,14 @@ explicit.select("birthdate").show(truncate=False)
 
 #names all match
 explicit.select("name").show(truncate=False)
+
+# COMMAND ----------
+
+us_core_fhir_resource_map = FhirSchemaModel(subset="UScore")
+
+# COMMAND ----------
+
+print(us_core_fhir_resource_map.keys())
 
 # COMMAND ----------
 
