@@ -50,7 +50,7 @@ print(explicit)
 
 # COMMAND ----------
 
-us_core_fhir_resource_map = FhirSchemaModel(subset="UScore")
+us_core_fhir_resource_map = FhirSchemaModel.us_core_fhir_resource_mapping()
 
 # COMMAND ----------
 
