@@ -58,11 +58,19 @@ print(us_core_fhir_resource_map.list_keys())
 
 # COMMAND ----------
 
-custom_fhir_resource_map = FhirSchemaModel(us_core_fhir_resource_map.fhir_resource_map)
+custom_provided_fhir_resource_map = FhirSchemaModel(us_core_fhir_resource_map.fhir_resource_map)
 
 # COMMAND ----------
 
-print(custom_fhir_resource_map.list_keys())
+print(custom_provided_fhir_resource_map.list_keys())
+
+# COMMAND ----------
+
+custom_array_fhir_resource_map = FhirSchemaModel.custom_fhir_resource_mapping(["Account", "Patient", "AllergyIntolerance"])
+
+# COMMAND ----------
+
+print(custom_array_fhir_resource_map.list_keys())
 
 # COMMAND ----------
 
