@@ -41,6 +41,37 @@ sorted(fhir_custom.list_keys()) # ['Claim', 'Condition', 'Patient']
 
 ### (2) FHIR interpretation for analytics
 
+``` python
+from pyspark.sql.functions import size,col, sum
+from dbignite.readers import read_from_directory
+
+#Set the reader to look at the sample data in this repo
+sample_data = "./dbignite-forked/sampledata/*json"
+bundle = read_from_directory(sample_data)
+
+#Read all the bundles and parse
+bundle.read_entry()
+
+#Show the total number of patient resources in all bundles
+bundle.count_resource_type("Patient").show() 
+#+------------+                                                                  
+#|resource_sum|
+#+------------+
+#|           3|
+#+------------+
+#
+
+#Show number of patient resources within each bundle 
+bundle.count_within_bundle_resource_type("Patient").show()
+#+-------------------+
+#|resource_bundle_sum|
+#+-------------------+
+#|                  1|
+#|                  1|
+#|                  1|
+#+-------------------+
+
+```
 
 ## Usage: Writing Data as a FHIR Bundle
 
