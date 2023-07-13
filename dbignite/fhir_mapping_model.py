@@ -43,7 +43,6 @@ class FhirSchemaModel:
     def us_core_fhir_resource_mapping(cls):
         us_core_resources = [
             "AllergyIntolerance",
-            "Bundle",
             "CarePlan",
             "CareTeam",
             "Condition",
@@ -71,9 +70,7 @@ class FhirSchemaModel:
             "Specimen",
         ]
         us_core_mapping = {
-            x: StructType.fromJson(
-                json.load(open(files("schemas").joinpath(x + ".json"), "r"))
-            )
+            x: StructType.fromJson(json.load(open(str(files("schemas")) + '/schemas/' + x + '.json', "r")))
             for x in us_core_resources
         }
         return FhirSchemaModel(fhir_resource_map=us_core_mapping)
