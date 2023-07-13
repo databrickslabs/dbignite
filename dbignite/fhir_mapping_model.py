@@ -8,9 +8,12 @@ class FhirSchemaModel:
     # Class that manages access to FHIR resourceType ->  Spark Schema mapping
     #
     def __init__(self, fhir_resource_map=None):
-        # Create mapping with ALL FHIR Resources
+        # Create mapping with ALL FHIR Resources, key,resourceName -> value,sparkSchema
         self.fhir_resource_map = (
-            {str(x).rsplit("/", 1)[1][:-5]: StructType.fromJson(json.load(open(x, "r"))) for x in os.listdir(str(files("dbignite")) + '/schemas')}
+            {
+                str(x)[:-5]: StructType.fromJson(json.load(open(str(files("dbignite")) + '/schemas/' + x, "r")))
+                for x in os.listdir(str(files("dbignite")) + '/schemas')
+             }
             if fhir_resource_map is None
             else fhir_resource_map
         )
@@ -28,7 +31,7 @@ class FhirSchemaModel:
     @classmethod
     def all_fhir_resource_mapping(cls):
         return {
-            str(x).rsplit("/", 1)[1][:-5]: StructType.fromJson(json.load(open(x, "r")))
+            str(x)[:-5]: StructType.fromJson(json.load(open(x, "r")))
             for x in list(files("schemas").iterdir())
         }
 
