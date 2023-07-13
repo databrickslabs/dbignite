@@ -1,39 +1,50 @@
-import os, sys, json, re
-from pyspark.sql.types import *
+import os, json
+from typing import Optional
 from importlib.resources import files
+from pyspark.sql.types import StructType
 
 
 class FhirSchemaModel:
     #
     # Class that manages access to FHIR resourceType ->  Spark Schema mapping
     #
-    def __init__(self, fhir_resource_map=None):
+    def __init__(
+        self, fhir_resource_map: Optional[dict[str, StructType]] = None
+    ) -> None:
         # Create mapping with ALL FHIR Resources, key,resourceName -> value,sparkSchema
-        self.fhir_resource_map = (
+        self.__fhir_resource_map = (
             {
-                str(x)[:-5]: StructType.fromJson(json.load(open(str(files("dbignite")) + '/schemas/' + x, "r")))
-                for x in os.listdir(str(files("dbignite")) + '/schemas')
-             }
+                resource_type: FhirSchemaModel.__read_schema(schema_path)
+                for resource_type, schema_path in FhirSchemaModel.__get_schema_paths()
+            }
             if fhir_resource_map is None
             else fhir_resource_map
         )
 
+    @classmethod
+    def __read_schema(cls, path: str) -> StructType:
+        with open(path, "r") as f:
+            return StructType.fromJson(json.load(f))
+
+    @classmethod
+    def __get_schema_paths(cls) -> list[tuple[str, str]]:
+        schema_dir = str(files("dbignite")) + "/schemas"
+        return [
+            (os.path.splitext(p)[0], os.path.join(schema_dir, p))
+            for p in os.listdir(schema_dir)
+        ]
+
     #
     # Given a resourceName, return the spark schema representation
     #
-    def schema(self, resourceName):
-        return self.fhir_resource_map[resourceName]
+    def schema(self, resource_type: str) -> StructType:
+        return self.__fhir_resource_map[resource_type]
 
     #
     # Load all FHIR resources into one dictionary
     #
-
-    @classmethod
-    def all_fhir_resource_mapping(cls):
-        return {
-            str(x)[:-5]: StructType.fromJson(json.load(open(x, "r")))
-            for x in list(files("schemas").iterdir())
-        }
+    def all_fhir_resource_mapping(cls) -> "FhirSchemaModel":
+        return FhirSchemaModel()
 
     #
     # Load US Core FHIR resources into one dictionary
@@ -69,22 +80,17 @@ class FhirSchemaModel:
             "ServiceRequest",
             "Specimen",
         ]
-        us_core_mapping = {
-            x: StructType.fromJson(json.load(open(str(files("dbignite")) + '/schemas/' + x + '.json', "r")))
-            for x in us_core_resources
-        }
-        return FhirSchemaModel(fhir_resource_map=us_core_mapping)
+        return FhirSchemaModel.custom_fhir_resource_mapping(us_core_resources)
 
     #
     # Load supplied subset of FHIR resources into one dictionary
     #
     @classmethod
-    def custom_fhir_resource_mapping(cls, resource_list):
+    def custom_fhir_resource_mapping(cls, resource_list: list[str]) -> "FhirSchemaModel":
         custom_mapping = {
-            x: StructType.fromJson(
-                json.load(open(str(files("dbignite")) + "/schemas/" + x + ".json", "r"))
-            )
-            for x in resource_list
+            resource_type: FhirSchemaModel.__read_schema(schema_path)
+            for resource_type, schema_path in FhirSchemaModel.__get_schema_paths()
+            if resource_type in resource_list
         }
         return FhirSchemaModel(fhir_resource_map=custom_mapping)
 
@@ -92,13 +98,13 @@ class FhirSchemaModel:
     # Return all keys of FHIR Resource References
     #
     def list_keys(self):
-        return list(self.fhir_resource_map.keys())
+        return list(self.__fhir_resource_map.keys())
 
     #
-    # Return all keys of FHIR Resources pacakged
+    # Return all keys of FHIR Resources packaged
     #
     def list_packaged_data(self):
-        return list(files("schemas").iterdir())
+        return [resource_type for resource_type, _ in FhirSchemaModel.__get_schema_paths()]
 
     #
     # Allow searching at the metadata level contained in the spark schema
