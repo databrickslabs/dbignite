@@ -6,8 +6,9 @@ This library is designed to provide a low friction entry to performing analytics
 
 # Usage
 
-!! Warning: Recent updates and restructures have been made in this package. The below information does not reflect latest information for OMOP
-
+>  **Warning** 
+> This section has not been updated to reflect latest package updates
+> 
 ## Installation
 ```
 pip install git+https://github.com/databricks-industry-solutions/dbignite.git
