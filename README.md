@@ -20,7 +20,22 @@ This functionality exists in two components
 ### (1) FHIR representations
 
 ``` python 
-	
+from  dbignite.fhir_mapping_model import FhirSchemaModel
+fhir_schema = FhirSchemaModel()
+
+#list all supported FHIR resources
+sorted(fhir_schema.list_keys()) # ['Account', 'ActivityDefinition', 'ActorDefinition'...
+
+#only use a subset of FHIR resources (built in CORE list)
+fhir_core = FhirSchemaModel().us_core_fhir_resource_mapping()
+sorted(fhir_core.list_keys()) # ['AllergyIntolerance', 'CarePlan', 'CareTeam', 'Condition', ...
+
+#create your own custom resource list
+fhir_custom = FhirSchemaModel().custom_fhir_resource_mapping(['Patient', 'Claim', 'Condition'])
+sorted(fhir_custom.list_keys()) # ['Claim', 'Condition', 'Patient']
+
+#create your own custom schema mapping (advanced usage, not recommended)
+# ... FhirSchemaModel(fhir_resource_map = <your dictionary of resource to spark schema>)
 ```
 
 ### (2) FHIR interpretation for analytics
