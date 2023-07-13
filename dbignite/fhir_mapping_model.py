@@ -39,6 +39,14 @@ class FhirSchemaModel:
     #
     def schema(self, resource_type: str) -> StructType:
         return self.__fhir_resource_map[resource_type]
+    
+
+    #
+    # Returns a dictionary of all the schemas that are included in this FhirMappingModel
+    #
+    @property
+    def fhir_resource_map(self) -> dict[str, StructType]:
+        return self.__fhir_resource_map
 
     #
     # Load all FHIR resources into one dictionary
