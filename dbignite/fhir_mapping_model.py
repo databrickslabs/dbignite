@@ -82,7 +82,7 @@ class FhirSchemaModel:
     def custom_fhir_resource_mapping(cls, resource_list):
         custom_mapping = {
             x: StructType.fromJson(
-                json.load(open(str(files("dbignite"))  + x + ".json", "r"))
+                json.load(open(str(files("dbignite")) + "/schemas/" + x + ".json", "r"))
             )
             for x in resource_list
         }
