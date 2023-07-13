@@ -15,7 +15,6 @@ pip install git+https://github.com/databricks-industry-solutions/dbignite.git
 
 This functionality exists in two components 
 
-
 1. Representation of a FHIR schema and resources (see dbiginte/schemas, dbignite/fhir_mapping_model.py)
 2. Interpretation of a FHIR bundle for consumable analtyics (see dbiginte/*py)
 
@@ -46,8 +45,8 @@ sorted(fhir_custom.list_keys()) # ['Claim', 'Condition', 'Patient']
 
 ## Usage: OMOP Common Data Model 
 
- **Warning** 
- This section has not been updated to reflect latest package updates
+>  **Warning** 
+> This section has not been updated to reflect latest package updates
 
 The _data_model_ module contains a suite of common
 health data models such as FHIR, or OMOP CDM. 
