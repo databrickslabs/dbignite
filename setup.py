@@ -19,7 +19,7 @@ VERSION = __version__
 setup(
     name="dbignite",
     version=VERSION,
-    author="Amir Kermany, Nathan Buesgens, Rachel Sim, Aaron Zavora, William Smith",
+    author="Amir Kermany, Nathan Buesgens, Rachel Sim, Aaron Zavora, William Smith, Jesse Young",
     author_email="labs@databricks.com",
     description= DESCRIPTION,
     long_description=LONG_DESCRIPTION,
