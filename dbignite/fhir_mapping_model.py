@@ -70,7 +70,7 @@ class FhirSchemaModel:
             "Specimen",
         ]
         us_core_mapping = {
-            x: StructType.fromJson(json.load(open(str(files("schemas")) + '/schemas/' + x + '.json', "r")))
+            x: StructType.fromJson(json.load(open(str(files("dbignite")) + '/schemas/' + x + '.json', "r")))
             for x in us_core_resources
         }
         return FhirSchemaModel(fhir_resource_map=us_core_mapping)
@@ -78,12 +78,11 @@ class FhirSchemaModel:
     #
     # Load supplied subset of FHIR resources into one dictionary
     #
-
     @classmethod
     def custom_fhir_resource_mapping(cls, resource_list):
         custom_mapping = {
             x: StructType.fromJson(
-                json.load(open(files("schemas").joinpath(x + ".json"), "r"))
+                json.load(open(str(files("dbignite"))  + x + ".json", "r"))
             )
             for x in resource_list
         }
