@@ -6,45 +6,16 @@ This library is designed to provide a low friction entry to performing analytics
 
 # Usage
 
+!! Warning: Recent updates and restructures have been made in this package. The below information does not reflect latest information for OMOP
+
 ## Installation
 ```
 pip install git+https://github.com/databricks-industry-solutions/dbignite.git
 ```
 
-## Usage: Read & Analyze a FHIR Bundle
-
-This functionality exists in two components
-	(1) Representation of a FHIR schema and resources (see dbiginte/schemas, dbignite/fhir_mapping_model.py)
-	(2) Interpretation of a FHIR bundle for consumable analtyics (see dbiginte/*py)
-
-### (1) FHIR representations
-
-``` python 
-from  dbignite.fhir_mapping_model import FhirSchemaModel
-fhir_schema = FhirSchemaModel()
-
-#list all supported FHIR resources
-sorted(fhir_schema.list_keys()) # ['Account', 'ActivityDefinition', 'ActorDefinition'...
-
-#only use a subset of FHIR resources (built in CORE list)
-fhir_core = FhirSchemaModel().us_core_fhir_resource_mapping()
-sorted(fhir_core.list_keys()) # ['AllergyIntolerance', 'CarePlan', 'CareTeam', 'Condition', ...
-
-#create your own custom resource list
-fhir_custom = FhirSchemaModel().custom_fhir_resource_mapping(['Patient', 'Claim', 'Condition'])
-sorted(fhir_custom.list_keys()) # ['Claim', 'Condition', 'Patient']
-
-#create your own custom schema mapping (advanced usage, not recommended)
-# ... FhirSchemaModel(fhir_resource_map = <your dictionary of resource to spark schema>)
-```
-
-### (2) FHIR interpretation for analytics
-
-## Usage: Writing Data as a FHIR Bundle
+## Usage: Analysis of a FHIR Bundle
 
 ## Usage: OMOP Common Data Model 
-
-!! Warning: this section has not been updated to reflect latest package updates
 
 The _data_model_ module contains a suite of common
 health data models such as FHIR, or OMOP CDM. 

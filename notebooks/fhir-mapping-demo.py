@@ -3,7 +3,7 @@ dbutils.library.restartPython()
 
 # COMMAND ----------
 
-pip install git+https://github.com/databricks-industry-solutions/dbignite.git@feature-FHIR-schema-dbignite-HLSSA-289
+pip install git+https://github.com/databricks-industry-solutions/dbignite.git@feature-FHIR-schema-dbignite-HLSSA-294
 
 # COMMAND ----------
 
@@ -35,8 +35,6 @@ infer = spark.createDataFrame([abe])
 schema =  fhir_resource_map.schema("Patient")
 explicit = spark.createDataFrame([abe], schema) 
 
-display(explicit)
-
 # COMMAND ----------
 
 
@@ -45,6 +43,34 @@ explicit.select("birthdate").show(truncate=False)
 
 #names all match
 explicit.select("name").show(truncate=False)
+
+# COMMAND ----------
+
+print(explicit)
+
+# COMMAND ----------
+
+us_core_fhir_resource_map = FhirSchemaModel.us_core_fhir_resource_mapping()
+
+# COMMAND ----------
+
+print(us_core_fhir_resource_map.list_keys())
+
+# COMMAND ----------
+
+custom_provided_fhir_resource_map = FhirSchemaModel(us_core_fhir_resource_map.fhir_resource_map)
+
+# COMMAND ----------
+
+print(custom_provided_fhir_resource_map.list_keys())
+
+# COMMAND ----------
+
+custom_array_fhir_resource_map = FhirSchemaModel.custom_fhir_resource_mapping(["Account", "Patient", "AllergyIntolerance"])
+
+# COMMAND ----------
+
+print(custom_array_fhir_resource_map.list_keys())
 
 # COMMAND ----------
 
