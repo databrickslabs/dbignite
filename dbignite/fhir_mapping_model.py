@@ -1,17 +1,17 @@
 import os, json
-from typing import Optional
+from typing import Optional, ClassVar
 from importlib.resources import files
 from pyspark.sql.types import StructType
 
 
 class FhirSchemaModel:
+
     #
     # Class that manages access to FHIR resourceType ->  Spark Schema mapping
     #
     def __init__(
         self, fhir_resource_map: Optional[dict[str, StructType]] = None
     ) -> None:
-        # Create mapping with ALL FHIR Resources, key,resourceName -> value,sparkSchema
         self.__fhir_resource_map = (
             {
                 resource_type: FhirSchemaModel.__read_schema(schema_path)
@@ -21,10 +21,12 @@ class FhirSchemaModel:
             else fhir_resource_map
         )
 
+
     @classmethod
     def __read_schema(cls, path: str) -> StructType:
         with open(path, "r") as f:
             return StructType.fromJson(json.load(f))
+
 
     @classmethod
     def __get_schema_paths(cls) -> list[tuple[str, str]]:
@@ -32,6 +34,7 @@ class FhirSchemaModel:
         return [
             (os.path.splitext(p)[0], os.path.join(schema_dir, p))
             for p in os.listdir(schema_dir)
+            if p.endswith(".json")
         ]
 
     #
