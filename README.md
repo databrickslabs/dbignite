@@ -14,8 +14,8 @@ pip install git+https://github.com/databricks-industry-solutions/dbignite.git
 ## Usage: Read & Analyze a FHIR Bundle
 
 This functionality exists in two components
-	(1) Representation of a FHIR schema and resources (see dbiginte/schemas, dbignite/fhir_mapping_model.py)
-	(2) Interpretation of a FHIR bundle for consumable analtyics (see dbiginte/*py)
+	1. Representation of a FHIR schema and resources (see dbiginte/schemas, dbignite/fhir_mapping_model.py)
+	2. Interpretation of a FHIR bundle for consumable analtyics (see dbiginte/*py)
 
 ### (1) FHIR representations
 
