@@ -46,7 +46,8 @@ sorted(fhir_custom.list_keys()) # ['Claim', 'Condition', 'Patient']
 
 ## Usage: OMOP Common Data Model 
 
-!! Warning: this section has not been updated to reflect latest package updates
+ **Warning** 
+ This section has not been updated to reflect latest package updates
 
 The _data_model_ module contains a suite of common
 health data models such as FHIR, or OMOP CDM. 
