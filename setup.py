@@ -31,6 +31,6 @@ setup(
         "Operating System :: OS Independent",
     ],
     packages=['dbignite'],
-    package_data={"schemas": ["*.json"]},
+    package_data={'': ["schemas/*.json"]},
     py_modules=['dbignite.data_model']
 )
