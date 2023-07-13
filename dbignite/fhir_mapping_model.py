@@ -9,15 +9,11 @@ class FhirSchemaModel:
     #
     def __init__(self, fhir_resource_map=None):
         # Create mapping with ALL FHIR Resources
-        if fhir_resource_map is None:
-            self.fhir_resource_map = {
-                str(x).rsplit("/", 1)[1][:-5]: StructType.fromJson(
-                    json.load(open(x, "r"))
-                )
-                for x in list(files("schemas").iterdir())
-            }
-        else:
-            self.fhir_resource_map = fhir_resource_map
+        self.fhir_resource_map = (
+            {str(x).rsplit("/", 1)[1][:-5]: StructType.fromJson(json.load(open(x, "r"))) for x in os.listdir(str(files("dbignite")) + '/schemas')}
+            if fhir_resource_map is None
+            else fhir_resource_map
+        )
 
     #
     # Given a resourceName, return the spark schema representation

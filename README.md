@@ -11,9 +11,25 @@ This library is designed to provide a low friction entry to performing analytics
 pip install git+https://github.com/databricks-industry-solutions/dbignite.git
 ```
 
-## Usage: Analysis of a FHIR Bundle
+## Usage: Read & Analyze a FHIR Bundle
+
+This functionality exists in two components
+	(1) Representation of a FHIR schema and resources (see dbiginte/schemas, dbignite/fhir_mapping_model.py)
+	(2) Interpretation of a FHIR bundle for consumable analtyics (see dbiginte/*py)
+
+### (1) FHIR representations
+
+``` python 
+	
+```
+
+### (2) FHIR interpretation for analytics
+
+## Usage: Writing Data as a FHIR Bundle
 
 ## Usage: OMOP Common Data Model 
+
+!! Warning: this section has not been updated to reflect latest package updates
 
 The _data_model_ module contains a suite of common
 health data models such as FHIR, or OMOP CDM. 
