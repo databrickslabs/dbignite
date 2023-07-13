@@ -41,7 +41,13 @@ sorted(fhir_custom.list_keys()) # ['Claim', 'Condition', 'Patient']
 
 ### (2) FHIR interpretation for analytics
 
+> **Note**
+> Under Construction
+
 ## Usage: Writing Data as a FHIR Bundle
+
+> **Note**
+> Under Construction
 
 ## Usage: OMOP Common Data Model 
 
