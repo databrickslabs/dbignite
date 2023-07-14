@@ -99,4 +99,4 @@ The core of a  FHIR bundle is the list of entry resources. This information is f
 >  **Warning** 
 > This section has not been updated to reflect latest package updates
 
-See [DBIgnite OMOP](dbignite/OMOP) for details 
+See [DBIgnite OMOP](dbignite/omop) for details 
