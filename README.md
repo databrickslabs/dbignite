@@ -18,7 +18,7 @@ This functionality exists in two components
 1. Representation of a FHIR schema and resources (see dbiginte/schemas, dbignite/fhir_mapping_model.py)
 2. Interpretation of a FHIR bundle for consumable analtyics (see dbiginte/*py)
 
-### (1) FHIR representations
+### 1. FHIR representations
 
 ``` python 
 from  dbignite.fhir_mapping_model import FhirSchemaModel
@@ -39,7 +39,9 @@ sorted(fhir_custom.list_keys()) # ['Claim', 'Condition', 'Patient']
 # ... FhirSchemaModel(fhir_resource_map = <your dictionary of resource to spark schema>)
 ```
 
-### (2) FHIR interpretation for analytics
+### 2. FHIR interpretation for analytics
+
+#### Summary Level FHIR Bundle Information
 
 ``` python
 from pyspark.sql.functions import size,col, sum
@@ -73,9 +75,22 @@ bundle.count_within_bundle_resource_type("Patient").show()
 
 ```
 
-## Usage: Writing Data as a FHIR Bundle
+#### Detailed Mapping Level FHIR Bundle Information
 
-## Usage: OMOP Common Data Model 
+>  **Warning** 
+> This section is under construction
+
+#### Usage: Writing Data as a FHIR Bundle 
+
+>  **Warning** 
+> This section is under construction
+
+#### Usage: Seeing a Patient in a Hospital in Real Time  
+
+>  **Warning** 
+> This section is under construction
+
+#### Usage: OMOP Common Data Model 
 
 >  **Warning** 
 > This section has not been updated to reflect latest package updates
