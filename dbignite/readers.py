@@ -2,6 +2,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
 
 from .fhir_resource import FhirResource
+
 def read_from_directory(
     path: str, spark: SparkSession = SparkSession.getActiveSession()
 ) -> FhirResource:
