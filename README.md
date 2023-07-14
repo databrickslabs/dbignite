@@ -79,7 +79,7 @@ bundle.count_within_bundle_resource_type("Patient").show()
 
 At the core of a FHIR bundle is the list of Bundle resources. To leverage this information, its flattened representation is in DBIgnite as a separate column in a DataFrame. The following examples depicts common interactions and use cases. 
 
-[!image](/img/FhirBundleSchemaClass.png)
+[!image](/img/FhirBundleSchemaClass.png?raw=true)
 
 >  **Warning** 
 > This section is under construction
