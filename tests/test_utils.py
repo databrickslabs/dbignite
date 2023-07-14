@@ -1,7 +1,6 @@
 from pyspark.sql import SparkSession
-import os
-import re
-import pytest
+import os, re, pytest
+from shutil import *
 
 from chispa import *
 from chispa.schema_comparer import *
@@ -16,15 +15,17 @@ BRANCH = re.sub(r"\W+", "", os.environ.get("BRANCH", 'local_test'))
 TEST_BUNDLE_PATH = "./sampledata/"
 TEST_DATABASE = f"test_{REPO}_{BRANCH}"
 
+@pytest.fixture
+def get_entries_inline_json_df(spark_session):
+    return FhirBundles(path=TEST_BUNDLE_PATH).loadEntries()
 
 @pytest.fixture
 def get_entries_df(spark_session):
-    entries_df = FhirBundlesToCdm(spark_session).loadEntries(TEST_BUNDLE_PATH)
-    return(entries_df)
+    return FhirBundles(path=TEST_BUNDLE_PATH).loadEntries()
 
 @pytest.fixture
 def fhir_model():
-    fhir_model=FhirBundles(TEST_BUNDLE_PATH)
+    fhir_model=FhirBundles(path=TEST_BUNDLE_PATH)
     return(fhir_model)
 
 @pytest.fixture
@@ -34,12 +35,23 @@ def cdm_model():
 
 class TestUtils:
 
+    def test_setup(self):
+        rmtree("./spark-warehouse/", ignore_errors=True)
+
     def test_entries_to_person(self,get_entries_df) -> None:
         person_df = entries_to_person(get_entries_df)
         assert person_df.count() == 3
         assert_schema_equality(person_df.schema, PERSON_SCHEMA, ignore_nullable=True)
 
-
+    def test_entries_inline_json(self, spark_session):
+        fhir=FhirBundles(defaultResource=FhirBundles().asInlineJsonSingleton, path="./sampledata/inline_records/")
+        assert fhir.loadEntries().count() == 29
+        import json
+        x = json.loads(fhir.loadEntries().take(1)[0]['entry_json'])
+        assert x['resourceType']=='Patient'
+        assert x['gender']=='male'
+        assert x['birthDate'] =='1963-06-09'
+            
     def test_entries_to_condition(self, get_entries_df) -> None:
         condition_df = entries_to_condition(get_entries_df)
         assert condition_df.count() == 103
@@ -55,7 +67,6 @@ class TestUtils:
         assert encounter_df.count() == 128
         assert_schema_equality(encounter_df.schema, ENCOUNTER_SCHEMA,ignore_nullable=True)
 
-
 class TestTransformers:
 
     def test_loadEntries(self, get_entries_df) -> None:
@@ -63,7 +74,7 @@ class TestTransformers:
         assert_schema_equality(get_entries_df.schema, JSON_ENTRY_SCHEMA,ignore_nullable=True)
 
     def test_fhir_bundles_to_omop_cdm(self, spark_session,fhir_model,cdm_model) -> None:
-        FhirBundlesToCdm(spark_session).transform(fhir_model, cdm_model, True)
+        FhirBundlesToCdm().transform(fhir_model, cdm_model, True)
         tables = [t.tableName for t in spark_session.sql(f"SHOW TABLES FROM {TEST_DATABASE}").collect()]
 
         assert TEST_DATABASE in cdm_model.listDatabases()
@@ -75,10 +86,11 @@ class TestTransformers:
         assert spark_session.table(f"{TEST_DATABASE}.person").count() == 3
 
     def test_omop_cdm_to_person_dashboard(self, spark_session, fhir_model, cdm_model) -> None:
-        transformer = CdmToPersonDashboard(spark_session)
+        transformer = CdmToPersonDashboard()
         person_dash_model=PersonDashboard()
         
-        FhirBundlesToCdm(spark_session).transform(fhir_model, cdm_model, True)
-        CdmToPersonDashboard(spark_session).transform(cdm_model,person_dash_model)
+        FhirBundlesToCdm().transform(fhir_model, cdm_model, True)
+        CdmToPersonDashboard().transform(cdm_model,person_dash_model)
         person_dashboard_df=person_dash_model.summary()
         assert_schema_equality(CONDITION_SUMMARY_SCHEMA, person_dashboard_df.select('conditions').schema, ignore_nullable=True)
+        
