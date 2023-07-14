@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import ClassVar, Optional, cast
 
+from dbignite.fhir_mapping_model import FhirSchemaModel
+
 from .fhir_mapping_model import FhirSchemaModel
 
 from pyspark.sql import Column, DataFrame
@@ -13,7 +15,7 @@ from pyspark.sql.functions import (
     transform,
     upper,
     size,
-    sum
+    sum,
 )
 from pyspark.sql.types import ArrayType, StringType, StructType
 
@@ -28,7 +30,7 @@ class FhirResource(ABC):
         ...
 
     @abstractmethod
-    def read_data(self, schemas: FhirSchemaModel = FhirSchemaModel()) -> DataFrame:
+    def read_data(self, schemas: Optional[FhirSchemaModel] = None) -> DataFrame:
         ...
 
     @staticmethod
@@ -92,8 +94,9 @@ class GenericFhirResource(FhirResource):
     def resource_type() -> str:
         return "Generic"
 
-    def read_data(self, schemas: FhirSchemaModel = FhirSchemaModel()) -> DataFrame:
+    def read_data(self, schemas: Optional[FhirSchemaModel] = None) -> DataFrame:
         raise NotImplementedError
+
 
 class BundleFhirResource(FhirResource):
     BUNDLE_SCHEMA: ClassVar[StructType] = (
@@ -104,28 +107,37 @@ class BundleFhirResource(FhirResource):
 
     def __init__(self, raw_data: DataFrame) -> None:
         self.__raw_data = raw_data
-        self.entry = None
+        self.__entry: Optional[DataFrame] = None
 
     def print_summary(self) -> None:
         print(f"Total bundles: {self.__raw_data.count()}")
 
-    def read_entry(self) -> None:
-        if self.entry is None:
-            self.entry= self.read_data()
+    @property
+    def entry(self) -> DataFrame:
+        if self.__entry is None:
+            self.__entry = self.read_data()
+        return self.__entry
 
     #
     # Count across all bundles
     #
-    def count_resource_type(self, resource_type_name, column_alias="resource_sum"):
-        return self.entry.select(sum(size(col(resource_type_name))).alias(column_alias))
+    def count_resource_type(
+        self, resource_type: str, column_alias: str = "resource_sum"
+    ) -> DataFrame:
+        return self.entry.select(sum(size(col(resource_type))).alias(column_alias))
 
     #
     # Count within bundle
     #
-    def count_within_bundle_resource_type(self, resource_type_name, column_alias="resource_bundle_sum"):
-        return self.entry.select(size(col(resource_type_name)).alias(column_alias))
-        
-    def read_data(self, schemas: FhirSchemaModel = FhirSchemaModel()) -> DataFrame:
+    def count_within_bundle_resource_type(
+        self, resource_type: str, column_alias: str = "resource_bundle_sum"
+    ) -> DataFrame:
+        return self.entry.select(size(col(resource_type)).alias(column_alias))
+
+    def read_data(self, schemas: Optional[FhirSchemaModel] = None) -> DataFrame:
+        if not schemas:
+            schemas = FhirSchemaModel()
+
         bundle = from_json("resource", BundleFhirResource.BUNDLE_SCHEMA).alias("bundle")
         resource_columns = [
             self.__convert_from_json(
