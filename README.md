@@ -52,7 +52,7 @@ sample_data = "./dbignite-forked/sampledata/*json"
 bundle = read_from_directory(sample_data)
 
 #Read all the bundles and parse
-bundle.read_entry()
+bundle.entry()
 
 #Show the total number of patient resources in all bundles
 bundle.count_resource_type("Patient").show() 
