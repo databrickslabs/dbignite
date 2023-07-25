@@ -4,7 +4,7 @@ from typing import ClassVar, Optional, cast
 from dbignite.fhir_mapping_model import FhirSchemaModel
 
 from .fhir_mapping_model import FhirSchemaModel
-
+import uuid
 from pyspark.sql import Column, DataFrame
 from pyspark.sql.functions import (
     col,
@@ -97,7 +97,6 @@ class GenericFhirResource(FhirResource):
     def read_data(self, schemas: Optional[FhirSchemaModel] = None) -> DataFrame:
         raise NotImplementedError
 
-
 class BundleFhirResource(FhirResource):
     BUNDLE_SCHEMA: ClassVar[StructType] = (
         StructType()
@@ -111,6 +110,7 @@ class BundleFhirResource(FhirResource):
         self.__entry = entry
         from pyspark.sql import SparkSession
         SparkSession.getActiveSession().sparkContext.broadcast(self.__schemas)
+        uuidUdf= udf(lambda : str(uuid.uuid4()),StringType())
 
     def print_summary(self) -> None:
         print(f"Total bundles: {self.__raw_data.count()}")
@@ -118,7 +118,7 @@ class BundleFhirResource(FhirResource):
     @property
     def entry(self) -> DataFrame:
         if self.__entry is None:
-            self.__entry = self.read_data()
+            self.__entry = self.read_data().withColumn("bundleUUID",uuidUdf())
         return self.__entry
 
     #
@@ -129,6 +129,9 @@ class BundleFhirResource(FhirResource):
     ) -> DataFrame:
         return self.entry.select(sum(size(col(resource_type))).alias(column_alias))
 
+    #
+    # Convert entry DF into FHIR compliant json text 
+    #
     def entry_to_text(self):
         pass
     
