@@ -4,7 +4,7 @@ from typing import ClassVar, Optional, cast
 from dbignite.fhir_mapping_model import FhirSchemaModel
 
 from .fhir_mapping_model import FhirSchemaModel
-
+import uuid
 from pyspark.sql import Column, DataFrame
 from pyspark.sql.functions import (
     col,
@@ -30,7 +30,7 @@ class FhirResource(ABC):
         ...
 
     @abstractmethod
-    def read_data(self, schemas: Optional[FhirSchemaModel] = None) -> DataFrame:
+    def read_data(self) -> DataFrame:
         ...
 
     @staticmethod
@@ -97,7 +97,6 @@ class GenericFhirResource(FhirResource):
     def read_data(self, schemas: Optional[FhirSchemaModel] = None) -> DataFrame:
         raise NotImplementedError
 
-
 class BundleFhirResource(FhirResource):
     BUNDLE_SCHEMA: ClassVar[StructType] = (
         StructType()
@@ -105,9 +104,13 @@ class BundleFhirResource(FhirResource):
         .add("entry", ArrayType(StructType().add("resource", StringType())))
     )
 
-    def __init__(self, raw_data: DataFrame) -> None:
+    def __init__(self, raw_data: DataFrame, entry: DataFrame = None, schema = FhirSchemaModel()) -> None:
         self.__raw_data = raw_data
-        self.__entry: Optional[DataFrame] = None
+        self.__schemas = schema
+        self.__entry = entry
+        from pyspark.sql import SparkSession
+        SparkSession.getActiveSession().sparkContext.broadcast(self.__schemas)
+        uuidUdf= udf(lambda : str(uuid.uuid4()),StringType())
 
     def print_summary(self) -> None:
         print(f"Total bundles: {self.__raw_data.count()}")
@@ -115,7 +118,7 @@ class BundleFhirResource(FhirResource):
     @property
     def entry(self) -> DataFrame:
         if self.__entry is None:
-            self.__entry = self.read_data()
+            self.__entry = self.read_data().withColumn("bundleUUID",uuidUdf())
         return self.__entry
 
     #
@@ -127,6 +130,25 @@ class BundleFhirResource(FhirResource):
         return self.entry.select(sum(size(col(resource_type))).alias(column_alias))
 
     #
+    # Convert entry DF into FHIR compliant json text 
+    #
+    def entry_to_text(self):
+        pass
+    
+    #
+    # Given a resource list, return bundles that contain 1 or more of each resource
+    #
+    def filter_all_of(self, resource_list, entry):
+        pass
+
+    #
+    # Given a resource list, return bundles that contain 1 or more of any of the given resources
+    #
+    def filter_one_of(self, resource_list, entry): 
+        pass
+
+    
+    #
     # Count within bundle
     #
     def count_within_bundle_resource_type(
@@ -134,10 +156,10 @@ class BundleFhirResource(FhirResource):
     ) -> DataFrame:
         return self.entry.select(size(col(resource_type)).alias(column_alias))
 
-    def read_data(self, schemas: Optional[FhirSchemaModel] = None) -> DataFrame:
-        if not schemas:
-            schemas = FhirSchemaModel()
-
+    #
+    # Internalizing schemas to support bi-directional writes
+    #
+    def read_data(self) -> DataFrame:
         bundle = from_json("resource", BundleFhirResource.BUNDLE_SCHEMA).alias("bundle")
         resource_columns = [
             self.__convert_from_json(
@@ -145,7 +167,7 @@ class BundleFhirResource(FhirResource):
                 schema,
                 resource_type,
             )
-            for resource_type, schema in schemas.fhir_resource_map.items()
+            for resource_type, schema in self.__schemas.fhir_resource_map.items()
             if resource_type.upper() != "BUNDLE"
         ]
 
