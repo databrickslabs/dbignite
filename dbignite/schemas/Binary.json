@@ -696,12 +696,12 @@
     "metadata" : { }
   }, {
     "name" : "securityContext",
-    "type" : {
-      "type" : "struct",
-      "fields" : [ ]
-    },
+    "type" : "string",
     "nullable" : true,
-    "metadata" : { }
+    "metadata" : {
+      "description" : "A reference from one resource to another.",
+      "path" : "#/definitions/Binary/properties/securityContext/$ref//#/definitions/Reference"
+    }
   }, {
     "name" : "data",
     "type" : "string",

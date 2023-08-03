@@ -804,12 +804,12 @@
     "metadata" : { }
   }, {
     "name" : "author",
-    "type" : {
-      "type" : "struct",
-      "fields" : [ ]
-    },
+    "type" : "string",
     "nullable" : true,
-    "metadata" : { }
+    "metadata" : {
+      "description" : "A reference from one resource to another.",
+      "path" : "#/definitions/Linkage/properties/author/$ref//#/definitions/Reference"
+    }
   }, {
     "name" : "item",
     "type" : {
@@ -886,12 +886,12 @@
           "metadata" : { }
         }, {
           "name" : "resource",
-          "type" : {
-            "type" : "struct",
-            "fields" : [ ]
-          },
+          "type" : "string",
           "nullable" : true,
-          "metadata" : { }
+          "metadata" : {
+            "description" : "A reference from one resource to another.",
+            "path" : "#/definitions/Linkage/properties/item/items/$ref//#/definitions/Linkage_Item/properties/resource/$ref//#/definitions/Reference"
+          }
         } ]
       },
       "containsNull" : true
