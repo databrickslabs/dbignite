@@ -47,8 +47,8 @@ sorted(fhir_custom.list_keys()) # ['Claim', 'Condition', 'Patient']
 from pyspark.sql.functions import size,col, sum
 from dbignite.readers import read_from_directory
 
-#Set the reader to look at the sample data in this repo
-sample_data = "./dbignite-forked/sampledata/*json"
+#Read sample data from a public s3 bucket
+sample_data = "s3://hls-eng-data-public/data/synthea/fhir/fhir/*json"
 bundle = read_from_directory(sample_data)
 
 #Read all the bundles and parse
