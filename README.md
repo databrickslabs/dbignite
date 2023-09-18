@@ -108,7 +108,7 @@ df = bundle.entry.withColumn("bundleUUID", expr("uuid()"))
 select p.bundleUUID as UNIQUE_FHIR_ID, 
   p.Patient.id as patient_id,
   p.patient.birthDate,
-  c.claim.patient as claim_patient_id, --Note this column looks unstructed because it is an ambigious "reference" in the FHIR JSON schema. Can be customized  further as well 
+  c.claim.patient as claim_patient_id, 
   c.claim.id as claim_id,
   c.claim.type.coding.code[0] as claim_type_cd, --837I = Institutional, 837P = Professional
   c.claim.insurance.coverage[0],
@@ -117,7 +117,7 @@ select p.bundleUUID as UNIQUE_FHIR_ID,
   c.claim.item.productOrService.coding.code as procedure_code,
   c.claim.item.productOrService.coding.system as procedure_coding_system
 from (select bundleUUID, explode(Patient) as patient from hls_dev.default.patient) p --all patient information
-  inner join (select bundleUUID, explode(claim) as claim from hls_dev.default.claim) c --all conditions from that patient 
+  inner join (select bundleUUID, explode(claim) as claim from hls_dev.default.claim) c --all claims from that patient 
     on p.bundleUUID = c.bundleUUID --Only show records that were bundled together
 limit 100
 ```
@@ -141,7 +141,8 @@ df.select(explode("Patient").alias("Patient"), col("bundleUUID"), col("Claim")).
   col("claim.item.productOrService.coding.display").alias("prcdr_description"),
   col("claim.item.productOrService.coding.code").alias("prcdr_cd"),
   col("claim.item.productOrService.coding.system").alias("prcdr_coding_system")
-)
+).show()
+
 ```
 
 #### Usage: Writing Data as a FHIR Bundle 

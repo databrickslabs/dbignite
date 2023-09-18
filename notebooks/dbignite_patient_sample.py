@@ -261,7 +261,7 @@ df.select(col("bundleUUID"), col("Practitioner")).write.mode("overwrite").saveAs
 # MAGIC select p.bundleUUID as UNIQUE_FHIR_ID, 
 # MAGIC   p.Patient.id as patient_id,
 # MAGIC   p.patient.birthDate,
-# MAGIC   c.claim.patient as claim_patient_id, --Note this column looks unstructed because it is an ambigious "reference" in the FHIR JSON schema. Can be customized  further as well 
+# MAGIC   c.claim.patient as claim_patient_id, 
 # MAGIC   c.claim.id as claim_id,
 # MAGIC   c.claim.type.coding.code[0] as claim_type_cd, --837I = Institutional, 837P = Professional
 # MAGIC   c.claim.insurance.coverage[0],
@@ -270,7 +270,7 @@ df.select(col("bundleUUID"), col("Practitioner")).write.mode("overwrite").saveAs
 # MAGIC   c.claim.item.productOrService.coding.code as procedure_code,
 # MAGIC   c.claim.item.productOrService.coding.system as procedure_coding_system
 # MAGIC from (select bundleUUID, explode(Patient) as patient from hls_dev.default.patient) p --all patient information
-# MAGIC   inner join (select bundleUUID, explode(claim) as claim from hls_dev.default.claim) c --all conditions from that patient 
+# MAGIC   inner join (select bundleUUID, explode(claim) as claim from hls_dev.default.claim) c --all claim lines from that patient 
 # MAGIC     on p.bundleUUID = c.bundleUUID --Only show records that were bundled together 
 
 # COMMAND ----------
