@@ -104,7 +104,7 @@ df = bundle.entry.withColumn("bundleUUID", expr("uuid()"))
 ```
 ``` SQL
 %sql
-# Select claim line detailed information
+-- Select claim line detailed information
 select p.bundleUUID as UNIQUE_FHIR_ID, 
   p.Patient.id as patient_id,
   p.patient.birthDate,
