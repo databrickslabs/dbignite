@@ -8,7 +8,7 @@ This library is designed to provide a low friction entry to performing analytics
 
 ## Installation
 ```
-pip install git+https://github.com/databricks-industry-solutions/dbignite.git
+pip install git+https://github.com/databrickslabs/dbignite.git
 ```
 
 ## Usage: Read & Analyze a FHIR Bundle
