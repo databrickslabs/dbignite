@@ -381,7 +381,7 @@ df.select(col("bundleUUID"), col("Claim")).write.mode("overwrite").saveAsTable("
 # MAGIC   ,p.bundleUUID as fhir_bundle_id_pateint
 # MAGIC   ,stg.patient.id as patient_id
 # MAGIC   ,case when p.patient.id is not null then "Y" else "N" end as record_exists_flag
-# MAGIC from (select bundleUUID, explode(Patient) as patient from hls_dev.default.patient) stg
+# MAGIC from (select bundleUUID, explode(Patient) as patient from hls_dev.default.staging_patient) stg
 # MAGIC   left outer join (select bundleUUID, explode(Patient) as patient from hls_dev.default.patient) p 
 # MAGIC     on stg.patient.id = p.patient.id 
 # MAGIC limit 20;
@@ -399,7 +399,7 @@ df.select(col("bundleUUID"), col("Claim")).write.mode("overwrite").saveAsTable("
 # MAGIC   ,c.bundleUUID as fhir_bundle_id_pateint
 # MAGIC   ,stg.claim.id as claim_id
 # MAGIC   ,case when c.claim.id is not null then "Y" else "N" end as record_exists_flag
-# MAGIC from  (select bundleUUID, explode(claim) as claim from hls_dev.default.claim) stg
+# MAGIC from  (select bundleUUID, explode(claim) as claim from hls_dev.default.staging_claim) stg
 # MAGIC   left outer join (select bundleUUID, explode(claim) as claim from hls_dev.default.claim) c
 # MAGIC     on stg.claim.id = c.claim.id 
 # MAGIC limit 20;

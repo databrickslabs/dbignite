@@ -145,6 +145,49 @@ df.select(explode("Patient").alias("Patient"), col("bundleUUID"), col("Claim")).
 
 ```
 
+#### Reading in non-comopliant FHIR Data
+
+Medication details are saved in a non-compliant FHIR schema. Update the schema to read this information under "medicationCodeableConcept"
+
+``` python
+%python
+med_schema = df.select(explode("MedicationRequest").alias("MedicationRequest")).schema
+#Add the medicationCodeableConcept schema in
+medCodeableConcept = StructField("medicationCodeableConcept", StructType([
+              StructField("text",StringType()),
+              StructField("coding", ArrayType(
+                StructType([
+                    StructField("code", StringType()),
+                    StructField("display", StringType()),
+                    StructField("system", StringType()),
+                ])
+              ))
+    ]))
+
+med_schema.fields[0].dataType.add(medCodeableConcept) #Add StructField one level below MedicationRequest
+
+#create new schema for reading FHIR bundles
+old_schemas = {k:v for (k,v) in FhirSchemaModel().fhir_resource_map.items() if k != 'MedicationRequest'}
+new_schemas = {**old_schemas, **{'MedicationRequest': med_schema.fields[0].dataType} }
+
+df = bundle.read_data( FhirSchemaModel(fhir_resource_map = new_schemas))
+
+#select and show medication data
+df = df.withColumn("bundleUUID", expr("uuid()"))
+
+df.select(explode("Patient").alias("Patient"), col("bundleUUID"), col("MedicationRequest")).select(col("Patient"), col("bundleUUID"), explode(col("MedicationRequest")).alias("MedicationRequest")).select(
+  col("bundleUUID").alias("UNIQUE_FHIR_ID"), 
+  col("patient.id").alias("Patient"),
+  col("MedicationRequest.status"),
+  col("MedicationRequest.intent"),
+  col("MedicationRequest.authoredOn"),
+  col("MedicationRequest.medicationCodeableConcept.text").alias("rx_text"),
+  col("MedicationRequest.medicationCodeableConcept.coding.code")[0].alias("rx_code"),
+  col("MedicationRequest.medicationCodeableConcept.coding.system")[0].alias("code_type")
+).show()
+
+```
+
 #### Usage: Writing Data as a FHIR Bundle 
 
 >  **Warning** 
