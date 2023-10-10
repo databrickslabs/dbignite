@@ -8,8 +8,8 @@ from typing import Iterable
 from pyspark.sql import DataFrame
 from pyspark.sql.catalog import Database
 
-from dbignite.utils import *
-from dbignite.schemas import ENTRY_SCHEMA
+from dbignite.omop.utils import *
+from dbignite.omop.schemas import ENTRY_SCHEMA
 
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
