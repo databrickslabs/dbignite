@@ -5,9 +5,9 @@ from shutil import *
 from chispa import *
 from chispa.schema_comparer import *
 
-from dbignite.data_model import *
-from dbignite.utils import *
-from dbignite.schemas import *
+from dbignite.omop.data_model import *
+from dbignite.omop.utils import *
+from dbignite.omop.schemas import *
 
 REPO = os.environ.get("REPO", "dbignite")
 BRANCH = re.sub(r"\W+", "", os.environ.get("BRANCH", 'local_test'))
