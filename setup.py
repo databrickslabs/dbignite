@@ -30,7 +30,7 @@ setup(
         "License :: Other/Proprietary License",
         "Operating System :: OS Independent",
     ],
-    packages=['dbignite'],
+    packages=['dbignite', 'dbignite.omop'],
     package_data={'': ["schemas/*.json"]},
     py_modules=['dbignite.data_model']
 )
