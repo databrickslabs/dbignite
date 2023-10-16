@@ -12,7 +12,7 @@ from dbignite.omop.schemas import *
 REPO = os.environ.get("REPO", "dbignite")
 BRANCH = re.sub(r"\W+", "", os.environ.get("BRANCH", 'local_test'))
 
-TEST_BUNDLE_PATH = "./sampledata/"
+TEST_BUNDLE_PATH = "./sampledata/*json"
 TEST_DATABASE = f"test_{REPO}_{BRANCH}"
 
 @pytest.fixture
