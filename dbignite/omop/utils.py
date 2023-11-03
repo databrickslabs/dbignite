@@ -4,7 +4,7 @@ from copy import deepcopy
 from pyspark.sql import DataFrame
 from pyspark.sql.types import *
 from pyspark.sql.functions import *
-from dbignite.schemas import ENTRY_SCHEMA
+from dbignite.omop.schemas import ENTRY_SCHEMA
 
 
 # TODO Add Type Hinting

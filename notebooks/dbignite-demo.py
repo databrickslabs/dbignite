@@ -29,7 +29,7 @@
 
 # COMMAND ----------
 
-from dbignite.data_model import *
+from dbignite.omop.data_model import *
 from pyspark.sql import functions as F
 
 # COMMAND ----------

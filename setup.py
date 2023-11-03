@@ -19,6 +19,7 @@ VERSION = __version__
 setup(
     name="dbignite",
     version=VERSION,
+    python_requires='>=3.9.*',
     author="Amir Kermany, Nathan Buesgens, Rachel Sim, Aaron Zavora, William Smith, Jesse Young",
     author_email="labs@databricks.com",
     description= DESCRIPTION,
@@ -30,7 +31,7 @@ setup(
         "License :: Other/Proprietary License",
         "Operating System :: OS Independent",
     ],
-    packages=['dbignite'],
+    packages=['dbignite', 'dbignite.omop'],
     package_data={'': ["schemas/*.json"]},
     py_modules=['dbignite.data_model']
 )
