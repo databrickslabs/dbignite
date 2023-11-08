@@ -51,4 +51,4 @@ class ADTActions:
     #  data = json.load(open("sampledata/adt_records/ADT_A01_FHIR.json", 'rb'))
     #
     def get_action(self, json_fhir_bundle):
-        return [self.feeds(x.get("resource").get("eventCoding").get("code")) for x in data.get("entry") if x.get("resource").get("resourceType") == "MessageHeader"][0]
+        return [self.feed.get(x.get("resource").get("eventCoding").get("code")) for x in data.get("entry") if x.get("resource").get("resourceType") == "MessageHeader"][0]
