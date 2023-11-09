@@ -103,6 +103,8 @@ class BundleFhirResource(FhirResource):
         StructType()
         .add("resourceType", StringType())
         .add("entry", ArrayType(StructType().add("resource", StringType())))
+        .add("id", StringType())
+        .add("timestamp", StringType())
     )
 
     def __init__(self, raw_data: DataFrame) -> None:
