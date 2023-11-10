@@ -149,7 +149,8 @@ class BundleFhirResource(FhirResource):
             )
             for resource_type, schema in schemas.fhir_resource_map.items()
             if resource_type.upper() != "BUNDLE"
-        ].append(col("id")).append(col("timestamp"))
+        ] + [col("bundle.timestamp"), col("bundle.id")]
+        #Root level columns to include in tracking
 
         return self.__raw_data.select(bundle).select(resource_columns)
 
