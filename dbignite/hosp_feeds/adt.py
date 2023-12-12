@@ -1,3 +1,6 @@
+from pyspark.sql.functions import udf
+from pyspark.sql.types import StringType, StructType, StructField
+from pyspark.sql import SparkSession
 
 """
  Referencing actions from https://pubs.vocera.com/vcts/vcts_2.5.1/help/vcts_config_help/topics/vcts_listofeventtypes.html
@@ -5,7 +8,15 @@
 
 class ADTActions:
     def __init__(self):
-        self.feed = {
+        try:
+            self.register_udf(spark = SparkSession.getActiveSession())
+        except Exception as e:
+            print("WARN: dbignite is not registering ADT actions as a Spark UDF due to")
+            print("WARN: " + str(e))
+
+    @staticmethod
+    def adt_msg():
+        return {
             "ADT_A01": { "action": "admit", "description": "admit a patient"},
             "ADT_A02": { "action": "transfer", "description": "transfer a patient"},
             "ADT_A03": { "action": "discharge", "description": "discharge a patient"},
@@ -42,7 +53,7 @@ class ADTActions:
             "ADT_A34": { "action": "", "description": "merge patient information - patient id only"},
             "ADT_A35": { "action": "", "description": "merge patient information - accounting number only"},
             "ADT_A36": { "action": "", "description": "merge patient information - patient id and accounting number"},
-            "A37": { "action": "", "description": "unlink patient information"}
+            "ADT_A37": { "action": "", "description": "unlink patient information"}
         }
         
 
@@ -50,5 +61,20 @@ class ADTActions:
     # Given a python dictionary, return the relevant ADT information
     #  data = json.load(open("sampledata/adt_records/ADT_A01_FHIR.json", 'rb'))
     #
-    def get_action(self, json_fhir_bundle):
-        return [self.feed.get(x.get("resource").get("eventCoding").get("code")) for x in data.get("entry") if x.get("resource").get("resourceType") == "MessageHeader"][0]
+    @staticmethod
+    def get_action_from_bundle(json_fhir_bundle):
+        return [ADTActions.adt_msg().get(x.get("resource").get("eventCoding").get("code")) for x in data.get("entry") if x.get("resource").get("resourceType") == "MessageHeader"][0]
+
+    @staticmethod
+    def get_action(action):
+        return ADTActions.adt_msg().get(action, {"action":"", "description":""})
+
+    #register as spark udf
+    @staticmethod
+    def register_udf(spark, udf_name = "get_action"):
+        schema = StructType([
+            StructField("action", StringType(), False),
+            StructField("description", StringType(), False)
+        ])
+        spark.udf.register(udf_name, udf(ADTActions.get_action, schema))    
+        
