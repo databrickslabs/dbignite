@@ -227,7 +227,7 @@ df.select(col("bundleUUID"), col("timestamp"), col("MessageHeader")).write.mode(
 
 Sample results and query used against relational tables above that shows patient flow in the hospital setting (fake data shown) 
 
-![logo](./img/patient_adt.png)
+![logo](./img/patientADT.png)
 
 ``` sql
 Select 
