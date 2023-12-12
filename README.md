@@ -13,7 +13,7 @@ This library is designed to provide a low friction entry to performing analytics
 [Ex. Reading in Non-standard Data in FHIR ](#ex-reading-in-non-standard-data-in-fhir)  
 [Ex. Hospital Patient Flow](#usage-seeing-a-patient-flow-in-a-hospital-in-real-time)  
 [Writing FHIR Data](#usage-writing-fhir-data)  
-[Omop Common Data Model](#usage-omop-common-data-model)  
+[Omop Common Data Model](dbignite/omop)  
 [Internal Representation of a FHIR Bundle in DBIgnite](#internal-representation-of-a-fhir-bundle-in-dbignite)  
 
 # Usage
@@ -257,10 +257,6 @@ from (select timestamp, bundleUUID, explode(MessageHeader) as messageheader from
 
 >  **Warning** 
 > This section is under construction
-
-## Usage: OMOP Common Data Model 
-
-See [DBIgnite OMOP](dbignite/omop) for details 
 
 ## Internal Representation of a FHIR Bundle in DBIgnite
 
