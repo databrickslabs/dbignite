@@ -197,7 +197,7 @@ df.select(explode("Patient").alias("Patient"), col("bundleUUID"), col("Medicatio
 
 #### Usage: Seeing a Patient in a Hospital in Real Time  
 
-Patient flow is driven by ADT message headers (Admission, Discharge, & Transfers). We parse sample [data](./sampledata/adt_records) from this repo and associate "actions" associated with each message type.
+Patient flow is driven by ADT message headers (Admission, Discharge, & Transfers). We parse sample [data](./sampledata/adt_records) from this repo and associate "actions" with each message type.
 
 Import ADT package & read FHIR data
 
