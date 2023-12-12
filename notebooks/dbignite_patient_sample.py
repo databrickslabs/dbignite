@@ -416,7 +416,6 @@ df.select(col("bundleUUID"), col("Claim")).write.mode("overwrite").saveAsTable("
 
 # COMMAND ----------
 
-from dbignite.hosp_feeds import adt
 import os, uuid
 from dbignite.readers import read_from_directory
 from dbignite.hosp_feeds.adt import ADTActions
@@ -434,6 +433,7 @@ df = df.withColumn("bundleUUID", expr("uuid()"))
 
 # COMMAND ----------
 
+# DBTITLE 1,Create tables for Patient and MessageHeader resources
 spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.patient""")
 spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.adt_message""")
 df.select(col("bundleUUID"), col("Patient")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.patient")
@@ -442,6 +442,7 @@ df.select(col("bundleUUID"), col("timestamp"), col("MessageHeader")).write.mode(
 
 # COMMAND ----------
 
+# DBTITLE 1,Query all Patient / Action statuses and their timestamps
 # MAGIC %sql
 # MAGIC Select 
 # MAGIC --SSN value for patient matching
@@ -470,7 +471,3 @@ df.select(col("bundleUUID"), col("timestamp"), col("MessageHeader")).write.mode(
 # MAGIC     on patient.bundleUUID = adt.bundleUUID
 # MAGIC   order by ssn desc, timestamp desc
 # MAGIC limit 10
-
-# COMMAND ----------
-
-
