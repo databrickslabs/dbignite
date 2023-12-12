@@ -418,6 +418,12 @@ df.select(col("bundleUUID"), col("Claim")).write.mode("overwrite").saveAsTable("
 
 from dbignite.hosp_feeds import adt
 import os, uuid
+from dbignite.readers import read_from_directory
+from dbignite.hosp_feeds.adt import ADTActions
+
+#Side effect of creating the UDF to see actions from ADT messages 
+#SELECT get_action("ADT") -> action : "discharge" , description : "transfer an inpatient to outpatient"
+ADTActions()
 
 sample_data = "file:///" + os.getcwd() + "/../sampledata/adt_records/"
 bundle = read_from_directory(sample_data)
@@ -425,10 +431,6 @@ df = bundle.read_data()
 
 #assign a unique id to each FHIR bundle 
 df = df.withColumn("bundleUUID", expr("uuid()"))
-
-# COMMAND ----------
-
-"timestamp" in df.schema.fieldNames() #should be true
 
 # COMMAND ----------
 
@@ -440,19 +442,15 @@ df.select(col("bundleUUID"), col("timestamp"), col("MessageHeader")).write.mode(
 
 # COMMAND ----------
 
-# MAGIC %sql 
-# MAGIC select * from hls_healthcare.hls_dev.adt_message 
-# MAGIC limit 10
-
-# COMMAND ----------
-
 # MAGIC %sql
-# MAGIC Select --ADT feed
-# MAGIC adt.timestamp
-# MAGIC --Selecting Driver's license number identifier code='DL'
-# MAGIC ,filter(patient.identifier, x -> x.type.coding[0].code == 'DL')[0].value as drivers_license_id
-# MAGIC --Master Patient Index Value for patient matching
-# MAGIC ,filter(patient.identifier, x -> x.type.text == 'EMPI')[0].value as empi_id
+# MAGIC Select 
+# MAGIC --SSN value for patient matching
+# MAGIC filter(patient.identifier, x -> x.system == 'http://hl7.org/fhir/sid/us-ssn')[0].value as ssn
+# MAGIC ,adt.timestamp as event_timestamp
+# MAGIC --ADT action
+# MAGIC ,adt.messageheader.eventCoding.code as adt_type
+# MAGIC ,get_action(adt.messageheader.eventCoding.code).action as action
+# MAGIC ,get_action(adt.messageheader.eventCoding.code).description as description
 # MAGIC ,adt.messageheader.eventCoding.code
 # MAGIC ,adt.messageheader.eventCoding.system 
 # MAGIC --Patient Resources
@@ -460,10 +458,14 @@ df.select(col("bundleUUID"), col("timestamp"), col("MessageHeader")).write.mode(
 # MAGIC ,patient.name[0].family as last_name
 # MAGIC ,patient.birthDate
 # MAGIC ,patient.gender
+# MAGIC --Selecting Driver's license number identifier code='DL'
+# MAGIC ,filter(patient.identifier, x -> x.type.coding[0].code == 'DL')[0].value as drivers_license_id
+# MAGIC --Master Patient Index Value for patient matching
+# MAGIC ,filter(patient.identifier, x -> x.type.text == 'EMPI')[0].value as empi_id
 # MAGIC from (select timestamp, bundleUUID, explode(MessageHeader) as messageheader from hls_healthcare.hls_dev.adt_message) adt
 # MAGIC   inner join (select bundleUUID, explode(Patient) as patient from hls_healthcare.hls_dev.patient) patient 
 # MAGIC     on patient.bundleUUID = adt.bundleUUID
-# MAGIC   order by timestamp desc
+# MAGIC   order by ssn desc, timestamp desc
 # MAGIC limit 10
 
 # COMMAND ----------
