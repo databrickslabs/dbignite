@@ -6,15 +6,15 @@ This library is designed to provide a low friction entry to performing analytics
 
 # Table of Contents 
 
-[Installation]()
-[Read & Analyze a FHIR Bundle]()
-[SQL on FHIR]()
-[DataFrames for FHIR]()
-[Ex. Reading in Non-standard Data in FHIR ]()
-[Ex. Hospital Patient Flow]()
-[Writing FHIR Data]()
-[Omop Common Data Model]()
-[Internal Representation of a FHIR Bundle in DBIgnite]()
+[Installation](#installation)  
+[Read & Analyze a FHIR Bundle](#usage-read--analyze-a-fhir-bundle)  
+[SQL on FHIR]()  
+[DataFrames for FHIR]()  
+[Ex. Reading in Non-standard Data in FHIR ]()  
+[Ex. Hospital Patient Flow]()  
+[Writing FHIR Data]()  
+[Omop Common Data Model]()  
+[Internal Representation of a FHIR Bundle in DBIgnite]()  
 
 # Usage
 
