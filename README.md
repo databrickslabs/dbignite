@@ -10,8 +10,10 @@ This library is designed to provide a low friction entry to performing analytics
 ```
 pip install git+https://github.com/databrickslabs/dbignite.git
 ```
+For a more detailed Demo, clone repo into Databricks and refer to the notebook [dbignite_patient_sample.py](./notebooks/dbignite_patient_sample.py)
 
 ## Usage: Read & Analyze a FHIR Bundle
+
 
 This functionality exists in two components 
 
@@ -195,8 +197,65 @@ df.select(explode("Patient").alias("Patient"), col("bundleUUID"), col("Medicatio
 
 #### Usage: Seeing a Patient in a Hospital in Real Time  
 
->  **Warning** 
-> This section is under construction
+Patient flow is driven by ADT message headers (Admission, Discharge, & Transfers). We parse sample [data](./sampledata/adt_records) from this repo and associate "actions" associated with each message type.
+
+Import ADT package & read FHIR data
+
+``` python
+import os, uuid
+from dbignite.readers import read_from_directory
+from dbignite.hosp_feeds.adt import ADTActions
+
+#Side effect of creating the UDF to see actions from ADT messages 
+#SELECT get_action("ADT") -> action : "discharge" , description : "transfer an inpatient to outpatient"
+ADTActions()
+
+sample_data = "file:///" + os.getcwd() + "/../sampledata/adt_records/"
+bundle = read_from_directory(sample_data)
+df = bundle.read_data()
+```
+
+Create relational tables for Patient and MessageHeader data types
+ 
+``` sql
+spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.patient""")
+spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.adt_message""")
+df.select(col("bundleUUID"), col("Patient")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.patient")
+df.select(col("bundleUUID"), col("timestamp"), col("MessageHeader")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.adt_message")
+```
+
+Sample results and query used against relational tables above that shows patient flow in the hospital setting (fake data shown) 
+
+[img](./img/patient_adt.png)
+
+``` sql
+Select 
+--SSN value for patient matching
+filter(patient.identifier, x -> x.system == 'http://hl7.org/fhir/sid/us-ssn')[0].value as ssn
+,adt.timestamp as event_timestamp
+
+--ADT action
+,adt.messageheader.eventCoding.code as adt_type
+,get_action(adt.messageheader.eventCoding.code).action as action
+,get_action(adt.messageheader.eventCoding.code).description as description
+,adt.messageheader.eventCoding.code
+,adt.messageheader.eventCoding.system 
+
+--Patient Resource Details 
+,patient.name[0].given[0] as first_name
+,patient.name[0].family as last_name
+,patient.birthDate
+,patient.gender
+--Selecting Driver's license number identifier code='DL'
+,filter(patient.identifier, x -> x.type.coding[0].code == 'DL')[0].value as drivers_license_id
+--Master Patient Index Value for patient matching
+,filter(patient.identifier, x -> x.type.text == 'EMPI')[0].value as empi_id
+
+from (select timestamp, bundleUUID, explode(MessageHeader) as messageheader from hls_healthcare.hls_dev.adt_message) adt
+  inner join (select bundleUUID, explode(Patient) as patient from hls_healthcare.hls_dev.patient) patient 
+    on patient.bundleUUID = adt.bundleUUID
+  order by ssn desc, timestamp desc
+```
 
 #### Usage: OMOP Common Data Model 
 
