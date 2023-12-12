@@ -203,6 +203,7 @@ Import ADT package & read FHIR data
 
 ``` python
 import os, uuid
+from pyspark.sql.functions import col, expr
 from dbignite.readers import read_from_directory
 from dbignite.hosp_feeds.adt import ADTActions
 
