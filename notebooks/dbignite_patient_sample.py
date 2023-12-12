@@ -417,6 +417,7 @@ df.select(col("bundleUUID"), col("Claim")).write.mode("overwrite").saveAsTable("
 # COMMAND ----------
 
 import os, uuid
+from pyspark.sql.functions import col, expr
 from dbignite.readers import read_from_directory
 from dbignite.hosp_feeds.adt import ADTActions
 
@@ -471,3 +472,7 @@ df.select(col("bundleUUID"), col("timestamp"), col("MessageHeader")).write.mode(
 # MAGIC     on patient.bundleUUID = adt.bundleUUID
 # MAGIC   order by ssn desc, timestamp desc
 # MAGIC limit 10
+
+# COMMAND ----------
+
+
