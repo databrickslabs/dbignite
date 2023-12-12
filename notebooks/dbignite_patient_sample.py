@@ -4,7 +4,7 @@
 # COMMAND ----------
 
 # DBTITLE 1,Installing DBIgnite
-# MAGIC %pip install git+https://github.com/databricks-industry-solutions/dbignite-forked.git@feature-patient-hospital-flow
+# MAGIC %pip install git+https://github.com/databrickslabs/dbignite.git
 
 # COMMAND ----------
 
