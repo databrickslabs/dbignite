@@ -4,7 +4,7 @@
 # COMMAND ----------
 
 # DBTITLE 1,Installing DBIgnite
-# MAGIC %pip install git+https://github.com/databricks-industry-solutions/dbignite-forked.git
+# MAGIC %pip install git+https://github.com/databrickslabs/dbignite.git
 
 # COMMAND ----------
 
@@ -18,6 +18,7 @@ from pyspark.sql.functions import size,col, sum, when, explode, udf, flatten, ex
 from pyspark.sql.types import * 
 import uuid
 from dbignite.readers import read_from_directory
+
 sample_data = "s3://hls-eng-data-public/data/synthea/fhir/fhir/*json"
 
 bundle = read_from_directory(sample_data)
@@ -70,7 +71,7 @@ df.select(explode("Patient").alias("Patient"), col("bundleUUID"), col("Condition
   col("Condition.code.coding.system")[0].alias("condition_type_code"), 
   col("Condition.code.text").alias("condition_description"),
   col("Condition.recordedDate").alias("condition_date") 
-).write.mode("overwrite").saveAsTable("hls_dev.default.patient_conditions")
+).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.patient_conditions")
 
 # COMMAND ----------
 
@@ -110,7 +111,7 @@ df.select(explode("Patient").alias("Patient"), col("bundleUUID"), col("Claim")).
   col("claim.item.productOrService.coding.display").alias("prcdr_description"),
   col("claim.item.productOrService.coding.code").alias("prcdr_cd"),
   col("claim.item.productOrService.coding.system").alias("prcdr_coding_system")
-).write.mode("overwrite").saveAsTable("hls_dev.default.patient_claims")
+).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.patient_claims")
 
 # COMMAND ----------
 
@@ -173,7 +174,7 @@ df.select(explode("Patient").alias("Patient"), col("bundleUUID"), col("Medicatio
   col("MedicationRequest.medicationCodeableConcept.text").alias("rx_text"),
   col("MedicationRequest.medicationCodeableConcept.coding.code")[0].alias("rx_code"),
   col("MedicationRequest.medicationCodeableConcept.coding.system")[0].alias("code_type")
-).write.mode("overwrite").saveAsTable("hls_dev.default.medication_requests")
+).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.medication_requests")
 
 # COMMAND ----------
 
@@ -205,7 +206,7 @@ df.select(col("bundleUUID"), col("Practitioner")).select(col("bundleUUID"), expl
   col("practitioner.telecom.system")[0].alias("primary_contact_method"),
   col("practitioner.telecom.value")[0].alias("primary_contact_value"),
   col("practitioner.telecom.use")[0].alias("primary_use")
-).write.mode("overwrite").saveAsTable("hls_dev.default.providers_practitioners")
+).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.providers_practitioners")
 
 # COMMAND ----------
 
@@ -214,19 +215,19 @@ df.select(col("bundleUUID"), col("Practitioner")).select(col("bundleUUID"), expl
 
 # COMMAND ----------
 
-spark.sql("""DROP TABLE IF EXISTS hls_dev.default.patient""")
-spark.sql("""DROP TABLE IF EXISTS hls_dev.default.condition""")
-spark.sql("""DROP TABLE IF EXISTS hls_dev.default.claim""")
-spark.sql("""DROP TABLE IF EXISTS hls_dev.default.medication""")
-spark.sql("""DROP TABLE IF EXISTS hls_dev.default.practitioner""")
+spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.patient""")
+spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.condition""")
+spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.claim""")
+spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.medication""")
+spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.practitioner""")
 
 # COMMAND ----------
 
-df.select(col("bundleUUID"), col("Patient")).write.mode("overwrite").saveAsTable("hls_dev.default.patient")
-df.select(col("bundleUUID"), col("Condition")).write.mode("overwrite").saveAsTable("hls_dev.default.condition")
-df.select(col("bundleUUID"), col("Claim")).write.mode("overwrite").saveAsTable("hls_dev.default.claim")
-df.select(col("bundleUUID"), col("MedicationRequest")).write.mode("overwrite").saveAsTable("hls_dev.default.medication")
-df.select(col("bundleUUID"), col("Practitioner")).write.mode("overwrite").saveAsTable("hls_dev.default.Practitioner")
+df.select(col("bundleUUID"), col("Patient")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.patient")
+df.select(col("bundleUUID"), col("Condition")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.condition")
+df.select(col("bundleUUID"), col("Claim")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.claim")
+df.select(col("bundleUUID"), col("MedicationRequest")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.medication")
+df.select(col("bundleUUID"), col("Practitioner")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.Practitioner")
 
 
 # COMMAND ----------
@@ -245,8 +246,8 @@ df.select(col("bundleUUID"), col("Practitioner")).write.mode("overwrite").saveAs
 # MAGIC   c.Condition.code.coding.system[0] as condition_type_code, 
 # MAGIC   c.Condition.code.text as condition_description,
 # MAGIC   c.Condition.recordedDate condition_date
-# MAGIC from (select bundleUUID, explode(Patient) as patient from hls_dev.default.patient) p --all patient information
-# MAGIC   inner join (select bundleUUID, explode(condition) as condition from hls_dev.default.condition) c --all conditions from that patient 
+# MAGIC from (select bundleUUID, explode(Patient) as patient from hls_healthcare.hls_dev.patient) p --all patient information
+# MAGIC   inner join (select bundleUUID, explode(condition) as condition from hls_healthcare.hls_dev.condition) c --all conditions from that patient 
 # MAGIC     on p.bundleUUID = c.bundleUUID --Only show records that were bundled together 
 # MAGIC
 
@@ -269,9 +270,10 @@ df.select(col("bundleUUID"), col("Practitioner")).write.mode("overwrite").saveAs
 # MAGIC   c.claim.item.productOrService.coding.display as procedure_description,
 # MAGIC   c.claim.item.productOrService.coding.code as procedure_code,
 # MAGIC   c.claim.item.productOrService.coding.system as procedure_coding_system
-# MAGIC from (select bundleUUID, explode(Patient) as patient from hls_dev.default.patient) p --all patient information
-# MAGIC   inner join (select bundleUUID, explode(claim) as claim from hls_dev.default.claim) c --all claim lines from that patient 
+# MAGIC from (select bundleUUID, explode(Patient) as patient from hls_healthcare.hls_dev.patient) p --all patient information
+# MAGIC   inner join (select bundleUUID, explode(claim) as claim from hls_healthcare.hls_dev.claim) c --all claim lines from that patient 
 # MAGIC     on p.bundleUUID = c.bundleUUID --Only show records that were bundled together 
+# MAGIC   limit 10
 
 # COMMAND ----------
 
@@ -293,9 +295,10 @@ df.select(col("bundleUUID"), col("Practitioner")).write.mode("overwrite").saveAs
 # MAGIC   m.medication.medicationCodeableConcept.coding.code[0] as rx_code,
 # MAGIC   m.medication.medicationCodeableConcept.coding.system[0] as rx_code_type,
 # MAGIC   m.medication.medicationCodeableConcept.coding.display[0] as rx_description
-# MAGIC   from (select bundleUUID, explode(Patient) as patient from hls_dev.default.patient) p --all patient information
-# MAGIC   inner join (select bundleUUID, explode(MedicationRequest) as medication from hls_dev.default.medication) m --all medication orders from that patient 
+# MAGIC   from (select bundleUUID, explode(Patient) as patient from hls_healthcare.hls_dev.patient) p --all patient information
+# MAGIC   inner join (select bundleUUID, explode(MedicationRequest) as medication from hls_healthcare.hls_dev.medication) m --all medication orders from that patient 
 # MAGIC     on p.bundleUUID = m.bundleUUID --Only show records that were bundled together 
+# MAGIC   limit 10
 
 # COMMAND ----------
 
@@ -312,7 +315,7 @@ df.select(col("bundleUUID"), col("Practitioner")).write.mode("overwrite").saveAs
 # MAGIC   p.practitioner.telecom.system[0] as primary_contact_method,
 # MAGIC   p.practitioner.telecom.value[0] as primary_contact_value,
 # MAGIC   p.practitioner.telecom.use[0] as primary_use
-# MAGIC from (select bundleUUID, explode(practitioner) as practitioner from hls_dev.default.Practitioner) as p
+# MAGIC from (select bundleUUID, explode(practitioner) as practitioner from hls_healthcare.hls_dev.Practitioner) as p
 # MAGIC limit 10
 # MAGIC
 
@@ -328,13 +331,13 @@ df.select(col("bundleUUID"), col("Practitioner")).write.mode("overwrite").saveAs
 # MAGIC   p.practitioner.telecom.value[0] as primary_contact_value,
 # MAGIC   p.practitioner.telecom.use[0] as primary_use,
 # MAGIC   c.*
-# MAGIC from (select bundleUUID, explode(practitioner) as practitioner from hls_dev.default.Practitioner) as p
+# MAGIC from (select bundleUUID, explode(practitioner) as practitioner from hls_healthcare.hls_dev.Practitioner) as p
 # MAGIC   inner join  (select claim.id as claim_id, 
 # MAGIC                   substring(claim.provider, 82, 36) as provider_id, 
 # MAGIC                     claim.type.coding.code[0] as claim_type_cd, --837I = Institutional, 837P = Professional
 # MAGIC                     claim.insurance.coverage[0] as insurance,
 # MAGIC                     claim.total.value as claim_billed_amount
-# MAGIC                   from (select explode(claim) as claim from hls_dev.default.claim)) as c
+# MAGIC                   from (select explode(claim) as claim from hls_healthcare.hls_dev.claim)) as c
 # MAGIC   on c.provider_id = p.practitioner.id 
 # MAGIC   limit 10;
 # MAGIC
@@ -345,9 +348,10 @@ df.select(col("bundleUUID"), col("Practitioner")).write.mode("overwrite").saveAs
 # MAGIC %sql
 # MAGIC select claim.type.coding.code[0] as claim_type_cd, --837I = Institutional, 837P = Professional
 # MAGIC   count(1)
-# MAGIC from (select explode(claim) as claim from hls_dev.default.claim) as c
+# MAGIC from (select explode(claim) as claim from hls_healthcare.hls_dev.claim) as c
 # MAGIC group by 1 
 # MAGIC -- Only institutional and Rx claims present, no professional claims submitted
+# MAGIC limit 10
 
 # COMMAND ----------
 
@@ -366,8 +370,8 @@ df = df.withColumn("bundleUUID", expr("uuid()"))
 
 # DBTITLE 1,Stage the new data to check for duplicate records
 #claim & patient info
-df.select(col("bundleUUID"), col("Patient")).write.mode("overwrite").saveAsTable("hls_dev.default.staging_patient")
-df.select(col("bundleUUID"), col("Claim")).write.mode("overwrite").saveAsTable("hls_dev.default.staging_claim")
+df.select(col("bundleUUID"), col("Patient")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.staging_patient")
+df.select(col("bundleUUID"), col("Claim")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.staging_claim")
 
 # COMMAND ----------
 
@@ -381,8 +385,8 @@ df.select(col("bundleUUID"), col("Claim")).write.mode("overwrite").saveAsTable("
 # MAGIC   ,p.bundleUUID as fhir_bundle_id_pateint
 # MAGIC   ,stg.patient.id as patient_id
 # MAGIC   ,case when p.patient.id is not null then "Y" else "N" end as record_exists_flag
-# MAGIC from (select bundleUUID, explode(Patient) as patient from hls_dev.default.staging_patient) stg
-# MAGIC   left outer join (select bundleUUID, explode(Patient) as patient from hls_dev.default.patient) p 
+# MAGIC from (select bundleUUID, explode(Patient) as patient from hls_healthcare.hls_dev.staging_patient) stg
+# MAGIC   left outer join (select bundleUUID, explode(Patient) as patient from hls_healthcare.hls_dev.patient) p 
 # MAGIC     on stg.patient.id = p.patient.id 
 # MAGIC limit 20;
 # MAGIC
@@ -399,7 +403,76 @@ df.select(col("bundleUUID"), col("Claim")).write.mode("overwrite").saveAsTable("
 # MAGIC   ,c.bundleUUID as fhir_bundle_id_pateint
 # MAGIC   ,stg.claim.id as claim_id
 # MAGIC   ,case when c.claim.id is not null then "Y" else "N" end as record_exists_flag
-# MAGIC from  (select bundleUUID, explode(claim) as claim from hls_dev.default.staging_claim) stg
-# MAGIC   left outer join (select bundleUUID, explode(claim) as claim from hls_dev.default.claim) c
+# MAGIC from  (select bundleUUID, explode(claim) as claim from hls_healthcare.hls_dev.staging_claim) stg
+# MAGIC   left outer join (select bundleUUID, explode(claim) as claim from hls_healthcare.hls_dev.claim) c
 # MAGIC     on stg.claim.id = c.claim.id 
 # MAGIC limit 20;
+
+# COMMAND ----------
+
+# MAGIC %md # Seeing a Patient in Real Time in a Hospital
+# MAGIC
+# MAGIC Through ADT Feeds
+
+# COMMAND ----------
+
+import os, uuid
+from pyspark.sql.functions import col, expr
+from dbignite.readers import read_from_directory
+from dbignite.hosp_feeds.adt import ADTActions
+
+#Side effect of creating the UDF to see actions from ADT messages 
+#SELECT get_action("ADT") -> action : "discharge" , description : "transfer an inpatient to outpatient"
+ADTActions()
+
+sample_data = "file:///" + os.getcwd() + "/../sampledata/adt_records/"
+bundle = read_from_directory(sample_data)
+df = bundle.read_data()
+
+#assign a unique id to each FHIR bundle 
+df = df.withColumn("bundleUUID", expr("uuid()"))
+
+# COMMAND ----------
+
+# DBTITLE 1,Create tables for Patient and MessageHeader resources
+spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.patient""")
+spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.adt_message""")
+df.select(col("bundleUUID"), col("Patient")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.patient")
+df.select(col("bundleUUID"), col("timestamp"), col("MessageHeader")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.adt_message")
+
+
+# COMMAND ----------
+
+# DBTITLE 1,Query all Patient / Action statuses and their timestamps
+# MAGIC %sql
+# MAGIC Select 
+# MAGIC --SSN value for patient matching
+# MAGIC filter(patient.identifier, x -> x.system == 'http://hl7.org/fhir/sid/us-ssn')[0].value as ssn
+# MAGIC ,adt.timestamp as event_timestamp
+# MAGIC
+# MAGIC --ADT action
+# MAGIC ,adt.messageheader.eventCoding.code as adt_type
+# MAGIC ,get_action(adt.messageheader.eventCoding.code).action as action
+# MAGIC ,get_action(adt.messageheader.eventCoding.code).description as description
+# MAGIC ,adt.messageheader.eventCoding.code
+# MAGIC ,adt.messageheader.eventCoding.system 
+# MAGIC
+# MAGIC --Patient Resource Details 
+# MAGIC ,patient.name[0].given[0] as first_name
+# MAGIC ,patient.name[0].family as last_name
+# MAGIC ,patient.birthDate
+# MAGIC ,patient.gender
+# MAGIC --Selecting Driver's license number identifier code='DL'
+# MAGIC ,filter(patient.identifier, x -> x.type.coding[0].code == 'DL')[0].value as drivers_license_id
+# MAGIC --Master Patient Index Value for patient matching
+# MAGIC ,filter(patient.identifier, x -> x.type.text == 'EMPI')[0].value as empi_id
+# MAGIC
+# MAGIC from (select timestamp, bundleUUID, explode(MessageHeader) as messageheader from hls_healthcare.hls_dev.adt_message) adt
+# MAGIC   inner join (select bundleUUID, explode(Patient) as patient from hls_healthcare.hls_dev.patient) patient 
+# MAGIC     on patient.bundleUUID = adt.bundleUUID
+# MAGIC   order by ssn desc, timestamp desc
+# MAGIC limit 10
+
+# COMMAND ----------
+
+

@@ -103,6 +103,8 @@ class BundleFhirResource(FhirResource):
         StructType()
         .add("resourceType", StringType())
         .add("entry", ArrayType(StructType().add("resource", StringType())))
+        .add("id", StringType())
+        .add("timestamp", StringType())
     )
 
     def __init__(self, raw_data: DataFrame) -> None:
@@ -147,7 +149,8 @@ class BundleFhirResource(FhirResource):
             )
             for resource_type, schema in schemas.fhir_resource_map.items()
             if resource_type.upper() != "BUNDLE"
-        ]
+        ] + [col("bundle.timestamp"), col("bundle.id")]
+        #Root level columns to include in tracking
 
         return self.__raw_data.select(bundle).select(resource_columns)
 
