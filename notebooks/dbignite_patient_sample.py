@@ -464,6 +464,7 @@ df.select(col("bundleUUID"), col("timestamp"), col("MessageHeader")).write.mode(
 # MAGIC ,filter(patient.identifier, x -> x.type.coding[0].code == 'DL')[0].value as drivers_license_id
 # MAGIC --Master Patient Index Value for patient matching
 # MAGIC ,filter(patient.identifier, x -> x.type.text == 'EMPI')[0].value as empi_id
+# MAGIC
 # MAGIC from (select timestamp, bundleUUID, explode(MessageHeader) as messageheader from hls_healthcare.hls_dev.adt_message) adt
 # MAGIC   inner join (select bundleUUID, explode(Patient) as patient from hls_healthcare.hls_dev.patient) patient 
 # MAGIC     on patient.bundleUUID = adt.bundleUUID
