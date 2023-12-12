@@ -447,13 +447,15 @@ df.select(col("bundleUUID"), col("timestamp"), col("MessageHeader")).write.mode(
 # MAGIC --SSN value for patient matching
 # MAGIC filter(patient.identifier, x -> x.system == 'http://hl7.org/fhir/sid/us-ssn')[0].value as ssn
 # MAGIC ,adt.timestamp as event_timestamp
+# MAGIC
 # MAGIC --ADT action
 # MAGIC ,adt.messageheader.eventCoding.code as adt_type
 # MAGIC ,get_action(adt.messageheader.eventCoding.code).action as action
 # MAGIC ,get_action(adt.messageheader.eventCoding.code).description as description
 # MAGIC ,adt.messageheader.eventCoding.code
 # MAGIC ,adt.messageheader.eventCoding.system 
-# MAGIC --Patient Resources
+# MAGIC
+# MAGIC --Patient Resource Details 
 # MAGIC ,patient.name[0].given[0] as first_name
 # MAGIC ,patient.name[0].family as last_name
 # MAGIC ,patient.birthDate
