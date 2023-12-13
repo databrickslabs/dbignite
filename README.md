@@ -10,7 +10,7 @@ This library is designed to provide a low friction entry to performing analytics
 [Read & Analyze a FHIR Bundle](#usage-read--analyze-a-fhir-bundle)  
 [SQL on FHIR](#sql-on-fhir)  
 [DataFrames for FHIR](#dataframes-for-fhir)  
-[Ex. Reading non-compliant FHIR Data](#ex-reading-in-non-standard-data-in-fhir)  
+[Ex. Reading non-compliant FHIR Data](#ex-reading-non-compliant-fhir-data)  
 [Ex. Hospital Patient Flow](#usage-seeing-a-patient-flow-in-a-hospital-in-real-time)  
 [Writing FHIR Data](#usage-writing-fhir-data)  
 [Omop Common Data Model](dbignite/omop)  
