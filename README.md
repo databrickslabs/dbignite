@@ -201,6 +201,7 @@ Patient flow is driven by ADT message headers (Admission, Discharge, & Transfers
 Import ADT package & read FHIR data
 
 ``` python
+%python
 import os, uuid
 from pyspark.sql.functions import col, expr
 from dbignite.readers import read_from_directory
@@ -218,6 +219,7 @@ df = bundle.read_data()
 Create relational tables for Patient and MessageHeader data types
  
 ``` sql
+%python
 spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.patient""")
 spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.adt_message""")
 df.select(col("bundleUUID"), col("Patient")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.patient")
@@ -229,6 +231,7 @@ Sample results and query used against relational tables above that shows patient
 ![logo](./img/patientADT.png)
 
 ``` sql
+%sql
 Select 
 --SSN value for patient matching
 filter(patient.identifier, x -> x.system == 'http://hl7.org/fhir/sid/us-ssn')[0].value as ssn
