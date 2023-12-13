@@ -133,6 +133,7 @@ limit 100
 Perform same functionality above, except using Dataframe only
 
 ``` python
+%python
 df = bundle.entry.withColumn("bundleUUID", expr("uuid()"))
 
 df.select(explode("Patient").alias("Patient"), col("bundleUUID"), col("Claim")).select(col("Patient"), col("bundleUUID"), explode("Claim").alias("Claim")).select(
