@@ -196,7 +196,7 @@ df.select(explode("Patient").alias("Patient"), col("bundleUUID"), col("Medicatio
 
 ## Usage: Seeing a Patient flow in a Hospital in Real Time  
 
-Patient flow is driven by ADT message headers (Admission, Discharge, & Transfers). We parse sample [data](./sampledata/adt_records) from this repo and associate "actions" with each message type.
+Patient flow is driven by ADT message headers (Admission, Discharge, & Transfers). We are able to parse sample FHIR [ADT Data](./sampledata/adt_records) from this repo and associate "actions" with each message type. In conjunction with our patners at [Redox](https://www.redoxengine.com/), we are able to do this in real time and see patient flow, latest patient status, etc.
 
 Import ADT package & read FHIR data
 
