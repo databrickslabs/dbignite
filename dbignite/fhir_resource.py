@@ -25,7 +25,7 @@ class FhirResource(ABC):
         ...
 
     @abstractmethod
-    def entry() -> DataFrame
+    def entry() -> DataFrame:
         ...
         
     @abstractmethod
