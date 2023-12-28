@@ -109,7 +109,7 @@ class BundleFhirResource(FhirResource):
     #
     def entry(self) -> DataFrame:
         if self._entry is None:
-            self._entry = self.read_data()
+            self._entry = self._read_data()
         return self._entry
 
     #
