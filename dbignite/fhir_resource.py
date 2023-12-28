@@ -25,7 +25,11 @@ class FhirResource(ABC):
         ...
 
     @abstractmethod
-    def read_data(self, schemas: Optional[FhirSchemaModel] = None) -> DataFrame:
+    def entry() -> DataFrame
+        ...
+        
+    @abstractmethod
+    def _read_data(self, schemas: Optional[FhirSchemaModel] = None) -> DataFrame:
         ...
 
     @staticmethod
@@ -96,15 +100,17 @@ class BundleFhirResource(FhirResource):
     #
     #
     def __init__(self, raw_data: DataFrame) -> None:
-        self.__raw_data = raw_data
-        self.__entry: Optional[DataFrame] = None
+        self._raw_data = raw_data
+        self._entry: Optional[DataFrame] = None
 
 
-    @property
+    #
+    #
+    #
     def entry(self) -> DataFrame:
-        if self.__entry is None:
-            self.__entry = self.read_data()
-        return self.__entry
+        if self._entry is None:
+            self._entry = self.read_data()
+        return self._entry
 
     #
     # Count across all bundles
@@ -125,7 +131,7 @@ class BundleFhirResource(FhirResource):
     #
     # Read and parse all data in raw_data 
     #
-    def read_data(self, schemas: Optional[FhirSchemaModel] = None) -> DataFrame:
+    def _read_data(self, schemas: Optional[FhirSchemaModel] = None) -> DataFrame:
         if not schemas:
             schemas = FhirSchemaModel()
 
@@ -141,10 +147,10 @@ class BundleFhirResource(FhirResource):
         ] + [col("bundle.timestamp"), col("bundle.id")]
         #Root level columns, timestamp & id to include in the resource
 
-        return self.__raw_data.select(bundle).select(resource_columns)
+        return self._raw_data.select(bundle).select(resource_columns)
 
     #
-    # Given a schema, return a column mapped to the schema
+    # Given a schema,w return a column mapped to the schema
     #  @param column - the column to parse json data from
     #  @param schema - the schema of the column to build
     #  @param resource_type - the FHIR resource being parsed (must be filtered prior to this step)
@@ -187,10 +193,10 @@ class BundleFhirResource(FhirResource):
     #
     def bulk_table_write(self, location = "",  write_mode = "append", columns = None):
         pool = ThreadPool(mp.cpu_count()-1)
-        list(pool.map(lambda x: write_table(x, location, write_mode), (self.__entry if columns is None else columns)))
+        list(pool.map(lambda x: write_table(x, location, write_mode), (self.entry() if columns is None else columns)))
 
     #
     # Write an individual FHIR resource as a table
     #
     def write_table(self, column, location = "", write_mode = "append"):
-        self.__entry.select(col("timestamp"),col("id"),column).write.mode(write_mode).saveAsTable( (location + "." + column).lstrip("."))
+        self.entry().select(col("timestamp"),col("id"),column).write.mode(write_mode).saveAsTable( (location + "." + column).lstrip("."))
