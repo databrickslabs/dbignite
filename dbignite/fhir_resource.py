@@ -103,13 +103,12 @@ class BundleFhirResource(FhirResource):
         self._raw_data = raw_data
         self._entry: Optional[DataFrame] = None
 
-
     #
+    # Main entry to the FHIR resources in a bundle
     #
-    #
-    def entry(self) -> DataFrame:
+    def entry(self, schemas = FhirSchemaModel()) -> DataFrame:
         if self._entry is None:
-            self._entry = self._read_data()
+            self._entry = self._read_data(schemas = schemas)
         return self._entry
 
     #
@@ -131,10 +130,7 @@ class BundleFhirResource(FhirResource):
     #
     # Read and parse all data in raw_data 
     #
-    def _read_data(self, schemas: Optional[FhirSchemaModel] = None) -> DataFrame:
-        if not schemas:
-            schemas = FhirSchemaModel()
-
+    def _read_data(self, schemas: Optional[FhirSchemaModel] = FhirSchemaModel()) -> DataFrame:
         bundle = from_json("resource", BundleFhirResource.BUNDLE_SCHEMA).alias("bundle")
         resource_columns = [
             self.__convert_from_json(
