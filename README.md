@@ -85,7 +85,7 @@ bundle.count_within_bundle_resource_type("Patient").show()
 #|                  1|
 #+-------------------+
 
-#Support for ndjson data format see [ex. ndjson] (https://build.fhir.org/ig/HL7/bulk-data/export.html#bulk-data-output-file-request)
+#Support for ndjson data format ex see: https://build.fhir.org/ig/HL7/bulk-data/export.html#bulk-data-output-file-request
 from dbignite.readers import FhirFormat
 sample_data = "./sampledata/ndjson_records/*json"
 bundle = read_from_directory(sample_data, FhirFormat.NDJSON)
