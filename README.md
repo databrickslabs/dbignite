@@ -64,7 +64,7 @@ sample_data = "s3://hls-eng-data-public/data/synthea/fhir/fhir/*json"
 bundle = read_from_directory(sample_data)
 
 #Read all the bundles and parse
-bundle.entry
+bundle.entry()
 
 #Show the total number of patient resources in all bundles
 bundle.count_resource_type("Patient").show() 

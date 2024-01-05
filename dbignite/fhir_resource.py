@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import warnings, json
 from multiprocessing.pool import ThreadPool
 import multiprocessing as mp
 from typing import ClassVar, Optional, cast
@@ -18,8 +19,24 @@ from pyspark.sql.functions import (
 )
 from pyspark.sql.types import ArrayType, StringType, StructType
 
-
+#
+#
+#  BUNDLE_SCHEMA - lightweight representation of first level json schema
+#
 class FhirResource(ABC):
+    BUNDLE_SCHEMA = (
+        StructType()
+         .add("resourceType", StringType())
+         .add("entry", ArrayType(StructType().add("resource", StringType())))
+         .add("id", StringType())
+         .add("timestamp", StringType())
+    )
+
+    NDJSON_SCHEMA = (
+        StructType()
+         .add("resourceType", StringType())
+    )
+    
     @abstractmethod
     def __init__(self, raw_data: DataFrame) -> None:
         ...
@@ -28,87 +45,54 @@ class FhirResource(ABC):
     def entry() -> DataFrame:
         ...
         
-    @abstractmethod
-    def read_data(self, schemas: Optional[FhirSchemaModel] = None) -> DataFrame:
-        ...
-
     @staticmethod
     @abstractmethod
     def resource_type() -> str:
         ...
 
+    #
+    # @param data - dataframe with new line delimited json FHIR resources
+    # @return - new DBIgnite FHIR resource representation
+    #
     @staticmethod
-    def from_raw_resource(
-        data: DataFrame, resource_type: Optional[str] = None
-    ) -> "FhirResource":
-        if not any(
-            c
-            for c in data.schema
-            if c.name.lower() == "resource" and c.dataType.typeName() == "string"
-        ):
-            data.printSchema()
-            raise InvalidSchemaException("No resource column of type string found.")
+    def from_raw_ndjson_resource(data: DataFrame) -> "FhirResource":
+        return BundleFhirResource(data, FhirFormat.NDJSON)
 
-        if not resource_type:
-            resource_types = (
-                data.select(
-                    get_json_object("resource", "$.resourceType").alias("resourceType")
-                )
-                .dropna()
-                .distinct()
-                .take(2)
-            )
-            if len(resource_types) > 1:
-                raise MultipleResourceTypesException(
-                    "Found more than 1 resource type in data."
-                )
-
-            if len(resource_types) == 0:
-                raise NoResourcesException("No resources found.")
-
-            resource_type = cast(str, resource_types[0][0])
-
-        resource_classes = [
-            resource
-            for resource in FhirResource.__subclasses__()
-            if resource.resource_type().upper() == resource_type.upper()
-        ]
-        resource: FhirResource
-        if len(resource_classes) == 0:
-            resource = GenericFhirResource(data)
-        else:
-            resource = resource_classes[0](data)  # type: ignore
-
-        return resource
+    
+    #
+    # @param data - dataframe with column "resource" that contains raw bundle json text in utf-8
+    # @return - new DBIgnite FHIR resource representation
+    #
+    @staticmethod
+    def from_raw_bundle_resource(data: DataFrame) -> "FhirResource":
+        resources_df = data.select(col("resource"), get_json_object("resource", "$.resourceType").alias("resourceType"))
+        
+        if resources_df.filter("upper(resourceType) != 'BUNDLE'").count() > 0:
+            warnings.warn("Found " + resources_df.filter("upper(resourceType) != 'BUNDLE'").count() + " rows of non-Bundle resource types. Only proceeding reading Fhir bundle types")
+        return BundleFhirResource(resources_df.filter("upper(resourceType) == 'BUNDLE'"))
 
 #
 # Core representation of FHIR bundles
-#  BUNDLE_SCHEMA - lightweight representation of first level json schema
 #  raw_data - raw json of FHIR bundle
 #  entry - internal representation of entry schema for FHIR
 #
 class BundleFhirResource(FhirResource):
-    BUNDLE_SCHEMA: ClassVar[StructType] = (
-        StructType()
-        .add("resourceType", StringType())
-        .add("entry", ArrayType(StructType().add("resource", StringType())))
-        .add("id", StringType())
-        .add("timestamp", StringType())
-    )
 
     #
+    # @param - raw_data is a dataframe containing raw text resources
+    # @param - parser = the function to use to build the _entry representation of resources
     #
-    #
-    def __init__(self, raw_data: DataFrame) -> None:
+    def __init__(self, raw_data, parser = None) -> None:
         self._raw_data = raw_data
-        self._entry: Optional[DataFrame] = None
-
+        self._entry = None
+        self._parser = parser if parser is not None else self.read_bundle_data
+                                  
     #
     # Main entry to the FHIR resources in a bundle
     #
     def entry(self, schemas = FhirSchemaModel()) -> DataFrame:
         if self._entry is None:
-            self._entry = self.read_data(schemas = schemas)
+            self._entry = self._parser(schemas = schemas)
         return self._entry
 
     #
@@ -127,40 +111,67 @@ class BundleFhirResource(FhirResource):
     ) -> DataFrame:
         return self.entry.select(size(col(resource_type)).alias(column_alias))
 
+
     #
-    # Read and parse all data in raw_data 
+    # reading ndjson data
     #
-    def read_data(self, schemas: Optional[FhirSchemaModel] = FhirSchemaModel()) -> DataFrame:
-        bundle = from_json("resource", BundleFhirResource.BUNDLE_SCHEMA).alias("bundle")
-        resource_columns = [
-            self.__convert_from_json(
-                self.__filter_resources(col("bundle.entry.resource"), resource_type),
+    #
+    def read_ndjson_data(self, schemas):
+        (
+         self._raw_data.rdd
+            .map(lambda x: [json.dumps(json.loads(y)) for y in x.asDict().get("resource").split("\n") if len(y) > 0])
+            .map(lambda x: [x])
+            .toDF(["resources"])
+            .select(BundleFhirResource.list_entry_columns(schemas, parent_column=col("resources")))
+         )
+
+    #
+    # Read and parse all data in raw_data dataframe
+    #  @returns new dataframe with entry.x where x is an array of each resource provided
+    #
+    def read_bundle_data(self, schemas = FhirSchemaModel()) -> DataFrame:
+        return (self._raw_data
+                .select(from_json("resource", BundleFhirResource.BUNDLE_SCHEMA).alias("bundle")) #root level schema
+                .select(BundleFhirResource.list_entry_columns(schemas )#entry[] into indvl cols
+                    + [col("bundle.timestamp"), col("bundle.id")] #root cols timestamp & id 
+                ) 
+            )
+    
+    #
+    # @param schemas - resources to parse out into separate columns with their associated spark schemas
+    # @param parent_column - location of the list of resources 
+    # @return a list of column transformations to select based upon the schemas provided
+    #
+    @staticmethod
+    def list_entry_columns(schemas, parent_column=col("bundle.entry.resource")):
+        return [
+            BundleFhirResource.__convert_from_json(
+                BundleFhirResource.__filter_resources(parent_column, resource_type),
                 schema,
                 resource_type,
             )
             for resource_type, schema in schemas.fhir_resource_map.items()
             if resource_type.upper() != "BUNDLE"
-        ] + [col("bundle.timestamp"), col("bundle.id")]
-        #Root level columns, timestamp & id to include in the resource
-
-        return self._raw_data.select(bundle).select(resource_columns)
-
+        ]
+        
+        
     #
-    # Given a schema,w return a column mapped to the schema
+    # Given a schema return a column mapped to the schema
     #  @param column - the column to parse json data from
     #  @param schema - the schema of the column to build
     #  @param resource_type - the FHIR resource being parsed (must be filtered prior to this step)
     #  @return a new column named resource_type with specified spark_schema
     #
-    def __convert_from_json(
-        self, column: Column, schema: StructType, resource_type: str
-    ) -> Column:
+    @staticmethod
+    def __convert_from_json(column: Column,
+                            schema: StructType,
+                            resource_type: str) -> Column:
         if column is None:
             return lit(None)
         return transform(column, lambda x: from_json(x, schema)).alias(resource_type)
 
     #
-    # Static "Bundle" resource 
+    # "Bundle" resource representation
     #
     @staticmethod
     def resource_type() -> str:
@@ -172,7 +183,8 @@ class BundleFhirResource(FhirResource):
     #  @param resource_type - FHIR resource name to parse
     #  @return all columns that match the resource type 
     #
-    def __filter_resources(self, column: Column, resource_type: str) -> Column:
+    @staticmethod
+    def __filter_resources(column: Column, resource_type: str) -> Column:
         return filter(
             column,
             lambda x: upper(get_json_object(x, "$.resourceType"))
