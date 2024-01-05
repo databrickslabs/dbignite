@@ -60,7 +60,7 @@ from pyspark.sql.functions import size,col, sum
 from dbignite.readers import read_from_directory
 
 #Read sample data from a public s3 bucket
-sample_data = "s3://hls-eng-data-public/data/synthea/fhir/fhir/*json"
+sample_data = "./sampledata/*json"
 bundle = read_from_directory(sample_data)
 
 #Read all the bundles and parse

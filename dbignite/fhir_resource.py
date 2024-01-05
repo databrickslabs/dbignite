@@ -101,7 +101,7 @@ class BundleFhirResource(FhirResource):
     def count_resource_type(
         self, resource_type: str, column_alias: str = "resource_sum"
     ) -> DataFrame:
-        return self.entry.select(sum(size(col(resource_type))).alias(column_alias))
+        return self._entry.select(sum(size(col(resource_type))).alias(column_alias))
 
     #
     # Count within bundle
@@ -109,7 +109,7 @@ class BundleFhirResource(FhirResource):
     def count_within_bundle_resource_type(
         self, resource_type: str, column_alias: str = "resource_bundle_sum"
     ) -> DataFrame:
-        return self.entry.select(size(col(resource_type)).alias(column_alias))
+        return self._entry.select(size(col(resource_type)).alias(column_alias))
 
 
     #
