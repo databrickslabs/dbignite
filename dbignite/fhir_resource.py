@@ -56,7 +56,7 @@ class FhirResource(ABC):
     #
     @staticmethod
     def from_raw_ndjson_resource(data: DataFrame) -> "FhirResource":
-        return BundleFhirResource(data, FhirFormat.NDJSON)
+        return BundleFhirResource(data, parser = "read_ndjson_data")
 
     
     #
@@ -85,7 +85,7 @@ class BundleFhirResource(FhirResource):
     def __init__(self, raw_data, parser = None) -> None:
         self._raw_data = raw_data
         self._entry = None
-        self._parser = parser if parser is not None else self.read_bundle_data
+        self._parser = getattr(self, parser) if parser is not None else self.read_bundle_data
                                   
     #
     # Main entry to the FHIR resources in a bundle
@@ -101,7 +101,7 @@ class BundleFhirResource(FhirResource):
     def count_resource_type(
         self, resource_type: str, column_alias: str = "resource_sum"
     ) -> DataFrame:
-        return self._entry.select(sum(size(col(resource_type))).alias(column_alias))
+        return self.entry().select(sum(size(col(resource_type))).alias(column_alias))
 
     #
     # Count within bundle
@@ -109,15 +109,14 @@ class BundleFhirResource(FhirResource):
     def count_within_bundle_resource_type(
         self, resource_type: str, column_alias: str = "resource_bundle_sum"
     ) -> DataFrame:
-        return self._entry.select(size(col(resource_type)).alias(column_alias))
+        return self.entry().select(size(col(resource_type)).alias(column_alias))
 
 
     #
     # reading ndjson data
     #
-    #
     def read_ndjson_data(self, schemas):
-        (
+        return (
          self._raw_data.rdd
             .map(lambda x: [json.dumps(json.loads(y)) for y in x.asDict().get("resource").split("\n") if len(y) > 0])
             .map(lambda x: [x])

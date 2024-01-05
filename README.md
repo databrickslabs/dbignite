@@ -59,7 +59,7 @@ sorted(fhir_custom.list_keys()) # ['Claim', 'Condition', 'Patient']
 from pyspark.sql.functions import size,col, sum
 from dbignite.readers import read_from_directory
 
-#Read sample data from a public s3 bucket
+#Read sample FHIR Bundle data from this repo
 sample_data = "./sampledata/*json"
 bundle = read_from_directory(sample_data)
 
@@ -85,6 +85,18 @@ bundle.count_within_bundle_resource_type("Patient").show()
 #|                  1|
 #+-------------------+
 
+#Support for ndjson data format see [ex. ndjson] (https://build.fhir.org/ig/HL7/bulk-data/export.html#bulk-data-output-file-request)
+from dbignite.readers import FhirFormat
+sample_data = "./sampledata/ndjson_records/*json"
+bundle = read_from_directory(sample_data, FhirFormat.NDJSON)
+
+#Show the total number of patient resources in the ndjson formatted data
+bundle.count_resource_type("Patient").show()
++------------+                                                                  
+|resource_sum|
++------------+
+|           1|
++------------+
 ```
 
 ## SQL on FHIR
