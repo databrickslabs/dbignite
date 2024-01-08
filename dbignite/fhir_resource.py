@@ -3,6 +3,7 @@ import warnings, json
 from multiprocessing.pool import ThreadPool
 import multiprocessing as mp
 from typing import ClassVar, Optional, cast
+import uuid
 from dbignite.fhir_mapping_model import FhirSchemaModel
 from .fhir_mapping_model import FhirSchemaModel
 from pyspark.sql import Column, DataFrame
@@ -122,7 +123,7 @@ class BundleFhirResource(FhirResource):
             .map(lambda x: [x])
             .toDF(["resources"])
             .select(BundleFhirResource.list_entry_columns(schemas, parent_column=col("resources")))
-         )
+         ).withColumn("bundleUUID", expr("uuid()"))
 
     #
     # Read and parse all data in raw_data dataframe
@@ -133,7 +134,7 @@ class BundleFhirResource(FhirResource):
                 .select(from_json("resource", BundleFhirResource.BUNDLE_SCHEMA).alias("bundle")) #root level schema
                 .select(BundleFhirResource.list_entry_columns(schemas )#entry[] into indvl cols
                     + [col("bundle.timestamp"), col("bundle.id")] #root cols timestamp & id 
-                ) 
+                ).withColumn("bundleUUID", expr("uuid()")) 
             )
     
     #
