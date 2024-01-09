@@ -112,7 +112,8 @@ class BundleFhirResource(FhirResource):
             .map(lambda x: [json.dumps(json.loads(y)) for y in x.asDict().get("resource").split("\n") if len(y) > 0])
             .map(lambda x: [x])
             .toDF(["resources"])
-            .select(BundleFhirResource.list_entry_columns(schemas, parent_column=col("resources")), lit("").alias("id"), lit("").alias("timestamp"))
+            .select(BundleFhirResource.list_entry_columns(schemas, parent_column=col("resources"))
+                    + [lit("").alias("id"), lit("").alias("timestamp")])
          ).withColumn("bundleUUID", expr("uuid()"))
 
     #
@@ -199,4 +200,14 @@ class BundleFhirResource(FhirResource):
     def table_write(self, column, location = "", write_mode = "append"):
         self.entry().select(col("bundleUUID"), col("timestamp"),col("id"),column).write.mode(write_mode).saveAsTable( (location + "." + column).lstrip("."))
 
-        
+    #
+    # Returns a string representing ndjson for each grouping/bundle of FHIR resources
+    #
+    def get_ndjson_resources(self):
+        pass
+
+    #
+    # Returns a string representing FHIR Bundles for each groupin gof resources
+    #
+    def get_bundle_resources(self):
+        pass

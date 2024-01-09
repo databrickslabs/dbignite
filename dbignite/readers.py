@@ -1,7 +1,7 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
 from enum import Enum
-from .fhir_resource import FhirResource
+from dbignite import FhirResource
 
 class FhirFormat(Enum):
     BUNDLE = 1
