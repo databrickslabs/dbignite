@@ -112,7 +112,7 @@ class BundleFhirResource(FhirResource):
             .map(lambda x: [json.dumps(json.loads(y)) for y in x.asDict().get("resource").split("\n") if len(y) > 0])
             .map(lambda x: [x])
             .toDF(["resources"])
-            .select(BundleFhirResource.list_entry_columns(schemas, parent_column=col("resources")))
+            .select(BundleFhirResource.list_entry_columns(schemas, parent_column=col("resources")), lit("").alias("id"), lit("").alias("timestamp"))
          ).withColumn("bundleUUID", expr("uuid()"))
 
     #
