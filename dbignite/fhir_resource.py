@@ -197,6 +197,6 @@ class BundleFhirResource(FhirResource):
     # Write an individual FHIR resource as a table
     #
     def table_write(self, column, location = "", write_mode = "append"):
-        self.entry().select(col("timestamp"),col("id"),column).write.mode(write_mode).saveAsTable( (location + "." + column).lstrip("."))
+        self.entry().select(col("bundleUUID"), col("timestamp"),col("id"),column).write.mode(write_mode).saveAsTable( (location + "." + column).lstrip("."))
 
         
