@@ -14,18 +14,16 @@
 
 # DBTITLE 1,Read in Sample Data
 from  dbignite.fhir_mapping_model import FhirSchemaModel
-from pyspark.sql.functions import size,col, sum, when, explode, udf, flatten, expr
+from pyspark.sql.functions import *
 from pyspark.sql.types import * 
 import uuid
 from dbignite.readers import read_from_directory
 
 sample_data = "s3://hls-eng-data-public/data/synthea/fhir/fhir/*json"
 
+#Read data from a static directory and parse it using entry() function
 bundle = read_from_directory(sample_data)
-df = bundle.read_data()
-
-#assign a unique id to each FHIR bundle 
-df = df.withColumn("bundleUUID", expr("uuid()"))
+df = bundle.entry()
 
 # COMMAND ----------
 
@@ -143,14 +141,13 @@ med_schema.fields[0].dataType.add(medCodeableConcept) #Add StructField one level
 old_schemas = {k:v for (k,v) in FhirSchemaModel().fhir_resource_map.items() if k != 'MedicationRequest'}
 new_schemas = {**old_schemas, **{'MedicationRequest': med_schema.fields[0].dataType} }
 
-df = bundle.read_data( FhirSchemaModel(fhir_resource_map = new_schemas))
+#reread in the data
+bundle = read_from_directory(sample_data)
+df = bundle.entry(schemas = FhirSchemaModel(fhir_resource_map = new_schemas))
 
 # COMMAND ----------
 
 # DBTITLE 1,Show Medication Requests Data
-
-df = df.withColumn("bundleUUID", expr("uuid()"))
-
 df.select(explode("Patient").alias("Patient"), col("bundleUUID"), col("MedicationRequest")).select(col("Patient"), col("bundleUUID"), explode(col("MedicationRequest")).alias("MedicationRequest")).select(
   col("bundleUUID").alias("UNIQUE_FHIR_ID"), 
   col("patient.id").alias("Patient"),
@@ -215,20 +212,15 @@ df.select(col("bundleUUID"), col("Practitioner")).select(col("bundleUUID"), expl
 
 # COMMAND ----------
 
-spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.patient""")
-spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.condition""")
-spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.claim""")
-spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.medication""")
-spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.practitioner""")
+spark.sql("DROP TABLE IF EXISTS hls_healthcare.hls_dev.Patient")
+spark.sql("DROP TABLE IF EXISTS hls_healthcare.hls_dev.Condition")
+spark.sql("DROP TABLE IF EXISTS hls_healthcare.hls_dev.Claim")
+spark.sql("DROP TABLE IF EXISTS hls_healthcare.hls_dev.MedicationRequest")
+spark.sql("DROP TABLE IF EXISTS hls_healthcare.hls_dev.Practitioner")
 
-# COMMAND ----------
-
-df.select(col("bundleUUID"), col("Patient")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.patient")
-df.select(col("bundleUUID"), col("Condition")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.condition")
-df.select(col("bundleUUID"), col("Claim")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.claim")
-df.select(col("bundleUUID"), col("MedicationRequest")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.medication")
-df.select(col("bundleUUID"), col("Practitioner")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.Practitioner")
-
+bundle.bulk_table_write(location="hls_healthcare.hls_dev" 
+  ,write_mode="overwrite"
+  ,columns=["Patient", "Condition", "Claim", "MedicationRequest", "Practitioner"]) #if columns is not specified, all resources are written by default
 
 # COMMAND ----------
 
@@ -296,7 +288,7 @@ df.select(col("bundleUUID"), col("Practitioner")).write.mode("overwrite").saveAs
 # MAGIC   m.medication.medicationCodeableConcept.coding.system[0] as rx_code_type,
 # MAGIC   m.medication.medicationCodeableConcept.coding.display[0] as rx_description
 # MAGIC   from (select bundleUUID, explode(Patient) as patient from hls_healthcare.hls_dev.patient) p --all patient information
-# MAGIC   inner join (select bundleUUID, explode(MedicationRequest) as medication from hls_healthcare.hls_dev.medication) m --all medication orders from that patient 
+# MAGIC   inner join (select bundleUUID, explode(MedicationRequest) as medication from hls_healthcare.hls_dev.MedicationRequest) m --all medication orders from that patient 
 # MAGIC     on p.bundleUUID = m.bundleUUID --Only show records that were bundled together 
 # MAGIC   limit 10
 
@@ -360,11 +352,7 @@ df.select(col("bundleUUID"), col("Practitioner")).write.mode("overwrite").saveAs
 # COMMAND ----------
 
 # DBTITLE 1,Reread same dataset as above
-df = read_from_directory(sample_data).read_data()
-
-#assign a unique id to each FHIR bundle 
-df = df.withColumn("bundleUUID", expr("uuid()"))
-
+df = read_from_directory(sample_data).entry()
 
 # COMMAND ----------
 
@@ -417,7 +405,7 @@ df.select(col("bundleUUID"), col("Claim")).write.mode("overwrite").saveAsTable("
 # COMMAND ----------
 
 import os, uuid
-from pyspark.sql.functions import col, expr
+from pyspark.sql.functions import *
 from dbignite.readers import read_from_directory
 from dbignite.hosp_feeds.adt import ADTActions
 
@@ -427,19 +415,16 @@ ADTActions()
 
 sample_data = "file:///" + os.getcwd() + "/../sampledata/adt_records/"
 bundle = read_from_directory(sample_data)
-df = bundle.read_data()
-
-#assign a unique id to each FHIR bundle 
-df = df.withColumn("bundleUUID", expr("uuid()"))
 
 # COMMAND ----------
 
 # DBTITLE 1,Create tables for Patient and MessageHeader resources
-spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.patient""")
-spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.adt_message""")
-df.select(col("bundleUUID"), col("Patient")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.patient")
-df.select(col("bundleUUID"), col("timestamp"), col("MessageHeader")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.adt_message")
-
+bundle.entry() #must evaluate the DataFrame before writing
+spark.sql("DROP TABLE IF EXISTS hls_healthcare.hls_dev.Patient")
+spark.sql("DROP TABLE IF EXISTS hls_healthcare.hls_dev.MessageHeader")
+bundle.bulk_table_write(location="hls_healthcare.hls_dev" 
+  ,write_mode="overwrite"
+  ,columns=["Patient", "MessageHeader"]) #if columns is not specified, all resources are written by default
 
 # COMMAND ----------
 
@@ -467,12 +452,8 @@ df.select(col("bundleUUID"), col("timestamp"), col("MessageHeader")).write.mode(
 # MAGIC --Master Patient Index Value for patient matching
 # MAGIC ,filter(patient.identifier, x -> x.type.text == 'EMPI')[0].value as empi_id
 # MAGIC
-# MAGIC from (select timestamp, bundleUUID, explode(MessageHeader) as messageheader from hls_healthcare.hls_dev.adt_message) adt
-# MAGIC   inner join (select bundleUUID, explode(Patient) as patient from hls_healthcare.hls_dev.patient) patient 
+# MAGIC from (select timestamp, bundleUUID, explode(MessageHeader) as messageheader from hls_healthcare.hls_dev.MessageHeader) adt
+# MAGIC   inner join (select bundleUUID, explode(Patient) as patient from hls_healthcare.hls_dev.Patient) patient 
 # MAGIC     on patient.bundleUUID = adt.bundleUUID
 # MAGIC   order by ssn desc, timestamp desc
 # MAGIC limit 10
-
-# COMMAND ----------
-
-
