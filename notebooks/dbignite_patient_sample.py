@@ -408,7 +408,7 @@ df.select(col("bundleUUID"), col("Claim")).write.mode("overwrite").saveAsTable("
 # COMMAND ----------
 
 import os, uuid
-from pyspark.sql.functions import col, expr
+from pyspark.sql.functions import *
 from dbignite.readers import read_from_directory
 from dbignite.hosp_feeds.adt import ADTActions
 
@@ -422,6 +422,7 @@ bundle = read_from_directory(sample_data)
 # COMMAND ----------
 
 # DBTITLE 1,Create tables for Patient and MessageHeader resources
+bundle.entry() #must evaluate the DataFrame before writing
 spark.sql("DROP TABLE IF EXISTS hls_healthcare.hls_dev.Patient")
 spark.sql("DROP TABLE IF EXISTS hls_healthcare.hls_dev.MessageHeader")
 bundle.bulk_table_write(location="hls_healthcare.hls_dev" 
@@ -454,12 +455,8 @@ bundle.bulk_table_write(location="hls_healthcare.hls_dev"
 # MAGIC --Master Patient Index Value for patient matching
 # MAGIC ,filter(patient.identifier, x -> x.type.text == 'EMPI')[0].value as empi_id
 # MAGIC
-# MAGIC from (select timestamp, bundleUUID, explode(MessageHeader) as messageheader from hls_healthcare.hls_dev.adt_message) adt
-# MAGIC   inner join (select bundleUUID, explode(Patient) as patient from hls_healthcare.hls_dev.patient) patient 
+# MAGIC from (select timestamp, bundleUUID, explode(MessageHeader) as messageheader from hls_healthcare.hls_dev.MessageHeader) adt
+# MAGIC   inner join (select bundleUUID, explode(Patient) as patient from hls_healthcare.hls_dev.Patient) patient 
 # MAGIC     on patient.bundleUUID = adt.bundleUUID
 # MAGIC   order by ssn desc, timestamp desc
 # MAGIC limit 10
-
-# COMMAND ----------
-
-
