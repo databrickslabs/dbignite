@@ -1,4 +1,4 @@
-from pyspark.sql.functions import udf
+from pyspark.sql.functions import *
 from pyspark.sql.types import StringType, StructType, StructField
 from pyspark.sql import SparkSession
 
@@ -71,7 +71,7 @@ class ADTActions:
 
     #register as spark udf
     @staticmethod
-    def register_udf(spark, udf_name = "get_action"):
+    def register_udf(spark = SparkSession.getActiveSession(), udf_name = "get_action"):
         schema = StructType([
             StructField("action", StringType(), False),
             StructField("description", StringType(), False)
