@@ -123,7 +123,7 @@ class BundleFhirResource(FhirResource):
     def read_bundle_data(self, schemas = FhirSchemaModel()) -> DataFrame:
         return (self._raw_data
                 .select(from_json("resource", BundleFhirResource.BUNDLE_SCHEMA).alias("bundle")) #root level schema
-                .select(MessageHeader.list_entry_columns(schemas )#entry[] into indvl cols
+                .select(BundleFhirResource.list_entry_columns(schemas )#entry[] into indvl cols
                     + [col("bundle.timestamp"), col("bundle.id")] #root cols timestamp & id 
                 ).withColumn("bundleUUID", expr("uuid()")) 
             )
