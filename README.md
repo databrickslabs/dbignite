@@ -140,7 +140,7 @@ Perform same functionality above, except using Dataframe only
 
 ``` python
 %python
-df = bundle.entry.withColumn("bundleUUID", expr("uuid()"))
+df = bundle.entry()
 
 df.select(explode("Patient").alias("Patient"), col("bundleUUID"), col("Claim")).select(col("Patient"), col("bundleUUID"), explode("Claim").alias("Claim")).select(
   col("bundleUUID").alias("UNIQUE_FHIR_ID"), 
