@@ -148,9 +148,6 @@ df = bundle.entry(schemas = FhirSchemaModel(fhir_resource_map = new_schemas))
 # COMMAND ----------
 
 # DBTITLE 1,Show Medication Requests Data
-
-df = df.withColumn("bundleUUID", expr("uuid()"))
-
 df.select(explode("Patient").alias("Patient"), col("bundleUUID"), col("MedicationRequest")).select(col("Patient"), col("bundleUUID"), explode(col("MedicationRequest")).alias("MedicationRequest")).select(
   col("bundleUUID").alias("UNIQUE_FHIR_ID"), 
   col("patient.id").alias("Patient"),
