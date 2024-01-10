@@ -90,6 +90,9 @@ from dbignite.readers import FhirFormat
 sample_data = "./sampledata/ndjson_records/*json"
 bundle = read_from_directory(sample_data, FhirFormat.NDJSON)
 
+#Read all the bundles and parse
+bundle.entry()
+
 #Show the total number of patient resources in the ndjson formatted data
 bundle.count_resource_type("Patient").show()
 +------------+                                                                  
@@ -107,18 +110,9 @@ bundle.count_resource_type("Patient").show()
 spark.sql("""DROP TABLE IF EXISTS hls_dev.default.claim""")
 spark.sql("""DROP TABLE IF EXISTS hls_dev.default.patient""")
 
-df = bundle.entry.withColumn("bundleUUID", expr("uuid()"))
-( df
-	.select(col("bundleUUID"), col("Claim"))
-	.write.mode("overwrite")
-	.saveAsTable("hls_dev.default.claim")
-)
-
-( df
-	.select(col("bundleUUID"), col("Patient"))
-	.write.mode("overwrite")
-	.saveAsTable("hls_dev.default.patient")
-)
+bundle.bulk_table_write(location="hls_healthcare.hls_dev" 
+  ,write_mode="overwrite"
+  ,columns=["Patient", "Claim"]) #if columns is not specified, all 157 resource types are written by default
 ```
 ``` SQL
 %sql
@@ -185,14 +179,13 @@ medCodeableConcept = StructField("medicationCodeableConcept", StructType([
 
 med_schema.fields[0].dataType.add(medCodeableConcept) #Add StructField one level below MedicationRequest
 
-#create new schema for reading FHIR bundles
+#reconstruct the schema object with updated Medication schema
 old_schemas = {k:v for (k,v) in FhirSchemaModel().fhir_resource_map.items() if k != 'MedicationRequest'}
 new_schemas = {**old_schemas, **{'MedicationRequest': med_schema.fields[0].dataType} }
 
-df = bundle.read_data( FhirSchemaModel(fhir_resource_map = new_schemas))
-
-#select and show medication data
-df = df.withColumn("bundleUUID", expr("uuid()"))
+#reread in the data
+bundle = read_from_directory(sample_data)
+df = bundle.entry(schemas = FhirSchemaModel(fhir_resource_map = new_schemas))
 
 df.select(explode("Patient").alias("Patient"), col("bundleUUID"), col("MedicationRequest")).select(col("Patient"), col("bundleUUID"), explode(col("MedicationRequest")).alias("MedicationRequest")).select(
   col("bundleUUID").alias("UNIQUE_FHIR_ID"), 
@@ -216,7 +209,7 @@ Import ADT package & read FHIR data
 ``` python
 %python
 import os, uuid
-from pyspark.sql.functions import col, expr
+from pyspark.sql.functions import *
 from dbignite.readers import read_from_directory
 from dbignite.hosp_feeds.adt import ADTActions
 
@@ -226,17 +219,15 @@ ADTActions()
 
 sample_data = "file:///" + os.getcwd() + "/../sampledata/adt_records/"
 bundle = read_from_directory(sample_data)
-df = bundle.read_data()
 ```
 
 Create relational tables for Patient and MessageHeader data types
  
 ``` sql
 %python
-spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.patient""")
-spark.sql("""DROP TABLE IF EXISTS hls_healthcare.hls_dev.adt_message""")
-df.select(col("bundleUUID"), col("Patient")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.patient")
-df.select(col("bundleUUID"), col("timestamp"), col("MessageHeader")).write.mode("overwrite").saveAsTable("hls_healthcare.hls_dev.adt_message")
+bundle.bulk_table_write(location="hls_healthcare.fhir" 
+  ,write_mode="overwrite"
+  ,columns=["Patient", "MessageHeader"]) #if columns is not specified, all resources are written by default
 ```
 
 Sample results and query used against relational tables above that shows patient flow in the hospital setting (fake data shown) 
@@ -271,6 +262,7 @@ from (select timestamp, bundleUUID, explode(MessageHeader) as messageheader from
   inner join (select bundleUUID, explode(Patient) as patient from hls_healthcare.hls_dev.patient) patient 
     on patient.bundleUUID = adt.bundleUUID
   order by ssn desc, timestamp desc
+limit 10
 ```
 
 ## Usage: Writing FHIR Data 
