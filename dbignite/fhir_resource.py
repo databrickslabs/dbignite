@@ -112,7 +112,7 @@ class BundleFhirResource(FhirResource):
             .map(lambda x: [json.dumps(json.loads(y)) for y in x.asDict().get("resource").split("\n") if len(y) > 0])
             .map(lambda x: [x])
             .toDF(["resources"])
-            .select(BundleFhirResource.list_entry_columns(schemas, parent_column=col("resources"))
+            .select(self.list_entry_columns(schemas, parent_column=col("resources"))
                     + [lit("").alias("id"), lit("").alias("timestamp")])
          ).withColumn("bundleUUID", expr("uuid()"))
 
@@ -123,7 +123,7 @@ class BundleFhirResource(FhirResource):
     def read_bundle_data(self, schemas = FhirSchemaModel()) -> DataFrame:
         return (self._raw_data
                 .select(from_json("resource", BundleFhirResource.BUNDLE_SCHEMA).alias("bundle")) #root level schema
-                .select(BundleFhirResource.list_entry_columns(schemas )#entry[] into indvl cols
+                .select(self.list_entry_columns(schemas )#entry[] into indvl cols
                     + [col("bundle.timestamp"), col("bundle.id")] #root cols timestamp & id 
                 ).withColumn("bundleUUID", expr("uuid()")) 
             )
@@ -133,8 +133,7 @@ class BundleFhirResource(FhirResource):
     # @param parent_column - location of the list of resources 
     # @return a list of column transformations to select based upon the schemas provided
     #
-    @staticmethod
-    def list_entry_columns(schemas, parent_column=col("bundle.entry.resource")):
+    def list_entry_columns(self, schemas, parent_column=col("bundle.entry.resource")):
         return [
             BundleFhirResource.__convert_from_json(
                 BundleFhirResource.__filter_resources(parent_column, resource_type),
