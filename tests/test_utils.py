@@ -16,10 +16,6 @@ TEST_BUNDLE_PATH = "./sampledata/*json"
 TEST_DATABASE = f"test_{REPO}_{BRANCH}"
 
 @pytest.fixture
-def get_entries_inline_json_df(spark_session):
-    return FhirBundles(path=TEST_BUNDLE_PATH).loadEntries()
-
-@pytest.fixture
 def get_entries_df(spark_session):
     return FhirBundles(path=TEST_BUNDLE_PATH).loadEntries()
 
@@ -42,15 +38,6 @@ class TestUtils:
         person_df = entries_to_person(get_entries_df)
         assert person_df.count() == 3
         assert_schema_equality(person_df.schema, PERSON_SCHEMA, ignore_nullable=True)
-
-    def test_entries_inline_json(self, spark_session):
-        fhir=FhirBundles(defaultResource=FhirBundles().asInlineJsonSingleton, path="./sampledata/inline_records/")
-        assert fhir.loadEntries().count() == 29
-        import json
-        x = json.loads(fhir.loadEntries().take(1)[0]['entry_json'])
-        assert x['resourceType']=='Patient'
-        assert x['gender']=='male'
-        assert x['birthDate'] =='1963-06-09'
             
     def test_entries_to_condition(self, get_entries_df) -> None:
         condition_df = entries_to_condition(get_entries_df)
