@@ -112,7 +112,7 @@ spark.sql("""DROP TABLE IF EXISTS hls_dev.default.patient""")
 
 bundle.bulk_table_write(location="hls_healthcare.hls_dev" 
   ,write_mode="overwrite"
-  ,columns=["Patient", "Claim"]) #if columns is not specified, all 157 resource types are written by default
+  ,columns=["Patient", "Claim"]) #if columns is not specified, all columns of the dataframe are written (157 resources are written with default settings)
 ```
 ``` SQL
 %sql
