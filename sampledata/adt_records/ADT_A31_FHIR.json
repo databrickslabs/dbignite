@@ -1,0 +1,423 @@
+{
+	"resourceType": "Bundle",
+	"id": "3f8fe8c2-1577-403b-add1-f5c211b54c89",
+	"type": "message",
+	"timestamp": "2023-03-31T22:36:42.939Z",
+	"entry": [
+		{
+			"fullUrl": "urn:uuid:3f7edebc-6b74-4d5f-be25-2e76f2c22980",
+			"resource": {
+				"resourceType": "MessageHeader",
+				"meta": {
+					"profile": [
+						"https://fhir.redoxengine.com/StructureDefinition/redox-message-header"
+					]
+				},
+				"eventCoding": {
+					"system": "http://terminology.hl7.org/CodeSystem/v2-0354",
+					"code": "ADT_A31",
+					"display": "Update Patient Information"
+				},
+				"definition": "https://fhir.redoxengine.com/EventDefinition/PatientAdminUpdatedNotification",
+				"source": {
+					"name": "RDX",
+					"endpoint": "urn:uuid:0f5227ca-53cc-481f-b0e0-d7f226934971"
+				},
+				"focus": [
+					{
+						"reference": "urn:uuid:af42509a-9a4a-45b6-8a3e-6fbb200d66a9"
+					},
+					{
+						"reference": "urn:uuid:fb441f80-4c15-4431-aed1-cdbc2795690e",
+						"type": "Encounter"
+					}
+				],
+				"sender": {
+					"reference": "urn:uuid:1ce1e22f-feb3-4560-b6a8-db162c2f875e",
+					"type": "Organization"
+				},
+				"responsible": {
+					"display": "RDX"
+				}
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:fb441f80-4c15-4431-aed1-cdbc2795690e",
+			"resource": {
+				"resourceType": "Encounter",
+				"status": "unknown",
+				"class": {
+					"code": "unknown",
+					"system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+					"display": "unknown"
+				},
+				"subject": {
+					"reference": "urn:uuid:af42509a-9a4a-45b6-8a3e-6fbb200d66a9",
+					"type": "Patient"
+				},
+				"participant": [
+					{
+						"type": [
+							{
+								"text": "ATND",
+								"coding": [
+									{
+										"code": "ATND",
+										"system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+										"display": "attender"
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": [
+							{
+								"text": "REF",
+								"coding": [
+									{
+										"code": "REF",
+										"system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+										"display": "referrer"
+									}
+								]
+							}
+						]
+					}
+				],
+				"account": [
+					{
+						"reference": "urn:uuid:eb7903d1-79a5-4033-a7ac-92f3a8d672dc",
+						"type": "Account"
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:af42509a-9a4a-45b6-8a3e-6fbb200d66a9",
+			"resource": {
+				"resourceType": "Patient",
+				"identifier": [
+					{
+						"system": "urn:redox:0f5227ca-53cc-481f-b0e0-d7f226934971:mr",
+						"value": "0000000001"
+					},
+					{
+						"system": "urn:redox:0f5227ca-53cc-481f-b0e0-d7f226934971:ehrid",
+						"value": "e167267c-16c9-4fe3-96ae-9cff5703e90a"
+					},
+					{
+						"system": "urn:redox:0f5227ca-53cc-481f-b0e0-d7f226934971:nist",
+						"value": "a1d4ee8aba494ca"
+					},
+					{
+						"system": "http://hl7.org/fhir/sid/us-ssn",
+						"value": "101-01-0001"
+					}
+				],
+				"communication": [
+					{
+						"language": {
+							"coding": [
+								{
+									"code": "unknown",
+									"system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+									"display": "unknown"
+								}
+							]
+						}
+					}
+				],
+				"name": [
+					{
+						"given": [
+							"Timothy",
+							"Paul"
+						],
+						"family": "Bixby",
+						"text": "Timothy Paul Bixby"
+					}
+				],
+				"active": true,
+				"gender": "male",
+				"address": [
+					{
+						"city": "Madison",
+						"line": [
+							"4435 Victoria Ln"
+						],
+						"country": "US",
+						"state": "WI"
+					}
+				],
+				"telecom": [
+					{
+						"value": "(808) 867-5301",
+						"system": "other",
+						"use": "home"
+					}
+				],
+				"birthDate": "2008-01-06",
+				"maritalStatus": {
+					"text": "S"
+				},
+				"extension": [
+					{
+						"url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+						"extension": [
+							{
+								"url": "text",
+								"valueString": "U"
+							}
+						]
+					}
+				],
+				"contact": [
+					{
+						"relationship": [
+							{
+								"coding": [
+									{
+										"system": "http://terminology.hl7.org/CodeSystem/v2-0131",
+										"code": "BP",
+										"display": "Billing contact person"
+									}
+								]
+							}
+						],
+						"name": {
+							"given": [
+								"Kent"
+							],
+							"family": "Bixby",
+							"text": "Kent Bixby"
+						},
+						"address": {
+							"city": "Monroe",
+							"line": [
+								"4762 Hickory Street"
+							],
+							"country": "USA",
+							"state": "WI",
+							"district": "Green"
+						}
+					},
+					{
+						"relationship": [
+							{
+								"coding": [
+									{
+										"system": "http://terminology.hl7.org/CodeSystem/v2-0131",
+										"code": "N",
+										"display": "Next-of-Kin"
+									}
+								]
+							}
+						],
+						"name": {
+							"given": [
+								"Barbara"
+							],
+							"family": "Bixby",
+							"text": "Barbara Bixby"
+						},
+						"telecom": [
+							{
+								"value": "(918) 936-8865",
+								"system": "phone"
+							}
+						],
+						"address": {
+							"city": "Monroe",
+							"line": [
+								"4762 Hickory Street"
+							],
+							"country": "US",
+							"state": "WI",
+							"district": "Green"
+						}
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:eb7903d1-79a5-4033-a7ac-92f3a8d672dc",
+			"resource": {
+				"resourceType": "Account",
+				"identifier": [
+					{
+						"system": "accountNumber"
+					}
+				],
+				"status": "unknown",
+				"subject": [
+					{
+						"reference": "urn:uuid:af42509a-9a4a-45b6-8a3e-6fbb200d66a9",
+						"type": "Patient"
+					}
+				],
+				"coverage": [
+					{
+						"coverage": {
+							"reference": "urn:uuid:d44f60b3-7b9f-4596-bde8-d43b373e50cd",
+							"type": "Coverage"
+						}
+					}
+				],
+				"guarantor": [
+					{
+						"party": {
+							"reference": "urn:uuid:400e9ba4-3e57-4086-9a66-a09596bf92dc",
+							"type": "RelatedPerson"
+						}
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:a3b4486c-a52b-4b72-9cdd-82dc98c3f73b",
+			"resource": {
+				"resourceType": "RelatedPerson",
+				"patient": {
+					"reference": "urn:uuid:af42509a-9a4a-45b6-8a3e-6fbb200d66a9",
+					"type": "Patient"
+				}
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:400e9ba4-3e57-4086-9a66-a09596bf92dc",
+			"resource": {
+				"resourceType": "RelatedPerson",
+				"relationship": [
+					{
+						"text": "Father",
+						"coding": [
+							{
+								"code": "FTH",
+								"system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode"
+							}
+						]
+					}
+				],
+				"name": [
+					{
+						"given": [
+							"Kent"
+						],
+						"family": "Bixby",
+						"text": "Kent Bixby"
+					}
+				],
+				"address": [
+					{
+						"city": "Monroe",
+						"line": [
+							"4762 Hickory Street"
+						],
+						"country": "USA",
+						"state": "WI",
+						"district": "Green"
+					}
+				],
+				"patient": {
+					"reference": "urn:uuid:af42509a-9a4a-45b6-8a3e-6fbb200d66a9",
+					"type": "Patient"
+				}
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:1ce1e22f-feb3-4560-b6a8-db162c2f875e",
+			"resource": {
+				"resourceType": "Organization",
+				"name": "Redox Inc.",
+				"telecom": [
+					{
+						"system": "phone",
+						"value": "(608) 535-9501",
+						"use": "work"
+					},
+					{
+						"system": "email",
+						"value": "hello@redoxengine.com",
+						"use": "work"
+					}
+				],
+				"address": [
+					{
+						"use": "work",
+						"type": "physical",
+						"line": [
+							"2020 Eastwood Drive"
+						],
+						"city": "Madison",
+						"state": "WI",
+						"postalCode": "53704"
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:7583a910-e042-4bd9-9fe8-83c436e905fa",
+			"resource": {
+				"resourceType": "Practitioner"
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:77ff3666-81c7-4b3e-a563-536445223d33",
+			"resource": {
+				"resourceType": "CareTeam",
+				"subject": {
+					"reference": "urn:uuid:af42509a-9a4a-45b6-8a3e-6fbb200d66a9",
+					"type": "Patient"
+				},
+				"encounter": {
+					"reference": "urn:uuid:fb441f80-4c15-4431-aed1-cdbc2795690e",
+					"type": "Encounter"
+				}
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:d44f60b3-7b9f-4596-bde8-d43b373e50cd",
+			"resource": {
+				"resourceType": "Coverage",
+				"status": "active",
+				"period": {
+					"start": "2015-01-01",
+					"end": "2020-12-31"
+				},
+				"class": [
+					{
+						"value": "847025-024-0009",
+						"name": "Accelerator Labs",
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/coverage-class",
+									"code": "group",
+									"display": "Group"
+								}
+							]
+						}
+					},
+					{
+						"value": "31572",
+						"name": "HMO Deductible Plan",
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/coverage-class",
+									"code": "plan",
+									"display": "Plan"
+								}
+							]
+						}
+					}
+				],
+				"beneficiary": {
+					"reference": "urn:uuid:af42509a-9a4a-45b6-8a3e-6fbb200d66a9",
+					"type": "Patient"
+				}
+			}
+		}
+	]
+}

@@ -31,7 +31,7 @@ setup(
         "License :: Other/Proprietary License",
         "Operating System :: OS Independent",
     ],
-    packages=['dbignite', 'dbignite.omop'],
+    packages=['dbignite', 'dbignite.omop', 'dbignite.hosp_feeds'],
     package_data={'': ["schemas/*.json"]},
     py_modules=['dbignite.data_model']
 )

@@ -1,0 +1,665 @@
+{
+	"resourceType": "Bundle",
+	"id": "e66400d3-c7d2-4720-9f39-c53fa2c25fa4",
+	"type": "message",
+	"timestamp": "2023-03-31T22:46:42.163Z",
+	"entry": [
+		{
+			"fullUrl": "urn:uuid:9c1e4b5d-e90c-4910-9185-9aeac9100d7a",
+			"resource": {
+				"resourceType": "MessageHeader",
+				"meta": {
+					"profile": [
+						"https://fhir.redoxengine.com/StructureDefinition/redox-message-header"
+					]
+				},
+				"eventCoding": {
+					"system": "http://terminology.hl7.org/CodeSystem/v2-0354",
+					"code": "ADT_A09",
+					"display": "Patient departing"
+				},
+				"definition": "https://fhir.redoxengine.com/EventDefinition/PatientAdminArrivedNotification",
+				"source": {
+					"name": "DALY_MT",
+					"endpoint": "urn:uuid:0f5227ca-53cc-481f-b0e0-d7f226934971"
+				},
+				"focus": [
+					{
+						"reference": "urn:uuid:db5f485f-5583-4761-a987-48b13ea14ee2"
+					},
+					{
+						"reference": "urn:uuid:b2b90a5e-fe79-4cca-b178-7cd04ea3eb15",
+						"type": "Encounter"
+					}
+				],
+				"sender": {
+					"reference": "urn:uuid:6bddc897-d31d-44d1-99ea-5f097fefc91c",
+					"type": "Organization"
+				},
+				"responsible": {
+					"display": "DALY_MT"
+				}
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:b2b90a5e-fe79-4cca-b178-7cd04ea3eb15",
+			"resource": {
+				"resourceType": "Encounter",
+				"identifier": [
+					{
+						"value": "6952304"
+					}
+				],
+				"status": "unknown",
+				"class": {
+					"code": "AMB",
+					"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+					"display": "ambulatory"
+				},
+				"serviceType": {
+					"text": "Med-Gastroenterology"
+				},
+				"subject": {
+					"reference": "urn:uuid:db5f485f-5583-4761-a987-48b13ea14ee2",
+					"type": "Patient"
+				},
+				"location": [
+					{
+						"status": "reserved",
+						"location": {
+							"reference": "urn:uuid:12076df4-cab2-4560-8dec-8749b0fb6bc5",
+							"type": "Location"
+						}
+					}
+				],
+				"participant": [
+					{
+						"type": [
+							{
+								"text": "ATND",
+								"coding": [
+									{
+										"code": "ATND",
+										"system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+										"display": "attender"
+									}
+								]
+							}
+						],
+						"individual": {
+							"reference": "urn:uuid:e6c37b92-6a27-4322-ab85-e8328c1830ad"
+						}
+					},
+					{
+						"type": [
+							{
+								"text": "ADM",
+								"coding": [
+									{
+										"code": "ADM",
+										"system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+										"display": "admitter"
+									}
+								]
+							}
+						],
+						"individual": {
+							"reference": "urn:uuid:e6c37b92-6a27-4322-ab85-e8328c1830ad"
+						}
+					}
+				],
+				"account": [
+					{
+						"reference": "urn:uuid:3dc533b7-1d0f-4479-a3ad-c60c52dd4f3e",
+						"type": "Account"
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:db5f485f-5583-4761-a987-48b13ea14ee2",
+			"resource": {
+				"resourceType": "Patient",
+				"identifier": [
+					{
+						"type": {
+							"text": "MRN",
+							"coding": [
+								{
+									"code": "MR",
+									"system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+									"display": "Medical record number"
+								}
+							]
+						},
+						"_system": {
+							"extension": [
+								{
+									"url": "http://hl7.org/fhir/StructureDefinition/originalText",
+									"valueString": "MDMH MRN"
+								}
+							]
+						},
+						"value": "984261"
+					},
+					{
+						"type": {
+							"text": "MRN",
+							"coding": [
+								{
+									"code": "MR",
+									"system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+									"display": "Medical record number"
+								}
+							]
+						},
+						"system": "urn:redox:0f5227ca-53cc-481f-b0e0-d7f226934971:mdmh_mrn",
+						"value": "984261"
+					},
+					{
+						"type": {
+							"text": "EMPI"
+						},
+						"system": "urn:redox:0f5227ca-53cc-481f-b0e0-d7f226934971:empi",
+						"value": "123456"
+					},
+					{
+						"system": "urn:redox:0f5227ca-53cc-481f-b0e0-d7f226934971:mdmh_mrn",
+						"value": "164579"
+					},
+					{
+						"system": "http://hl7.org/fhir/sid/us-ssn",
+						"value": "555-55-5555"
+					},
+					{
+						"type": {
+							"text": "DL",
+							"coding": [
+								{
+									"code": "DL",
+									"system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+									"display": "Driver's license number"
+								}
+							]
+						},
+						"value": "123456789driver1"
+					}
+				],
+				"communication": [
+					{
+						"language": {
+							"text": "English",
+							"coding": [
+								{
+									"code": "en",
+									"system": "urn:ietf:bcp:47",
+									"display": "English"
+								}
+							]
+						}
+					}
+				],
+				"name": [
+					{
+						"given": [
+							"Carl",
+							"C"
+						],
+						"family": "Carlson",
+						"text": "Carl C Carlson",
+						"suffix": [
+							"Current"
+						]
+					}
+				],
+				"active": true,
+				"gender": "male",
+				"address": [
+					{
+						"city": "SPRINGFIELD",
+						"line": [
+							"123 FAKE STREET",
+							"Apt3"
+						],
+						"country": "USA",
+						"type": "physical",
+						"use": "home",
+						"state": "OR",
+						"district": "Ravalli"
+					},
+					{
+						"city": "SPRINGFIELD",
+						"line": [
+							"777 FAKE STREET"
+						],
+						"country": "USA",
+						"type": "physical",
+						"use": "home",
+						"state": "OR",
+						"district": "Ravalli"
+					}
+				],
+				"telecom": [
+					{
+						"value": "mwyhlyem@zmzw.ved",
+						"system": "email",
+						"use": "home"
+					},
+					{
+						"value": "(408) 244-7155",
+						"system": "other",
+						"use": "home"
+					},
+					{
+						"value": "fakeemail@business.biz",
+						"system": "email",
+						"use": "work"
+					},
+					{
+						"value": "(608) 555-7155",
+						"system": "other",
+						"use": "work"
+					}
+				],
+				"birthDate": "1960-05-06",
+				"maritalStatus": {
+					"text": "M",
+					"coding": [
+						{
+							"code": "M",
+							"system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+							"display": "Married"
+						}
+					]
+				},
+				"deceasedBoolean": true,
+				"extension": [
+					{
+						"url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+						"extension": [
+							{
+								"url": "text",
+								"valueString": "African American"
+							}
+						]
+					},
+					{
+						"url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+						"extension": [
+							{
+								"url": "text",
+								"valueString": "Unknown"
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:3dc533b7-1d0f-4479-a3ad-c60c52dd4f3e",
+			"resource": {
+				"resourceType": "Account",
+				"identifier": [
+					{
+						"system": "urn:redox:0f5227ca-53cc-481f-b0e0-d7f226934971:mdmh_fin",
+						"value": "6952304"
+					}
+				],
+				"status": "active",
+				"subject": [
+					{
+						"reference": "urn:uuid:db5f485f-5583-4761-a987-48b13ea14ee2",
+						"type": "Patient"
+					}
+				],
+				"coverage": [
+					{
+						"coverage": {
+							"reference": "urn:uuid:cbdc33e0-1b4c-4f06-8a82-26239d49d3e6",
+							"type": "Coverage"
+						},
+						"priority": 2
+					},
+					{
+						"coverage": {
+							"reference": "urn:uuid:bd37f4c1-4aab-4057-b529-9bc44a886401",
+							"type": "Coverage"
+						},
+						"priority": 2
+					}
+				],
+				"guarantor": [
+					{
+						"party": {
+							"reference": "urn:uuid:db5f485f-5583-4761-a987-48b13ea14ee2",
+							"type": "Patient"
+						}
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:7a981851-8510-47c4-91a9-95ac0c8239f4",
+			"resource": {
+				"resourceType": "RelatedPerson",
+				"relationship": [
+					{
+						"text": "Mthr"
+					}
+				],
+				"gender": "female",
+				"name": [
+					{
+						"given": [
+							"RENEE",
+							"D"
+						],
+						"family": "SOUTAR",
+						"text": "RENEE D SOUTAR"
+					}
+				],
+				"address": [
+					{
+						"city": "HANNIBAL",
+						"line": [
+							"13324 WHITE CEMETERY RD"
+						],
+						"state": "NY"
+					}
+				],
+				"birthDate": "1970-07-22",
+				"patient": {
+					"reference": "urn:uuid:db5f485f-5583-4761-a987-48b13ea14ee2",
+					"type": "Patient"
+				}
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:6bddc897-d31d-44d1-99ea-5f097fefc91c",
+			"resource": {
+				"resourceType": "Organization",
+				"name": "Redox Inc.",
+				"telecom": [
+					{
+						"system": "phone",
+						"value": "(608) 535-9501",
+						"use": "work"
+					},
+					{
+						"system": "email",
+						"value": "hello@redoxengine.com",
+						"use": "work"
+					}
+				],
+				"address": [
+					{
+						"use": "work",
+						"type": "physical",
+						"line": [
+							"2020 Eastwood Drive"
+						],
+						"city": "Madison",
+						"state": "WI",
+						"postalCode": "53704"
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:e6c37b92-6a27-4322-ab85-e8328c1830ad",
+			"resource": {
+				"resourceType": "Practitioner",
+				"identifier": [
+					{
+						"value": "12345"
+					}
+				],
+				"name": [
+					{
+						"given": [
+							"AHL UK Ktgxw"
+						],
+						"family": "qqAHL(Aoteot 18)",
+						"prefix": [
+							"Cerner System"
+						],
+						"text": "AHL UK Ktgxw qqAHL(Aoteot 18)"
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:5a2f2458-69b6-4271-9962-fffc62887eaa",
+			"resource": {
+				"resourceType": "CareTeam",
+				"subject": {
+					"reference": "urn:uuid:db5f485f-5583-4761-a987-48b13ea14ee2",
+					"type": "Patient"
+				},
+				"encounter": {
+					"reference": "urn:uuid:b2b90a5e-fe79-4cca-b178-7cd04ea3eb15",
+					"type": "Encounter"
+				}
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:0153b885-6159-4770-be67-d20253ecd20a",
+			"resource": {
+				"resourceType": "Location",
+				"name": "MDMH ENDO",
+				"mode": "kind"
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:bef31a81-ce54-40b4-b365-591eae4378ca",
+			"resource": {
+				"resourceType": "Location",
+				"name": "ENDO01",
+				"mode": "instance",
+				"physicalType": {
+					"coding": [
+						{
+							"code": "ro",
+							"system": "http://terminology.hl7.org/CodeSystem/location-physical-type",
+							"display": "Room"
+						}
+					]
+				},
+				"operationalStatus": {
+					"code": "O",
+					"system": "http://terminology.hl7.org/CodeSystem/v2-0116",
+					"display": "Occupied"
+				},
+				"partOf": {
+					"reference": "urn:uuid:0153b885-6159-4770-be67-d20253ecd20a"
+				}
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:12076df4-cab2-4560-8dec-8749b0fb6bc5",
+			"resource": {
+				"resourceType": "Location",
+				"name": "A",
+				"mode": "instance",
+				"physicalType": {
+					"coding": [
+						{
+							"code": "bd",
+							"system": "http://terminology.hl7.org/CodeSystem/location-physical-type",
+							"display": "Bed"
+						}
+					]
+				},
+				"operationalStatus": {
+					"code": "O",
+					"system": "http://terminology.hl7.org/CodeSystem/v2-0116",
+					"display": "Occupied"
+				},
+				"partOf": {
+					"reference": "urn:uuid:bef31a81-ce54-40b4-b365-591eae4378ca"
+				}
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:f008a852-e764-45d9-a5fe-13c62e860ebc",
+			"resource": {
+				"resourceType": "Location",
+				"name": "Marcus Daly",
+				"mode": "instance",
+				"physicalType": {
+					"coding": [
+						{
+							"code": "si",
+							"system": "http://terminology.hl7.org/CodeSystem/location-physical-type",
+							"display": "Site"
+						}
+					]
+				}
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:0dcbc376-0755-49eb-be3f-25d0e2c8b0c8",
+			"resource": {
+				"resourceType": "Location",
+				"name": "Marcus Daly",
+				"mode": "instance",
+				"physicalType": {
+					"coding": [
+						{
+							"code": "bu",
+							"system": "http://terminology.hl7.org/CodeSystem/location-physical-type",
+							"display": "Building"
+						}
+					]
+				},
+				"partOf": {
+					"reference": "urn:uuid:0153b885-6159-4770-be67-d20253ecd20a"
+				}
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:cbdc33e0-1b4c-4f06-8a82-26239d49d3e6",
+			"resource": {
+				"resourceType": "Coverage",
+				"status": "active",
+				"type": {
+					"text": "2"
+				},
+				"relationship": {
+					"text": "Mthr",
+					"coding": [
+						{
+							"code": "parent",
+							"system": "http://terminology.hl7.org/CodeSystem/subscriber-relationship",
+							"display": "Parent"
+						}
+					]
+				},
+				"period": {
+					"start": "2020-12-13",
+					"end": "2023-02-12"
+				},
+				"class": [
+					{
+						"value": "1500004000001",
+						"name": "AETNA SERVICES INC",
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/coverage-class",
+									"code": "group",
+									"display": "Group"
+								}
+							]
+						}
+					},
+					{
+						"value": "EPO",
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/coverage-class",
+									"code": "plan",
+									"display": "Plan"
+								}
+							]
+						}
+					}
+				],
+				"order": 1,
+				"beneficiary": {
+					"reference": "urn:uuid:db5f485f-5583-4761-a987-48b13ea14ee2",
+					"type": "Patient"
+				},
+				"payor": [
+					{
+						"reference": "urn:uuid:7a981851-8510-47c4-91a9-95ac0c8239f4",
+						"type": "RelatedPerson"
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "urn:uuid:bd37f4c1-4aab-4057-b529-9bc44a886401",
+			"resource": {
+				"resourceType": "Coverage",
+				"status": "active",
+				"type": {
+					"text": "2"
+				},
+				"relationship": {
+					"text": "self",
+					"coding": [
+						{
+							"code": "self",
+							"system": "http://terminology.hl7.org/CodeSystem/subscriber-relationship",
+							"display": "Self"
+						}
+					]
+				},
+				"period": {
+					"start": "2020-12-13",
+					"end": "2023-02-12"
+				},
+				"class": [
+					{
+						"value": "1500004000001",
+						"name": "UPMC",
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/coverage-class",
+									"code": "group",
+									"display": "Group"
+								}
+							]
+						}
+					},
+					{
+						"value": "EPO",
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/coverage-class",
+									"code": "plan",
+									"display": "Plan"
+								}
+							]
+						}
+					}
+				],
+				"order": 2,
+				"beneficiary": {
+					"reference": "urn:uuid:db5f485f-5583-4761-a987-48b13ea14ee2",
+					"type": "Patient"
+				},
+				"payor": [
+					{
+						"reference": "urn:uuid:db5f485f-5583-4761-a987-48b13ea14ee2",
+						"type": "Patient"
+					}
+				]
+			}
+		}
+	]
+}

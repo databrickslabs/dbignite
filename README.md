@@ -4,19 +4,31 @@ __Health Data Interoperability__
 This library is designed to provide a low friction entry to performing analytics on 
 [FHIR](https://hl7.org/fhir/bundle.html) bundles by extracting resources and flattening. 
 
+# Table of Contents 
+
+[Installation](#installation)  
+
+[Read & Analyze a FHIR Bundle](#usage-read--analyze-a-fhir-bundle)  
+[SQL on FHIR](#sql-on-fhir)  
+[DataFrames for FHIR](#dataframes-for-fhir)  
+[Ex. Reading non-compliant FHIR Data](#ex-reading-non-compliant-fhir-data)  
+[Ex. Hospital Patient Flow](#usage-seeing-a-patient-flow-in-a-hospital-in-real-time)  
+
+[Writing FHIR Data](#usage-writing-fhir-data)  
+
+[Omop Common Data Model](dbignite/omop)  
+
+[Internal Representation of a FHIR Bundle in DBIgnite](#internal-representation-of-a-fhir-bundle-in-dbignite)  
+
 # Usage
 
 ## Installation
 ```
 pip install git+https://github.com/databrickslabs/dbignite.git
 ```
+For a more detailed Demo, clone repo into Databricks and refer to the notebook [dbignite_patient_sample.py](./notebooks/dbignite_patient_sample.py)
 
 ## Usage: Read & Analyze a FHIR Bundle
-
-This functionality exists in two components 
-
-1. Representation of a FHIR schema and resources (see dbiginte/schemas, dbignite/fhir_mapping_model.py)
-2. Interpretation of a FHIR bundle for consumable analtyics (see dbiginte/*py)
 
 ### 1. FHIR representations
 
@@ -47,12 +59,12 @@ sorted(fhir_custom.list_keys()) # ['Claim', 'Condition', 'Patient']
 from pyspark.sql.functions import size,col, sum
 from dbignite.readers import read_from_directory
 
-#Read sample data from a public s3 bucket
-sample_data = "s3://hls-eng-data-public/data/synthea/fhir/fhir/*json"
+#Read sample FHIR Bundle data from this repo
+sample_data = "./sampledata/*json"
 bundle = read_from_directory(sample_data)
 
 #Read all the bundles and parse
-bundle.entry
+bundle.entry()
 
 #Show the total number of patient resources in all bundles
 bundle.count_resource_type("Patient").show() 
@@ -73,15 +85,24 @@ bundle.count_within_bundle_resource_type("Patient").show()
 #|                  1|
 #+-------------------+
 
+#Support for ndjson data format ex see: https://build.fhir.org/ig/HL7/bulk-data/export.html#bulk-data-output-file-request
+from dbignite.readers import FhirFormat
+sample_data = "./sampledata/ndjson_records/*json"
+bundle = read_from_directory(sample_data, FhirFormat.NDJSON)
+
+#Read all the bundles and parse
+bundle.entry()
+
+#Show the total number of patient resources in the ndjson formatted data
+bundle.count_resource_type("Patient").show()
++------------+                                                                  
+|resource_sum|
++------------+
+|           1|
++------------+
 ```
 
-#### FHIR Bundle Representation in DBIgnite
-
-The core of a  FHIR bundle is the list of entry resources. This information is flattened into individual columns grouped by resourceType in DBIgnite. The following examples depict common uses and interactions. 
-
-![logo](/img/FhirBundleSchemaClass.png?raw=true)
-
-#### Detailed Mapping Level FHIR Bundle Information (SQL API)
+## SQL on FHIR
 
 ``` python
 %python
@@ -89,18 +110,9 @@ The core of a  FHIR bundle is the list of entry resources. This information is f
 spark.sql("""DROP TABLE IF EXISTS hls_dev.default.claim""")
 spark.sql("""DROP TABLE IF EXISTS hls_dev.default.patient""")
 
-df = bundle.entry.withColumn("bundleUUID", expr("uuid()"))
-( df
-	.select(col("bundleUUID"), col("Claim"))
-	.write.mode("overwrite")
-	.saveAsTable("hls_dev.default.claim")
-)
-
-( df
-	.select(col("bundleUUID"), col("Patient"))
-	.write.mode("overwrite")
-	.saveAsTable("hls_dev.default.patient")
-)
+bundle.bulk_table_write(location="hls_healthcare.hls_dev" 
+  ,write_mode="overwrite"
+  ,columns=["Patient", "Claim"]) #if columns is not specified, all columns of the dataframe are written (157 resources are written with default settings)
 ```
 ``` SQL
 %sql
@@ -122,12 +134,13 @@ from (select bundleUUID, explode(Patient) as patient from hls_dev.default.patien
 limit 100
 ```
 
-#### Detailed Mapping Level FHIR Bundle Information (DataFrame API)
+## DataFrames for FHIR
 
 Perform same functionality above, except using Dataframe only
 
 ``` python
-df = bundle.entry.withColumn("bundleUUID", expr("uuid()"))
+%python
+df = bundle.entry()
 
 df.select(explode("Patient").alias("Patient"), col("bundleUUID"), col("Claim")).select(col("Patient"), col("bundleUUID"), explode("Claim").alias("Claim")).select(
   col("bundleUUID").alias("UNIQUE_FHIR_ID"), 
@@ -145,7 +158,7 @@ df.select(explode("Patient").alias("Patient"), col("bundleUUID"), col("Claim")).
 
 ```
 
-#### Reading in non-comopliant FHIR Data
+## Ex. Reading non-compliant FHIR Data
 
 Medication details are saved in a non-compliant FHIR schema. Update the schema to read this information under "medicationCodeableConcept"
 
@@ -166,14 +179,13 @@ medCodeableConcept = StructField("medicationCodeableConcept", StructType([
 
 med_schema.fields[0].dataType.add(medCodeableConcept) #Add StructField one level below MedicationRequest
 
-#create new schema for reading FHIR bundles
+#reconstruct the schema object with updated Medication schema
 old_schemas = {k:v for (k,v) in FhirSchemaModel().fhir_resource_map.items() if k != 'MedicationRequest'}
 new_schemas = {**old_schemas, **{'MedicationRequest': med_schema.fields[0].dataType} }
 
-df = bundle.read_data( FhirSchemaModel(fhir_resource_map = new_schemas))
-
-#select and show medication data
-df = df.withColumn("bundleUUID", expr("uuid()"))
+#reread in the data
+bundle = read_from_directory(sample_data)
+df = bundle.entry(schemas = FhirSchemaModel(fhir_resource_map = new_schemas))
 
 df.select(explode("Patient").alias("Patient"), col("bundleUUID"), col("MedicationRequest")).select(col("Patient"), col("bundleUUID"), explode(col("MedicationRequest")).alias("MedicationRequest")).select(
   col("bundleUUID").alias("UNIQUE_FHIR_ID"), 
@@ -188,16 +200,78 @@ df.select(explode("Patient").alias("Patient"), col("bundleUUID"), col("Medicatio
 
 ```
 
-#### Usage: Writing Data as a FHIR Bundle 
+## Usage: Seeing a Patient flow in a Hospital in Real Time  
+
+Patient flow is driven by ADT message headers (Admission, Discharge, & Transfers). We are able to parse sample FHIR [ADT Data](./sampledata/adt_records) from this repo and associate "actions" with each message type. In conjunction with our patners at [Redox](https://www.redoxengine.com/), we are able to do this in real time and see patient flow, latest patient status, etc.
+
+Import ADT package & read FHIR data
+
+``` python
+%python
+import os, uuid
+from pyspark.sql.functions import *
+from dbignite.readers import read_from_directory
+from dbignite.hosp_feeds.adt import ADTActions
+
+#Side effect of creating the UDF to see actions from ADT messages 
+#SELECT get_action("ADT") -> action : "discharge" , description : "transfer an inpatient to outpatient"
+ADTActions()
+
+sample_data = "file:///" + os.getcwd() + "/../sampledata/adt_records/"
+bundle = read_from_directory(sample_data)
+```
+
+Create relational tables for Patient and MessageHeader data types
+ 
+``` sql
+%python
+bundle.bulk_table_write(location="hls_healthcare.fhir" 
+  ,write_mode="overwrite"
+  ,columns=["Patient", "MessageHeader"]) #if columns is not specified, all resources are written by default
+```
+
+Sample results and query used against relational tables above that shows patient flow in the hospital setting (fake data shown) 
+
+![logo](./img/patientADT.png)
+
+``` sql
+%sql
+Select 
+--SSN value for patient matching
+filter(patient.identifier, x -> x.system == 'http://hl7.org/fhir/sid/us-ssn')[0].value as ssn
+,adt.timestamp as event_timestamp
+
+--ADT action
+,adt.messageheader.eventCoding.code as adt_type
+,get_action(adt.messageheader.eventCoding.code).action as action
+,get_action(adt.messageheader.eventCoding.code).description as description
+,adt.messageheader.eventCoding.code
+,adt.messageheader.eventCoding.system 
+
+--Patient Resource Details 
+,patient.name[0].given[0] as first_name
+,patient.name[0].family as last_name
+,patient.birthDate
+,patient.gender
+--Selecting Driver's license number identifier code='DL'
+,filter(patient.identifier, x -> x.type.coding[0].code == 'DL')[0].value as drivers_license_id
+--Master Patient Index Value for patient matching
+,filter(patient.identifier, x -> x.type.text == 'EMPI')[0].value as empi_id
+
+from (select timestamp, bundleUUID, explode(MessageHeader) as messageheader from hls_healthcare.hls_dev.adt_message) adt
+  inner join (select bundleUUID, explode(Patient) as patient from hls_healthcare.hls_dev.patient) patient 
+    on patient.bundleUUID = adt.bundleUUID
+  order by ssn desc, timestamp desc
+limit 10
+```
+
+## Usage: Writing FHIR Data 
 
 >  **Warning** 
 > This section is under construction
 
-#### Usage: Seeing a Patient in a Hospital in Real Time  
+## Internal Representation of a FHIR Bundle in DBIgnite
 
->  **Warning** 
-> This section is under construction
+The core of a  FHIR bundle is the list of entry resources. This information is flattened into individual columns grouped by resourceType in DBIgnite. The following examples depict common uses and interactions. 
 
-#### Usage: OMOP Common Data Model 
-
-See [DBIgnite OMOP](dbignite/omop) for details 
+![logo](/img/FhirBundleSchemaClass.png?raw=true)
