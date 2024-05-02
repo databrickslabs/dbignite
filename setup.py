@@ -19,7 +19,7 @@ VERSION = __version__
 setup(
     name="dbignite",
     version=VERSION,
-    python_requires='>=3.9.*',
+    python_requires='>=3.9',
     author="Amir Kermany, Nathan Buesgens, Rachel Sim, Aaron Zavora, William Smith, Jesse Young",
     author_email="labs@databricks.com",
     description= DESCRIPTION,
