@@ -192,7 +192,7 @@ class BundleFhirResource(FhirResource):
     #
     def bulk_table_write(self, location = "",  write_mode = "append", columns = None):
         pool = ThreadPool(mp.cpu_count()-1)
-        list(pool.map(lambda column: self.table_write(str(column), location, write_mode), ([c for c in self.entry().columns if c not in ["id", "timestamp"]] if columns is None else columns)))
+        list(pool.map(lambda column: self.table_write(str(column), location, write_mode), ([c for c in self.entry().columns if c not in ["id", "timestamp", "bundleuuid"]] if columns is None else columns)))
 
     #
     # Write an individual FHIR resource as a table
