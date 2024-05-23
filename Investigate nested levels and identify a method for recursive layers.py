@@ -391,4 +391,75 @@ else:
 
 # COMMAND ----------
 
+# MAGIC %md
+# MAGIC ## the last version this is only to change the ResouceType: like Patient , Encounter , Claim Etc..
+# MAGIC
+
+# COMMAND ----------
+
+import json
+
+def parse_json_recursively(json_object, prefix=''):
+    """ Recursively parse JSON object into flat dictionary with compound keys."""
+    if isinstance(json_object, dict):
+        for key, value in json_object.items():
+            temp_prefix = f"{prefix}{key}_" if prefix else f"{key}_"
+            for result in parse_json_recursively(value, temp_prefix):
+                yield result
+    elif isinstance(json_object, list):
+        for index, item in enumerate(json_object):
+            temp_prefix = f"{prefix}{index}_"
+            for result in parse_json_recursively(item, temp_prefix):
+                yield result
+    else:
+        yield prefix[:-1], json_object
+
+def find_resource_by_type(data, resource_type):
+    """ Find dictionary entries by resourceType within nested structures."""
+    if isinstance(data, dict):
+        if data.get('resourceType', '') == resource_type:
+            return data
+        else:
+            for key, value in data.items():
+                if isinstance(value, (dict, list)):
+                    found = find_resource_by_type(value, resource_type)
+                    if found:
+                        return found
+    elif isinstance(data, list):
+        for item in data:
+            found = find_resource_by_type(item, resource_type)
+            if found:
+                return found
+    return None
+
+def generate_class_from_data(data, class_name="Patient"):
+    """ Generate a class from the parsed data and define its __repr__ method for detailed output."""
+    attributes = dict(parse_json_recursively(data))
+    class_body = "\n".join(f"        self.{k} = kwargs.get('{k}', {repr(v)})" for k, v in attributes.items())
+    repr_body = ", ".join(f"{k}={{self.{k}!r}}" for k in attributes.keys())
+    class_definition = f"""
+class {class_name}:
+    def __init__(self, **kwargs):
+{class_body}
+
+    def __repr__(self):
+        return f"{class_name}({repr_body})"
+"""
+    return class_definition, attributes
+
+# Load JSON data
+with open('/path/to/your/json_file.json', 'r') as file:
+    json_data = json.load(file)
+
+# Find the specific resource type
+resource_type = 'Patient'
+patient_data = find_resource_by_type(json_data, resource_type)
+
+if patient_data:
+    patient_class_code, patient_attrs = generate_class_from_data(patient_data, resource_type)
+    exec(patient_class_code)
+    patient_instance = eval(resource_type)(**patient_attrs)
+    print(patient_instance)
+else:
+    print("No patient data found in the JSON file.")
 
