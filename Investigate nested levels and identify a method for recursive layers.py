@@ -463,3 +463,68 @@ if patient_data:
 else:
     print("No patient data found in the JSON file.")
 
+
+# COMMAND ----------
+
+import json
+
+def extract_from_bundle(json_data, resource_type):
+    """Extracts resources of a specific type from a FHIR Bundle or standalone resource."""
+    resources = []
+    if json_data.get('resourceType') == 'Bundle':
+        for entry in json_data.get('entry', []):
+            resource = entry.get('resource')
+            if resource and resource.get('resourceType') == resource_type:
+                resources.append(resource)
+    elif json_data.get('resourceType') == resource_type:
+        resources.append(json_data)
+    return resources
+
+def parse_resource(resource):
+    """Parses a single FHIR resource to extract relevant fields based on resource type."""
+    resource_type = resource.get("resourceType", "N/A")
+    common_details = {
+        "ResourceType": resource_type,
+        "Id": resource.get("id", "N/A")
+    }
+
+    if resource_type == "Patient":
+        common_details.update({
+            "Full Names": "; ".join(f"{name.get('prefix', [''])[0]} {name.get('given', [''])[0]} {name.get('family', '')}" for name in resource.get("name", [])),
+            "Gender": resource.get("gender", "N/A"),
+            "Birthdate": resource.get("birthDate", "N/A"),
+            "Addresses": "; ".join(f"{addr.get('line', [''])[0]}, {addr.get('city', '')}, {addr.get('state', '')}, {addr.get('postalCode', '')}, {addr.get('country', '')}" for addr in resource.get("address", [])),
+            "Contact Numbers": "; ".join(tel.get("value", "N/A") for tel in resource.get("telecom", [])),
+            "Marital Status": resource.get("maritalStatus", {}).get("text", "N/A")
+        })
+    elif resource_type == "Encounter":
+        common_details.update({
+            "Status": resource.get("status", "N/A"),
+            "Class": resource.get("class", {}).get("code", "N/A"),
+            "Type": "; ".join(t.get("text", "N/A") for t in resource.get("type", [])),
+            "Period": f"{resource.get('period', {}).get('start', 'N/A')} to {resource.get('period', {}).get('end', 'N/A')}"
+        })
+
+    return common_details
+
+def format_resource_details(details):
+    """Formats the resource details into a multi-line string for display."""
+    return "\n".join(f"{key}: {value}" for key, value in details.items())
+
+# Load JSON data
+try:
+    with open('bundle.json', 'r') as file:
+        json_data = json.load(file)
+except Exception as e:
+    print(f"Error loading JSON file: {e}")
+    exit(1)
+
+# Process resources dynamically
+resource_types = 'Patient',  # Extend this list as needed
+for r_type in resource_types:
+    resources = extract_from_bundle(json_data, r_type)
+    for resource in resources:
+        resource_details = parse_resource(resource)
+        print(format_resource_details(resource_details))
+        print("\n---\n")
+
