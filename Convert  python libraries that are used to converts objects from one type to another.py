@@ -79,7 +79,7 @@ def load_json_data(file_path):
         return None
 
 # Load patient data from a JSON file
-patient_data = load_json_data('/Workspace/Users/islam.hoti@xponentl.ai/dbignite-forked/sampledata/Abe_Bernhard_4a0bf980-a2c9-36d6-da55-14d7aa5a85d9.json')
+patient_data = load_json_data('bundle.json')
 
 # Convert to Patient object using dataclasses-json
 if patient_data:
