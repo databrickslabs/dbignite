@@ -773,7 +773,7 @@ def transformation_logic():
     return transform
 
 # Read the JSON file
-with open("/Workspace/Users/islam.hoti@xponentl.ai/dbignite-forked/sampledata/Abe_Bernhard_4a0bf980-a2c9-36d6-da55-14d7aa5a85d9.json", 'r') as file:
+with open("path/to/you/jsonfile.json", 'r') as file:
     data = json.load(file)
 
 # Extract the patient resource
