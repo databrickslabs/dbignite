@@ -528,3 +528,301 @@ for r_type in resource_types:
         print(format_resource_details(resource_details))
         print("\n---\n")
 
+
+# COMMAND ----------
+
+
+
+# COMMAND ----------
+
+
+
+# COMMAND ----------
+
+
+
+# COMMAND ----------
+
+
+
+# COMMAND ----------
+
+from typing import Any, Type, Callable, Dict
+
+class Converter:
+    """
+    A class for converting values between different types.
+    """
+    
+    DIRECT_MAPPINGS = {"int", "float", "str", "bool"} # str(5.4), float(True)
+    LOGICAL_MAPPINGS = {
+        ("str", "list"): lambda x, *args, **kwargs: x.split(*args, **kwargs), #list("word") -> ['w','o','r', 'd'], instead we want: list("my name") -> ["my", "name"]
+        ("list", "str"): lambda x, *args, **kwargs: " ".join(str(item) for item in x),
+    }
+
+    def __new__(cls, value: Any, target_type: Type, *args, **kwargs) -> Any:
+        """
+        Converts the value to the specified target type.
+
+        Parameters:
+            value (Any): The value to be converted.
+            target_type (Type): The target type to convert the value to.
+ 
+        Returns:
+            Any: The converted value in the target type.
+        """
+        
+        source_type_name = type(value).__name__
+        target_type_name = target_type.__name__
+
+        if source_type_name == target_type_name:
+            return value
+        elif {source_type_name, target_type_name}.issubset(cls.DIRECT_MAPPINGS):
+            return target_type(value)
+        else:
+            conversion_key = (source_type_name, target_type_name)
+            if conversion_key in cls.LOGICAL_MAPPINGS:
+                return cls.LOGICAL_MAPPINGS[conversion_key](value, *args, **kwargs)
+            else:
+                raise ValueError(f"Conversion from {source_type_name} to {target_type_name} is not supported.")
+
+# COMMAND ----------
+
+
+
+# COMMAND ----------
+
+# MAGIC %md 
+# MAGIC df row -> classA obj -> General Decoder -> classB obj -> df row
+
+# COMMAND ----------
+
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName("example").getOrCreate()
+
+data_a = [("Alice", 30), ("Bob", 25)]
+df_a = spark.createDataFrame(data_a, ["name", "age"])
+
+data_b = [(["Ana", "Maria"], "30"), (["Tom", "Second"], "25")]
+df_b = spark.createDataFrame(data_a, ["givenName", "myAge"])
+
+# COMMAND ----------
+
+#Let's assume that ClassA and ClassB are generated from a given spark schema
+class ClassA:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def __repr__(self):
+        return f"ClassA(name={self.name}, age={self.age})"
+
+
+class ClassB:
+    def __init__(self, givenName, myAge):
+        self.givenName = givenName
+        self.myAge = myAge
+
+    def __repr__(self):
+        return f"ClassA(givenName={self.givenName}, myAge={self.myAge})"
+
+
+# COMMAND ----------
+
+# Create an object of ClassA from spark row
+def row_to_object(spark_row, ClassA):
+    return ClassA(**spark_row.asDict())
+
+# COMMAND ----------
+
+for row in df_a.collect():
+    obj = row_to_object(row, ClassA)
+    print(obj)
+
+# COMMAND ----------
+
+#use General cutsom decoder to convert object of ClassA to object of ClassB
+source_person = ClassA("Alice", 30)
+custom_person = ClassB(["Ana", "Maria"], "30")
+
+source_attrs = source_person.__dict__
+target_attrs = custom_person.__dict__
+
+decoded_object = []
+for source_value, target_value in zip(source_attrs.values(), target_attrs.values()):
+    decoded_object.append(Converter(source_value, type(target_value)))
+
+decoded_person = ClassB(*decoded_object)
+print(decoded_person)
+
+# COMMAND ----------
+
+# convert object of classB to a spark row
+from pyspark.sql import Row
+
+def object_to_row(object):
+    return Row(**object.__dict__)
+
+# COMMAND ----------
+
+print(object_to_row(decoded_person))
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## new Version based on you e-mail
+# MAGIC
+
+# COMMAND ----------
+
+from pyspark.sql import SparkSession, Row
+from pyspark.sql.types import StructType, StructField, StringType
+import json
+
+# Initialize Spark session
+spark = SparkSession.builder.appName("FHIRDataTransformation").getOrCreate()
+
+# Define the schema for the final DataFrame
+schema = StructType([
+    StructField("patientId", StringType(), True),
+    StructField("fullName", StringType(), True),
+    StructField("birthDate", StringType(), True),
+    StructField("gender", StringType(), True),
+    StructField("address", StringType(), True),
+    StructField("relationshipStatus", StringType(), True),
+    StructField("primaryLanguage", StringType(), True),
+    StructField("contactPhone", StringType(), True),
+    StructField("driverLicense", StringType(), True),
+    StructField("passportNumber", StringType(), True),
+    StructField("medicalRecordNumber", StringType(), True),
+    StructField("socialSecurityNumber", StringType(), True),
+    StructField("mothersMaidenName", StringType(), True),
+    StructField("race", StringType(), True),
+    StructField("ethnicity", StringType(), True)
+])
+
+# Define ClassA and ClassB
+class ClassA:
+    def __init__(self, patient):
+        self.patient = patient
+
+class ClassB:
+    def __init__(self, patientId, fullName, birthDate, gender, address, relationshipStatus,
+                 primaryLanguage, contactPhone, driverLicense, passportNumber, medicalRecordNumber,
+                 socialSecurityNumber, mothersMaidenName, race, ethnicity):
+        self.patientId = patientId
+        self.fullName = fullName
+        self.birthDate = birthDate
+        self.gender = gender
+        self.address = address
+        self.relationshipStatus = relationshipStatus
+        self.primaryLanguage = primaryLanguage
+        self.contactPhone = contactPhone
+        self.driverLicense = driverLicense
+        self.passportNumber = passportNumber
+        self.medicalRecordNumber = medicalRecordNumber
+        self.socialSecurityNumber = socialSecurityNumber
+        self.mothersMaidenName = mothersMaidenName
+        self.race = race
+        self.ethnicity = ethnicity
+
+def get_identifier_value(identifiers, code_type):
+    for identifier in identifiers:
+        if 'type' in identifier and 'coding' in identifier['type']:
+            if any(coding['code'] == code_type for coding in identifier['type']['coding']):
+                return identifier['value']
+    return None
+
+def get_extension_value(extensions, url, key='valueString'):
+    for extension in extensions:
+        if extension['url'] == url:
+            if 'extension' in extension:
+                for sub_extension in extension['extension']:
+                    if key in sub_extension:
+                        return sub_extension[key]
+            if key in extension:
+                return extension[key]
+    return None
+
+def transformation_logic():
+    def transform(a_instance):
+        patient = a_instance.patient
+        identifiers = patient.get('identifier', [])
+        extensions = patient.get('extension', [])
+        
+        patientId = patient['id']
+        fullName = " ".join(patient['name'][0]['given']) + " " + patient['name'][0]['family']
+        birthDate = patient.get('birthDate', '')
+        gender = patient.get('gender', '')
+        address = " ".join(patient['address'][0].get('line', [])) + ", " + ", ".join(
+            [patient['address'][0].get(key, '') for key in ['city', 'state', 'postalCode', 'country']]
+        )
+        relationshipStatus = patient['maritalStatus'].get('text', '')
+        primaryLanguage = patient['communication'][0]['language'].get('text', '') if 'communication' in patient and len(patient['communication']) > 0 else ''
+        contactPhone = next((x['value'] for x in patient['telecom'] if x['system'] == 'phone'), None)
+        driverLicense = get_identifier_value(identifiers, 'DL')
+        passportNumber = get_identifier_value(identifiers, 'PPN')
+        medicalRecordNumber = get_identifier_value(identifiers, 'MR')
+        socialSecurityNumber = get_identifier_value(identifiers, 'SS')
+        mothersMaidenName = get_extension_value(extensions, "http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName")
+        race = get_extension_value(extensions, "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race", 'valueString')
+        ethnicity = get_extension_value(extensions, "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity", 'valueString')
+        
+        return ClassB(patientId, fullName, birthDate, gender, address, relationshipStatus, primaryLanguage, contactPhone, driverLicense, passportNumber, medicalRecordNumber, socialSecurityNumber, mothersMaidenName, race, ethnicity)
+    return transform
+
+# Read the JSON file
+with open("/Workspace/Users/islam.hoti@xponentl.ai/dbignite-forked/sampledata/Abe_Bernhard_4a0bf980-a2c9-36d6-da55-14d7aa5a85d9.json", 'r') as file:
+    data = json.load(file)
+
+# Extract the patient resource
+patient_data = [entry['resource'] for entry in data['entry'] if entry['resource']['resourceType'] == 'Patient'][0]
+
+# Create an RDD of ClassA instances
+rdd_a = spark.sparkContext.parallelize([ClassA(patient_data)])
+
+# Apply the transformation
+transform_func = transformation_logic()
+rdd_b = rdd_a.map(transform_func)
+
+# Convert ClassB instances to Spark Rows
+def class_b_to_row(b_instance):
+    return Row(
+        patientId=b_instance.patientId,
+        fullName=b_instance.fullName,
+        birthDate=b_instance.birthDate,
+        gender=b_instance.gender,
+        address=b_instance.address,
+        relationshipStatus=b_instance.relationshipStatus,
+        primaryLanguage=b_instance.primaryLanguage,
+        contactPhone=b_instance.contactPhone,
+        driverLicense=b_instance.driverLicense,
+        passportNumber=b_instance.passportNumber,
+        medicalRecordNumber=b_instance.medicalRecordNumber,
+        socialSecurityNumber=b_instance.socialSecurityNumber,
+        mothersMaidenName=b_instance.mothersMaidenName,
+        race=b_instance.race,
+        ethnicity=b_instance.ethnicity
+    )
+
+rows_rdd = rdd_b.map(class_b_to_row)
+df = spark.createDataFrame(rows_rdd, schema)
+df.show()
+
+
+# COMMAND ----------
+
+display(df)
+
+# COMMAND ----------
+
+df.select("fullName", "birthDate", "gender").show()
+
+# COMMAND ----------
+
+df.collect()
+
+# COMMAND ----------
+
+
