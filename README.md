@@ -267,7 +267,7 @@ limit 10
 
 ## Usage: Writing FHIR Data Using No Code/Low Code
 
-Writing FHIR is supported from Dataframes into standard FHIR schemas. This can be accomplished only by defining a mapping of src column to FHIR column and the export is by row as a FHIR bundle. 
+Writing FHIR is supported from Dataframes into standard FHIR schemas thanks to contributions from our partners at [XponentL Data](https://xponentl.ai/). This can be accomplished only by defining a mapping of src column to FHIR column and the export is by row as a FHIR bundle. 
 
 e.g.
 
