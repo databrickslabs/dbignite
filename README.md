@@ -267,10 +267,82 @@ from (select timestamp, bundleUUID, explode(MessageHeader) as messageheader from
 limit 10
 ```
 
-## Usage: Writing FHIR Data 
+## Usage: Writing FHIR Data Using No Code/Low Code
 
->  **Warning** 
-> This section is under construction
+Writing FHIR is supported from Dataframes into standard FHIR schemas thanks to contributions from our partners at [XponentL Data](https://xponentl.ai/). This can be accomplished only by defining a mapping of src column to FHIR column and the export is by row as a FHIR bundle. 
+
+e.g.
+
+``` python
+from dbignite.writer.bundler import *
+from dbignite.writer.fhir_encoder import *
+
+# Create a dummy Dataframe with 2 rows of data
+data = spark.createDataFrame([('CLM123', 'PAT01', 'COH123'), ('CLM345', 'PAT02', 'COH123')],['CLAIM_ID', 'PATIENT_ID', 'PATIENT_COHORT_NUM'])
+
+# Define a mapping from DF columns to FHIR Schema, including a hardcoded value for Patient.identifier.system
+maps = [Mapping('CLAIM_ID', 'Claim.id'), 
+		Mapping('PATIENT_COHORT_NUM', 'Patient.identifier.value'),
+    Mapping('<url of a hardcoded system reference>', 'Patient.identifier.system', True),
+		Mapping('PATIENT_ID', 'Patient.id')]
+
+# Instance of the encoder & bundle writer
+#  - Encoder transforms data to valid FHIR format in Spark
+#  - bundler maps data to json format
+m = MappingManager(maps, data.schema)
+b = Bundle(m)
+result = b.df_to_fhir(data)
+
+#Pretty printing the resulting RDD
+import json
+result.map(lambda x: json.loads(x)).foreach(lambda x: print(json.dumps(x, indent=4)))
+"""
+#Row 1 in FHIR format
+{
+    "resourceType": "Bundle",
+    "entry": [
+        {
+            "resourceType": "Claim",
+            "id": "CLM123"
+        },
+        {
+            "resourceType": "Patient",
+            "id": "PAT01",
+            "identifier": [
+                {
+                    "system": "<url of a hardcoded system reference>",
+                    "value": "COH123"
+                }
+            ]
+        }
+    ]
+}
+#Row 2 in FHIR format
+{
+    "resourceType": "Bundle",
+    "entry": [
+        {
+            "resourceType": "Claim",
+            "id": "CLM345"
+        },
+        {
+            "resourceType": "Patient",
+            "id": "PAT02",
+            "identifier": [
+                {
+                    "system": "<url of a hardcoded system reference>",
+                    "value": "COH123"
+                }
+            ]
+        }
+    ]
+}
+"""
+```
+
+For limitations and more advanced usage, see [sample notebook](https://github.com/databrickslabs/dbignite/tree/main/dbignite/writer](https://github.com/databrickslabs/dbignite/blob/main/notebooks/dbignite_patient_sample.py)
+
+
 
 ## Internal Representation of a FHIR Bundle in DBIgnite
 
