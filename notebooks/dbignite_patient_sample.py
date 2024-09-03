@@ -457,3 +457,120 @@ bundle.bulk_table_write(location="hls_healthcare.hls_dev"
 # MAGIC     on patient.bundleUUID = adt.bundleUUID
 # MAGIC   order by ssn desc, timestamp desc
 # MAGIC limit 10
+
+# COMMAND ----------
+
+# MAGIC %md # Writing FHIR Data
+# MAGIC
+# MAGIC Using CMS SynPUF 
+# MAGIC
+# MAGIC
+
+# COMMAND ----------
+
+from dbignite.writer.fhir_encoder import *
+from dbignite.writer.bundler import *
+import json
+
+data = spark.sql("""
+select 
+--Patient info
+b.DESYNPUF_ID, --Patient.id
+b.BENE_BIRTH_DT, --Patient.birthDate
+b.BENE_COUNTY_CD, --Patient.address.postalCode
+c.CLM_ID,  --Claim.id
+c.HCPCS_CD_1, --Claim.procedure.procedureCodeableConcept.coding.code
+c.HCPCS_CD_2, --Claim.procedure.procedureCodeableConcept.coding.code
+c.ICD9_DGNS_CD_1, --Claim.diagnosis.diagnosisCodeableConcept.coding.code
+c.ICD9_DGNS_CD_2, --Claim.diagnosis.diagnosisCodeableConcept.coding.code
+"http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets" as hcpcs_cdset
+from hls_healthcare.hls_cms_synpuf.ben_sum b 
+    inner join hls_healthcare.hls_cms_synpuf.car_claims c 
+        on c.DESYNPUF_ID = b.DESYNPUF_ID
+                 """)
+
+# COMMAND ----------
+
+maps = [Mapping('DESYNPUF_ID', 'Patient.id'), 
+		Mapping('BENE_BIRTH_DT', 'Patient.birthDate'),
+		Mapping('BENE_COUNTY_CD', 'Patient.address.postalCode'),
+    Mapping('CLM_ID', 'Claim.id'),
+    Mapping('HCPCS_CD_1', 'Claim.procedure.procedureCodeableConcept.coding.code'),
+    Mapping('HCPCS_CD_2', 'Claim.procedure.procedureCodeableConcept.coding.code'),
+    #hardcoded values for system of HCPCS
+    Mapping('ICD9_DGNS_CD_1', 'Claim.diagnosis.diagnosisCodeableConcept.coding.code'),
+    Mapping('ICD9_DGNS_CD_2', 'Claim.diagnosis.diagnosisCodeableConcept.coding.code')
+  ]
+
+#For the complex mapping of multiple diagnosis and procedure codes, we override the standard mapping functions 
+em = FhirEncoderManager(
+  override_encoders ={
+    "Claim.procedure.procedureCodeableConcept.coding": 
+      FhirEncoder(False, False, lambda x: [{"code": y, "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets"} 
+            for y in x[0].get("code").split(",")]),
+        "Claim.diagnosis.diagnosisCodeableConcept.coding": 
+      FhirEncoder(False, False, lambda x: [{"code": y, "system": "http://terminology.hl7.org/CodeSystem/icd9cm"} for y in x[0].get("code").split(",")])  
+})
+m = MappingManager(maps, data.schema, em)
+b = Bundle(m)
+result = b.df_to_fhir(data)
+
+# COMMAND ----------
+
+#pretty print 10 values
+print('\n'.join([str(x) for x in 
+       result.map(lambda x: json.loads(x)).map(lambda x: json.dumps(x, indent=4)).take(10)]))
+
+# COMMAND ----------
+
+# MAGIC %md ## Inspect a single value
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select 
+# MAGIC --Patient info
+# MAGIC b.DESYNPUF_ID, --Patient.id
+# MAGIC b.BENE_BIRTH_DT, --Patient.birthDate
+# MAGIC b.BENE_COUNTY_CD, --Patient.address.postalCode
+# MAGIC c.CLM_ID,  --Claim.id
+# MAGIC c.HCPCS_CD_1, --Claim.procedure.procedureCodeableConcept.coding.code
+# MAGIC c.HCPCS_CD_2, --Claim.procedure.procedureCodeableConcept.coding.code
+# MAGIC c.ICD9_DGNS_CD_1, --Claim.diagnosis.diagnosisCodeableConcept.coding.code
+# MAGIC c.ICD9_DGNS_CD_2, --Claim.diagnosis.diagnosisCodeableConcept.coding.code
+# MAGIC "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets" as hcpcs_cdset
+# MAGIC from hls_healthcare.hls_cms_synpuf.ben_sum b 
+# MAGIC     inner join hls_healthcare.hls_cms_synpuf.car_claims c 
+# MAGIC         on c.DESYNPUF_ID = b.DESYNPUF_ID
+# MAGIC where c.CLM_ID = 737363357976870
+
+# COMMAND ----------
+
+
+data = spark.sql("""
+select 
+--Patient info
+b.DESYNPUF_ID, --Patient.id
+b.BENE_BIRTH_DT, --Patient.birthDate
+b.BENE_COUNTY_CD, --Patient.address.postalCode
+c.CLM_ID,  --Claim.id
+c.HCPCS_CD_1, --Claim.procedure.procedureCodeableConcept.coding.code
+c.HCPCS_CD_2, --Claim.procedure.procedureCodeableConcept.coding.code
+c.ICD9_DGNS_CD_1, --Claim.diagnosis.diagnosisCodeableConcept.coding.code
+c.ICD9_DGNS_CD_2, --Claim.diagnosis.diagnosisCodeableConcept.coding.code
+"http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets" as hcpcs_cdset
+from hls_healthcare.hls_cms_synpuf.ben_sum b 
+    inner join hls_healthcare.hls_cms_synpuf.car_claims c 
+        on c.DESYNPUF_ID = b.DESYNPUF_ID
+        where c.CLM_ID = 737363357976870
+                 """)
+                 
+m = MappingManager(maps, data.schema, em)
+b = Bundle(m)
+result = b.df_to_fhir(data)
+
+# COMMAND ----------
+
+#pretty print 10 values
+print('\n'.join([str(x) for x in 
+       result.map(lambda x: json.loads(x)).map(lambda x: json.dumps(x, indent=4)).take(1)]))
