@@ -339,7 +339,7 @@ result.map(lambda x: json.loads(x)).foreach(lambda x: print(json.dumps(x, indent
 """
 ```
 
-For limitations and more advanced usage, see [sample notebook](https://github.com/databrickslabs/dbignite/blob/main/notebooks/dbignite_patient_sample.py)
+For limitations and more advanced usage, see [sample notebook](notebooks/dbignite_patient_sample.py#L461-L576)
 
 
 
