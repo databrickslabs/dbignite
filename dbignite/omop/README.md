@@ -30,16 +30,12 @@ cdm_database='dbignite_demo'
 ```
 create data model objects:
 ```
-fhir_model=FhirBundles(BUNDLE_PATH)
+fhir_model=FhirBundles(path=TEST_BUNDLE_PATH)
 cdm_model=OmopCdm(cdm_database)
 ```
-create a transformer:
+create a transformer and transform from FHIR to OMOP CDM:
 ```
-fhir2omop_transformer=FhirBundlesToCdm(spark)
-```
-transform from FHIR to your CDM:
-```
-fhir2omop_transformer.transform(fhir_model,cdm_model)
+FhirBundlesToCdm().transform(fhir_model, cdm_model, True)
 ```
 
 The returned value of the `cdm` is an OmopCDM object with an associated database (`dbignite_demo`), containing the following tables:
