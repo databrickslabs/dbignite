@@ -1,0 +1,1 @@
+All FHIR Resources definitions from HL7 are translated in this directory. The version of schemas in this repository is [IG 6.0.0](https://hl7.org/fhir/us/core/history.html). To change schemas to a different version see [this](https://github.com/databricks-industry-solutions/json2spark-schema/blob/main/01_healthcare_FHIR_demo.py) public notebook.

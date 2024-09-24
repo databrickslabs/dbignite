@@ -1,9 +1,9 @@
 # Databricks notebook source
 # MAGIC %md 
 # MAGIC # Analysis of FHIR Bundles using SQL and Python
-# MAGIC 
+# MAGIC
 # MAGIC <img src="http://hl7.org/fhir/assets/images/fhir-logo-www.png" width = 10%>
-# MAGIC 
+# MAGIC
 # MAGIC In this demo: 
 # MAGIC   1. We use datarbicks `dbignite` package to ingest FHIR bundles (in `json` format) into deltalake
 # MAGIC   2. Create a patient-level dashboard from the bundles
@@ -13,7 +13,7 @@
 # MAGIC <br>
 # MAGIC </br>
 # MAGIC <img src="https://hls-eng-data-public.s3.amazonaws.com/img/FHIR-RA.png" width = 70%>
-# MAGIC 
+# MAGIC
 # MAGIC ### Data
 # MAGIC The data used in this demo is generated using [synthea](https://synthetichealth.github.io/synthea/). We used [covid infections module](https://github.com/synthetichealth/synthea/blob/master/src/main/resources/modules/covid19/infection.json), which incorporates patient risk factors such as diabetes, hypertension and SDOH in determining outcomes. The data is available at `s3://hls-eng-data-public/data/synthea/fhir/fhir/`. 
 
@@ -89,23 +89,17 @@ sql(f'DROP SCHEMA IF EXISTS {cdm_database} CASCADE;')
 # COMMAND ----------
 
 # DBTITLE 1,define fhir and cdm models
-fhir_model=FhirBundles(BUNDLE_PATH)
+fhir_model=FhirBundles(path=TEST_BUNDLE_PATH)
 cdm_model=OmopCdm(cdm_database)
 
 # COMMAND ----------
 
-# DBTITLE 1,define transformer
-fhir2omop_transformer=FhirBundlesToCdm(spark)
-
-# COMMAND ----------
-
-# DBTITLE 1,transform from FHIR to CDM
-fhir2omop_transformer.transform(fhir_model,cdm_model)
+FhirBundlesToCdm().transform(fhir_model, cdm_model, True)
 
 # COMMAND ----------
 
 # DBTITLE 1,Transform from CDM to a patient dashboard 
-cdm2dash_transformer=CdmToPersonDashboard(spark)
+cdm2dash_transformer=CdmToPersonDashboard()
 dash_model=PersonDashboard()
 cdm2dash_transformer.transform(cdm_model,dash_model)
 person_dashboard_df = dash_model.summary()
@@ -226,7 +220,7 @@ display(sql('show tables'))
 # MAGIC %md
 # MAGIC ## License
 # MAGIC Copyright / License info of the notebook. Copyright Databricks, Inc. [2021].  The source in this notebook is provided subject to the [Databricks License](https://databricks.com/db-license-source).  All included or referenced third party libraries are subject to the licenses set forth below.
-# MAGIC 
+# MAGIC
 # MAGIC |Library Name|Library License|Library License URL|Library Source URL| 
 # MAGIC | :-: | :-:| :-: | :-:|
 # MAGIC |Synthea|Apache License 2.0|https://github.com/synthetichealth/synthea/blob/master/LICENSE| https://github.com/synthetichealth/synthea|
