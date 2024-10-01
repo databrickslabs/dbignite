@@ -460,6 +460,32 @@ bundle.bulk_table_write(location="hls_healthcare.hls_dev"
 
 # COMMAND ----------
 
+# MAGIC %md # Writing Data into OMOP CDM
+
+# COMMAND ----------
+
+# DBTITLE 1,Transforming data into CDM Person
+# MAGIC %sql
+# MAGIC
+# MAGIC --https://github.com/databrickslabs/dbignite/blob/main/dbignite/omop/utils.py#L14-L42
+# MAGIC drop table if exists hls_healthcare.hls_dev.OMOP_PERSON;
+# MAGIC create table hls_healthcare.hls_dev.OMOP_PERSON as
+# MAGIC SELECT foo.p.id as person_id,
+# MAGIC   foo.p.name as name,
+# MAGIC   foo.p.gender as gender_source_value,
+# MAGIC   year(foo.p.birthDate) as year_of_birth,
+# MAGIC   month(foo.p.birthDate) as month_of_birth,
+# MAGIC   dayofmonth(foo.p.birthDate) as day_of_birth,
+# MAGIC   foo.p.address as patient_address
+# MAGIC from 
+# MAGIC (SELECT explode(patient) as p
+# MAGIC  FROM hls_healthcare.hls_dev.Patient 
+# MAGIC ) foo
+# MAGIC  ;
+# MAGIC
+
+# COMMAND ----------
+
 # MAGIC %md # Writing FHIR Data
 # MAGIC
 # MAGIC Using CMS SynPUF 
@@ -550,7 +576,7 @@ print('\n'.join([str(x) for x in
 data = spark.sql("""
 select 
 --Patient info
-b.DESYNPUF_ID, --Patient.id
+b.DESYNPUF_ID  as DESYNPUF_IDS, --Patient.id
 b.BENE_BIRTH_DT, --Patient.birthDate
 b.BENE_COUNTY_CD, --Patient.address.postalCode
 c.CLM_ID,  --Claim.id
@@ -574,3 +600,7 @@ result = b.df_to_fhir(data)
 #pretty print 10 values
 print('\n'.join([str(x) for x in 
        result.map(lambda x: json.loads(x)).map(lambda x: json.dumps(x, indent=4)).take(1)]))
+
+# COMMAND ----------
+
+
