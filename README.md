@@ -1,6 +1,8 @@
 # 🔥 dbignite
 __Health Data Interoperability__
 
+[![lines of code](https://tokei.rs/b1/github/databrickslabs/dbignite)]([https://codecov.io/github/databrickslabs/dbignite](https://github.com/databrickslabs/dbignite))
+
 This library is designed to provide a low friction entry to performing analytics on 
 [FHIR](https://hl7.org/fhir/bundle.html) bundles by extracting resources and flattening. 
 
