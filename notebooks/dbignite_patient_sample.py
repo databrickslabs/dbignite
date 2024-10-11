@@ -488,7 +488,7 @@ bundle.bulk_table_write(location="hls_healthcare.hls_dev"
 
 # MAGIC %md # Writing FHIR Data
 # MAGIC
-# MAGIC Using CMS SynPUF 
+# MAGIC For this next section, files need downloaded from CMS SynPUF into Databricks (https://www.cms.gov/data-research/statistics-trends-and-reports/medicare-claims-synthetic-public-use-files/cms-2008-2010-data-entrepreneurs-synthetic-public-use-file-de-synpuf)
 # MAGIC
 # MAGIC
 
@@ -576,7 +576,7 @@ print('\n'.join([str(x) for x in
 data = spark.sql("""
 select 
 --Patient info
-b.DESYNPUF_ID  as DESYNPUF_IDS, --Patient.id
+b.DESYNPUF_ID  as DESYNPUF_ID, --Patient.id
 b.BENE_BIRTH_DT, --Patient.birthDate
 b.BENE_COUNTY_CD, --Patient.address.postalCode
 c.CLM_ID,  --Claim.id
