@@ -303,18 +303,22 @@ result.map(lambda x: json.loads(x)).foreach(lambda x: print(json.dumps(x, indent
     "resourceType": "Bundle",
     "entry": [
         {
-            "resourceType": "Claim",
-            "id": "CLM123"
+            "resource": {
+                "resourceType": "Claim",
+                "id": "CLM123"
+            }
         },
         {
-            "resourceType": "Patient",
-            "id": "PAT01",
-            "identifier": [
-                {
-                    "system": "<url of a hardcoded system reference>",
-                    "value": "COH123"
-                }
-            ]
+            "resource": {
+                "resourceType": "Patient",
+                "id": "PAT01",
+                "identifier": [
+                    {
+                        "system": "<url of a hardcoded system reference>",
+                        "value": "COH123"
+                    }
+                ]
+            }
         }
     ]
 }
@@ -323,18 +327,22 @@ result.map(lambda x: json.loads(x)).foreach(lambda x: print(json.dumps(x, indent
     "resourceType": "Bundle",
     "entry": [
         {
-            "resourceType": "Claim",
-            "id": "CLM345"
+            "resource": {
+                "resourceType": "Claim",
+                "id": "CLM345"
+            }
         },
         {
-            "resourceType": "Patient",
-            "id": "PAT02",
-            "identifier": [
-                {
-                    "system": "<url of a hardcoded system reference>",
-                    "value": "COH123"
-                }
-            ]
+            "resource": {
+                "resourceType": "Patient",
+                "id": "PAT02",
+                "identifier": [
+                    {
+                        "system": "<url of a hardcoded system reference>",
+                        "value": "COH123"
+                    }
+                ]
+            }
         }
     ]
 }
