@@ -106,9 +106,8 @@ bundle.count_resource_type("Patient").show()
 ```
 
 ## SQL on FHIR
-
-> **Warning**
-> For very large batches of FHIR, use bundle.entry().cache() before calling bulk_table_wirte for best performance
+> [!TIP] 
+> For very large batches of FHIR, use bundle.entry().cache() before calling bulk_table_write for best performance
 
 ``` python
 %python
