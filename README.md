@@ -107,6 +107,9 @@ bundle.count_resource_type("Patient").show()
 
 ## SQL on FHIR
 
+> **Warning**
+> For very large batches of FHIR, use bundle.entry().cache() before calling bulk_table_wirte for best performance
+
 ``` python
 %python
 #Save Claim and Patient data to a table
@@ -117,6 +120,7 @@ bundle.bulk_table_write(location="hls_healthcare.hls_dev"
   ,write_mode="overwrite"
   ,columns=["Patient", "Claim"]) #if columns is not specified, all columns of the dataframe are written (157 resources are written with default settings)
 ```
+
 ``` SQL
 %sql
 -- Select claim line detailed information
