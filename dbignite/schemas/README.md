@@ -1,1 +1,1 @@
-All FHIR Resources definitions from HL7 are translated in this directory. The versions of latest countinous integration (ci-build), r4, and r5 are built from (this)[https://github.com/databricks-industry-solutions/json2spark-schema/blob/main/01_healthcare_FHIR_demo.py] notebook
+All FHIR Resources definitions from HL7 are translated in this directory. The versions of latest countinous integration (ci-build), r4, and r5 are built from [this](https://github.com/databricks-industry-solutions/json2spark-schema/blob/main/01_healthcare_FHIR_demo.py) notebook
