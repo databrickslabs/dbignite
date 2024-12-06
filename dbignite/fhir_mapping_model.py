@@ -9,9 +9,9 @@ class FhirSchemaModel:
     #
     # Class that manages access to FHIR resourceType ->  Spark Schema mapping
     #
-    def __init__(
-        self, fhir_resource_map: Optional[dict[str, StructType]] = None
-    ) -> None:
+    def __init__(self,
+                 fhir_resource_map: Optional[dict[str, StructType]] = None,
+                 schema_version = "ci-build") -> None:
         self.__fhir_resource_map = (
             {
                 resource_type: FhirSchemaModel.__read_schema(schema_path)
@@ -20,6 +20,7 @@ class FhirSchemaModel:
             if fhir_resource_map is None
             else fhir_resource_map
         )
+        self.schema_version = schema_version #schema version can also be r4, or r5. This will change what directory resources are read from under dbignite/schemas/<directory>
 
 
     @classmethod
@@ -30,7 +31,7 @@ class FhirSchemaModel:
 
     @classmethod
     def __get_schema_paths(cls) -> list[tuple[str, str]]:
-        schema_dir = str(files("dbignite")) + "/schemas"
+        schema_dir = str(files("dbignite")) + "/schemas/" + self.schema_version
         return [
             (os.path.splitext(p)[0], os.path.join(schema_dir, p))
             for p in os.listdir(schema_dir)
