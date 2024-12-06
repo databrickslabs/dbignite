@@ -30,7 +30,7 @@ class FhirSchemaModel:
             return StructType.fromJson(json.load(f))
 
 
-    def _get_schema_paths(self, cls) -> list[tuple[str, str]]:
+    def _get_schema_paths(self) -> list[tuple[str, str]]:
         schema_dir = str(files("dbignite")) + "/schemas/" + self.schema_version
         return [
             (os.path.splitext(p)[0], os.path.join(schema_dir, p))
@@ -97,11 +97,10 @@ class FhirSchemaModel:
     #
     # Load supplied subset of FHIR resources into one dictionary
     #
-    @classmethod
-    def custom_fhir_resource_mapping(cls, resource_list: list[str]) -> "FhirSchemaModel":
+    def custom_fhir_resource_mapping(self, resource_list: list[str]) -> "FhirSchemaModel":
         custom_mapping = {
             resource_type: FhirSchemaModel.__read_schema(schema_path)
-            for resource_type, schema_path in FhirSchemaModel.__get_schema_paths()
+            for resource_type, schema_path in self._get_schema_paths()
             if resource_type in resource_list
         }
         return FhirSchemaModel(fhir_resource_map=custom_mapping)
@@ -116,7 +115,7 @@ class FhirSchemaModel:
     # Return all keys of FHIR Resources packaged
     #
     def list_packaged_data(self):
-        return [resource_type for resource_type, _ in FhirSchemaModel.__get_schema_paths()]
+        return [resource_type for resource_type, _ in self._get_schema_paths()]
 
     #
     # Allow searching at the metadata level contained in the spark schema
