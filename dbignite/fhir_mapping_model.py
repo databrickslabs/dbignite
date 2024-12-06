@@ -12,25 +12,25 @@ class FhirSchemaModel:
     def __init__(self,
                  fhir_resource_map: Optional[dict[str, StructType]] = None,
                  schema_version = "ci-build") -> None:
+        #schema version can also be r4, or r5. This will change what directory resources are read from under dbignite/schemas/<directory>
+        self.schema_version = schema_version 
         self.__fhir_resource_map = (
             {
-                resource_type: FhirSchemaModel.__read_schema(schema_path)
-                for resource_type, schema_path in FhirSchemaModel.__get_schema_paths()
+                resource_type: FhirSchemaModel._read_schema(schema_path)
+                for resource_type, schema_path in self._get_schema_paths()
             }
             if fhir_resource_map is None
             else fhir_resource_map
         )
-        self.schema_version = schema_version #schema version can also be r4, or r5. This will change what directory resources are read from under dbignite/schemas/<directory>
 
 
     @classmethod
-    def __read_schema(cls, path: str) -> StructType:
+    def _read_schema(cls, path: str) -> StructType:
         with open(path, "r") as f:
             return StructType.fromJson(json.load(f))
 
 
-    @classmethod
-    def __get_schema_paths(cls) -> list[tuple[str, str]]:
+    def _get_schema_paths(self, cls) -> list[tuple[str, str]]:
         schema_dir = str(files("dbignite")) + "/schemas/" + self.schema_version
         return [
             (os.path.splitext(p)[0], os.path.join(schema_dir, p))
