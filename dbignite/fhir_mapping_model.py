@@ -99,7 +99,7 @@ class FhirSchemaModel:
     #
     def custom_fhir_resource_mapping(self, resource_list: list[str]) -> "FhirSchemaModel":
         custom_mapping = {
-            resource_type: FhirSchemaModel.__read_schema(schema_path)
+            resource_type: FhirSchemaModel._read_schema(schema_path)
             for resource_type, schema_path in self._get_schema_paths()
             if resource_type in resource_list
         }
