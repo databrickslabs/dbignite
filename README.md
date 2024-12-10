@@ -33,11 +33,13 @@ For a more detailed Demo, clone repo into Databricks and refer to the notebook [
 
 ## Usage: Read & Analyze a FHIR Bundle
 
-### 1. FHIR representations
+### 1. FHIR representations & Versions
 
 ``` python 
 from  dbignite.fhir_mapping_model import FhirSchemaModel
-fhir_schema = FhirSchemaModel()
+fhir_schema = FhirSchemaModel(schema_version="ci-build") #this is the default and contains latest, unfinalized changes 
+fhir_schema = FhirSchemaModel(schema_version="r4") #OR use this for FHIR R4
+fhir_schema = FhirSchemaModel(schema_version="r5") #OR use this for FHIR R5
 
 #list all supported FHIR resources
 sorted(fhir_schema.list_keys()) # ['Account', 'ActivityDefinition', 'ActorDefinition'...
@@ -67,7 +69,7 @@ sample_data = "./sampledata/*json"
 bundle = read_from_directory(sample_data)
 
 #Read all the bundles and parse
-bundle.entry()
+bundle.entry() #OR specify a schema version here -> bundle.entry(schemas =  FhirSchemaModel(schema_version="r4"))
 
 #Show the total number of patient resources in all bundles
 bundle.count_resource_type("Patient").show() 
