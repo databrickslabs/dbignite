@@ -10,13 +10,13 @@ class TestWriters(PysparkBaseTest):
         from dbignite.writer.fhir_encoder import FhirEncoder
         e = FhirEncoder(False, False, lambda x: int(x.strip()))
         assert( e.f("123") == 123 )
-        assert( e.f("12a") is None ) 
+        assert( e.f("12a") == "" ) 
 
     def test_encoder_manager(self):
         from dbignite.writer.fhir_encoder import FhirEncoderManager, SchemaDataType, FhirEncoder
         em = FhirEncoderManager()
         assert(em.get_encoder("string", ["Patient", "multipleBirthInteger"]).f("1234") == 1234)
-        assert(em.get_encoder("string", ["Patient", "multipleBirthInteger"]).f("abcdefg") == None)
+        assert(em.get_encoder("string", ["Patient", "multipleBirthInteger"]).f("abcdefg") == "")
 
         #test overrides
         em = FhirEncoderManager(override_encoders = {"Patient.multipleBirthInteger": FhirEncoder(False, False, lambda x: float(x) + 1)})
@@ -27,7 +27,8 @@ class TestWriters(PysparkBaseTest):
         from dbignite.writer.fhir_encoder import SchemaDataType
         from dbignite.fhir_mapping_model import FhirSchemaModel
         field = "Patient.name.given"
-        tgt_schema = FhirSchemaModel.custom_fhir_resource_mapping(field.split(".")[0]).schema(field.split(".")[0])
+        s = FhirSchemaModel()
+        tgt_schema = s.custom_fhir_resource_mapping(field.split(".")[0]).schema(field.split(".")[0])
         result = SchemaDataType.traverse_schema(field.split(".")[1:], tgt_schema)
         assert( result == "array<string>")
 

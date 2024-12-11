@@ -9,13 +9,15 @@ class FhirSchemaModel:
     #
     # Class that manages access to FHIR resourceType ->  Spark Schema mapping
     #
-    def __init__(
-        self, fhir_resource_map: Optional[dict[str, StructType]] = None
-    ) -> None:
+    def __init__(self,
+                 fhir_resource_map: Optional[dict[str, StructType]] = None,
+                 schema_version = "ci-build") -> None:
+        #schema version can also be r4, or r5. This will change what directory resources are read from under dbignite/schemas/<directory>
+        self.schema_version = schema_version 
         self.__fhir_resource_map = (
             {
-                resource_type: FhirSchemaModel.__read_schema(schema_path)
-                for resource_type, schema_path in FhirSchemaModel.__get_schema_paths()
+                resource_type: FhirSchemaModel._read_schema(schema_path)
+                for resource_type, schema_path in self._get_schema_paths()
             }
             if fhir_resource_map is None
             else fhir_resource_map
@@ -23,14 +25,13 @@ class FhirSchemaModel:
 
 
     @classmethod
-    def __read_schema(cls, path: str) -> StructType:
+    def _read_schema(cls, path: str) -> StructType:
         with open(path, "r") as f:
             return StructType.fromJson(json.load(f))
 
 
-    @classmethod
-    def __get_schema_paths(cls) -> list[tuple[str, str]]:
-        schema_dir = str(files("dbignite")) + "/schemas"
+    def _get_schema_paths(self) -> list[tuple[str, str]]:
+        schema_dir = str(files("dbignite")) + "/schemas/" + self.schema_version
         return [
             (os.path.splitext(p)[0], os.path.join(schema_dir, p))
             for p in os.listdir(schema_dir)
@@ -96,11 +97,10 @@ class FhirSchemaModel:
     #
     # Load supplied subset of FHIR resources into one dictionary
     #
-    @classmethod
-    def custom_fhir_resource_mapping(cls, resource_list: list[str]) -> "FhirSchemaModel":
+    def custom_fhir_resource_mapping(self, resource_list: list[str]) -> "FhirSchemaModel":
         custom_mapping = {
-            resource_type: FhirSchemaModel.__read_schema(schema_path)
-            for resource_type, schema_path in FhirSchemaModel.__get_schema_paths()
+            resource_type: FhirSchemaModel._read_schema(schema_path)
+            for resource_type, schema_path in self._get_schema_paths()
             if resource_type in resource_list
         }
         return FhirSchemaModel(fhir_resource_map=custom_mapping)
@@ -115,7 +115,7 @@ class FhirSchemaModel:
     # Return all keys of FHIR Resources packaged
     #
     def list_packaged_data(self):
-        return [resource_type for resource_type, _ in FhirSchemaModel.__get_schema_paths()]
+        return [resource_type for resource_type, _ in self._get_schema_paths()]
 
     #
     # Allow searching at the metadata level contained in the spark schema

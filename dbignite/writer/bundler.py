@@ -40,5 +40,5 @@ class Bundle():
     # Given an encoded row, return a single resource value
     #
     def _resource_to_fhir(self, resource):
-        return {'resourceType': list(resource.keys())[0], **resource[list(resource.keys())[0]] }
+        return {'resource': {'resourceType': list(resource.keys())[0], **resource[list(resource.keys())[0]] }}
         

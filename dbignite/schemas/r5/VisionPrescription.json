@@ -1,0 +1,2596 @@
+{
+  "type" : "struct",
+  "fields" : [ {
+    "name" : "id",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "Any combination of letters, numerals, \"-\" and \".\", with a length limit of 64 characters.  (This might be an integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Ids are case-insensitive.",
+      "path" : "#/definitions/VisionPrescription/properties/id/$ref//#/definitions/id"
+    }
+  }, {
+    "name" : "meta",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/extension"
+        }
+      }, {
+        "name" : "versionId",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "Any combination of letters, numerals, \"-\" and \".\", with a length limit of 64 characters.  (This might be an integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Ids are case-insensitive.",
+          "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/versionId/$ref//#/definitions/id"
+        }
+      }, {
+        "name" : "_versionId",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/_versionId/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/_versionId/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "lastUpdated",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "An instant in time - known at least to the second",
+          "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/lastUpdated/$ref//#/definitions/instant"
+        }
+      }, {
+        "name" : "_lastUpdated",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/_lastUpdated/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/_lastUpdated/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "source",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "String of characters used to identify a name or a resource",
+          "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/source/$ref//#/definitions/uri"
+        }
+      }, {
+        "name" : "_source",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/_source/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/_source/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "profile",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A list of profiles (references to [[[StructureDefinition]]] resources) that this resource claims to conform to. The URL is a reference to [[[StructureDefinition.url]]].",
+          "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/profile"
+        }
+      }, {
+        "name" : "security",
+        "type" : {
+          "type" : "array",
+          "elementType" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/extension"
+              }
+            }, {
+              "name" : "system",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "String of characters used to identify a name or a resource",
+                "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/system/$ref//#/definitions/uri"
+              }
+            }, {
+              "name" : "_system",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "version",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/version/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_version",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "code",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+                "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/code/$ref//#/definitions/code"
+              }
+            }, {
+              "name" : "_code",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "display",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/display/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_display",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "userSelected",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "Value of \"true\" or \"false\"",
+                "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/userSelected/$ref//#/definitions/boolean"
+              }
+            }, {
+              "name" : "_userSelected",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "Security labels applied to this resource. These tags connect specific resources to the overall security policy and infrastructure.",
+          "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/security"
+        }
+      }, {
+        "name" : "tag",
+        "type" : {
+          "type" : "array",
+          "elementType" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/extension"
+              }
+            }, {
+              "name" : "system",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "String of characters used to identify a name or a resource",
+                "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/system/$ref//#/definitions/uri"
+              }
+            }, {
+              "name" : "_system",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "version",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/version/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_version",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "code",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+                "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/code/$ref//#/definitions/code"
+              }
+            }, {
+              "name" : "_code",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "display",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/display/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_display",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "userSelected",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "Value of \"true\" or \"false\"",
+                "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/userSelected/$ref//#/definitions/boolean"
+              }
+            }, {
+              "name" : "_userSelected",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "Tags applied to this resource. Tags are intended to be used to identify and relate resources to process and workflow, and applications are not required to consider the tags when interpreting the meaning of a resource.",
+          "path" : "#/definitions/VisionPrescription/properties/meta/$ref//#/definitions/Meta/properties/tag"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "implicitRules",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "String of characters used to identify a name or a resource",
+      "path" : "#/definitions/VisionPrescription/properties/implicitRules/$ref//#/definitions/uri"
+    }
+  }, {
+    "name" : "_implicitRules",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/VisionPrescription/properties/_implicitRules/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/VisionPrescription/properties/_implicitRules/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "language",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+      "path" : "#/definitions/VisionPrescription/properties/language/$ref//#/definitions/code"
+    }
+  }, {
+    "name" : "_language",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/VisionPrescription/properties/_language/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/VisionPrescription/properties/_language/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "text",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/VisionPrescription/properties/text/$ref//#/definitions/Narrative/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/VisionPrescription/properties/text/$ref//#/definitions/Narrative/properties/extension"
+        }
+      }, {
+        "name" : "status",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "The status of the narrative - whether its entirely generated (from just the defined data or the extensions too), or whether a human authored it and it may contain additional data.",
+          "path" : "#/definitions/VisionPrescription/properties/text/$ref//#/definitions/Narrative/properties/status"
+        }
+      }, {
+        "name" : "_status",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/VisionPrescription/properties/text/$ref//#/definitions/Narrative/properties/_status/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/VisionPrescription/properties/text/$ref//#/definitions/Narrative/properties/_status/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "div",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "xhtml - escaped html (see specfication)",
+          "path" : "#/definitions/VisionPrescription/properties/text/$ref//#/definitions/Narrative/properties/div/$ref//#/definitions/xhtml"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "contained",
+    "type" : {
+      "type" : "array",
+      "elementType" : "string",
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, nor can they have their own independent transaction scope. This is allowed to be a Parameters resource if and only if it is referenced by a resource that provides context/meaning.",
+      "path" : "#/definitions/VisionPrescription/properties/contained"
+    }
+  }, {
+    "name" : "extension",
+    "type" : {
+      "type" : "array",
+      "elementType" : "string",
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "May be used to represent additional information that is not part of the basic definition of the resource. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+      "path" : "#/definitions/VisionPrescription/properties/extension"
+    }
+  }, {
+    "name" : "modifierExtension",
+    "type" : {
+      "type" : "array",
+      "elementType" : "string",
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "May be used to represent additional information that is not part of the basic definition of the resource and that modifies the understanding of the element that contains it and/or the understanding of the containing elements descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+      "path" : "#/definitions/VisionPrescription/properties/modifierExtension"
+    }
+  }, {
+    "name" : "identifier",
+    "type" : {
+      "type" : "array",
+      "elementType" : {
+        "type" : "struct",
+        "fields" : [ {
+          "name" : "id",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/id/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "extension",
+          "type" : {
+            "type" : "array",
+            "elementType" : "string",
+            "containsNull" : true
+          },
+          "nullable" : true,
+          "metadata" : {
+            "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+            "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/extension"
+          }
+        }, {
+          "name" : "use",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "The purpose of this identifier.",
+            "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/use"
+          }
+        }, {
+          "name" : "_use",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/_use/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/_use/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "type",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/extension"
+              }
+            }, {
+              "name" : "coding",
+              "type" : {
+                "type" : "array",
+                "elementType" : {
+                  "type" : "struct",
+                  "fields" : [ {
+                    "name" : "id",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/id/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "extension",
+                    "type" : {
+                      "type" : "array",
+                      "elementType" : "string",
+                      "containsNull" : true
+                    },
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                      "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/extension"
+                    }
+                  }, {
+                    "name" : "system",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "String of characters used to identify a name or a resource",
+                      "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/system/$ref//#/definitions/uri"
+                    }
+                  }, {
+                    "name" : "_system",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "version",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/version/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "_version",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "code",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+                      "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/code/$ref//#/definitions/code"
+                    }
+                  }, {
+                    "name" : "_code",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "display",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/display/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "_display",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "userSelected",
+                    "type" : "boolean",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "Value of \"true\" or \"false\"",
+                      "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/userSelected/$ref//#/definitions/boolean"
+                    }
+                  }, {
+                    "name" : "_userSelected",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  } ]
+                },
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A reference to a code defined by a terminology system.",
+                "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding"
+              }
+            }, {
+              "name" : "text",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/text/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_text",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/_text/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/_text/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "system",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "String of characters used to identify a name or a resource",
+            "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/system/$ref//#/definitions/uri"
+          }
+        }, {
+          "name" : "_system",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/_system/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/_system/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "value",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/value/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "_value",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/_value/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/_value/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "period",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/extension"
+              }
+            }, {
+              "name" : "start",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a UTC offset SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+                "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/start/$ref//#/definitions/dateTime"
+              }
+            }, {
+              "name" : "_start",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/_start/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/_start/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "end",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a UTC offset SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+                "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/end/$ref//#/definitions/dateTime"
+              }
+            }, {
+              "name" : "_end",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/_end/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/_end/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "assigner",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A reference from one resource to another.",
+            "path" : "#/definitions/VisionPrescription/properties/identifier/items/$ref//#/definitions/Identifier/properties/assigner/$ref//#/definitions/Reference"
+          }
+        } ]
+      },
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A unique identifier assigned to this vision prescription.",
+      "path" : "#/definitions/VisionPrescription/properties/identifier"
+    }
+  }, {
+    "name" : "status",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+      "path" : "#/definitions/VisionPrescription/properties/status/$ref//#/definitions/code"
+    }
+  }, {
+    "name" : "_status",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/VisionPrescription/properties/_status/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/VisionPrescription/properties/_status/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "created",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a UTC offset SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+      "path" : "#/definitions/VisionPrescription/properties/created/$ref//#/definitions/dateTime"
+    }
+  }, {
+    "name" : "_created",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/VisionPrescription/properties/_created/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/VisionPrescription/properties/_created/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "patient",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A reference from one resource to another.",
+      "path" : "#/definitions/VisionPrescription/properties/patient/$ref//#/definitions/Reference"
+    }
+  }, {
+    "name" : "encounter",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A reference from one resource to another.",
+      "path" : "#/definitions/VisionPrescription/properties/encounter/$ref//#/definitions/Reference"
+    }
+  }, {
+    "name" : "dateWritten",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a UTC offset SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+      "path" : "#/definitions/VisionPrescription/properties/dateWritten/$ref//#/definitions/dateTime"
+    }
+  }, {
+    "name" : "_dateWritten",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/VisionPrescription/properties/_dateWritten/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/VisionPrescription/properties/_dateWritten/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "prescriber",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A reference from one resource to another.",
+      "path" : "#/definitions/VisionPrescription/properties/prescriber/$ref//#/definitions/Reference"
+    }
+  }, {
+    "name" : "lensSpecification",
+    "type" : {
+      "type" : "array",
+      "elementType" : {
+        "type" : "struct",
+        "fields" : [ {
+          "name" : "id",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/id/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "extension",
+          "type" : {
+            "type" : "array",
+            "elementType" : "string",
+            "containsNull" : true
+          },
+          "nullable" : true,
+          "metadata" : {
+            "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+            "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/extension"
+          }
+        }, {
+          "name" : "modifierExtension",
+          "type" : {
+            "type" : "array",
+            "elementType" : "string",
+            "containsNull" : true
+          },
+          "nullable" : true,
+          "metadata" : {
+            "description" : "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing elements descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+            "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/modifierExtension"
+          }
+        }, {
+          "name" : "product",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/extension"
+              }
+            }, {
+              "name" : "coding",
+              "type" : {
+                "type" : "array",
+                "elementType" : {
+                  "type" : "struct",
+                  "fields" : [ {
+                    "name" : "id",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/id/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "extension",
+                    "type" : {
+                      "type" : "array",
+                      "elementType" : "string",
+                      "containsNull" : true
+                    },
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                      "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/extension"
+                    }
+                  }, {
+                    "name" : "system",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "String of characters used to identify a name or a resource",
+                      "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/system/$ref//#/definitions/uri"
+                    }
+                  }, {
+                    "name" : "_system",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "version",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/version/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "_version",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "code",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+                      "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/code/$ref//#/definitions/code"
+                    }
+                  }, {
+                    "name" : "_code",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "display",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/display/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "_display",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "userSelected",
+                    "type" : "boolean",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "Value of \"true\" or \"false\"",
+                      "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/userSelected/$ref//#/definitions/boolean"
+                    }
+                  }, {
+                    "name" : "_userSelected",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  } ]
+                },
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A reference to a code defined by a terminology system.",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/coding"
+              }
+            }, {
+              "name" : "text",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/text/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_text",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/_text/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/product/$ref//#/definitions/CodeableConcept/properties/_text/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "eye",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+            "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/eye/$ref//#/definitions/code"
+          }
+        }, {
+          "name" : "_eye",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_eye/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_eye/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "sphere",
+          "type" : "double",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A rational number with implicit precision",
+            "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/sphere/$ref//#/definitions/decimal"
+          }
+        }, {
+          "name" : "_sphere",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_sphere/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_sphere/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "cylinder",
+          "type" : "double",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A rational number with implicit precision",
+            "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/cylinder/$ref//#/definitions/decimal"
+          }
+        }, {
+          "name" : "_cylinder",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_cylinder/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_cylinder/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "axis",
+          "type" : "double",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A whole number",
+            "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/axis/$ref//#/definitions/integer"
+          }
+        }, {
+          "name" : "_axis",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_axis/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_axis/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "prism",
+          "type" : {
+            "type" : "array",
+            "elementType" : {
+              "type" : "struct",
+              "fields" : [ {
+                "name" : "id",
+                "type" : "string",
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "A sequence of Unicode characters",
+                  "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/prism/items/$ref//#/definitions/VisionPrescription_Prism/properties/id/$ref//#/definitions/string"
+                }
+              }, {
+                "name" : "extension",
+                "type" : {
+                  "type" : "array",
+                  "elementType" : "string",
+                  "containsNull" : true
+                },
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                  "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/prism/items/$ref//#/definitions/VisionPrescription_Prism/properties/extension"
+                }
+              }, {
+                "name" : "modifierExtension",
+                "type" : {
+                  "type" : "array",
+                  "elementType" : "string",
+                  "containsNull" : true
+                },
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing elements descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+                  "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/prism/items/$ref//#/definitions/VisionPrescription_Prism/properties/modifierExtension"
+                }
+              }, {
+                "name" : "amount",
+                "type" : "double",
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "A rational number with implicit precision",
+                  "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/prism/items/$ref//#/definitions/VisionPrescription_Prism/properties/amount/$ref//#/definitions/decimal"
+                }
+              }, {
+                "name" : "_amount",
+                "type" : {
+                  "type" : "struct",
+                  "fields" : [ {
+                    "name" : "id",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/prism/items/$ref//#/definitions/VisionPrescription_Prism/properties/_amount/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "extension",
+                    "type" : {
+                      "type" : "array",
+                      "elementType" : "string",
+                      "containsNull" : true
+                    },
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                      "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/prism/items/$ref//#/definitions/VisionPrescription_Prism/properties/_amount/$ref//#/definitions/Element/properties/extension"
+                    }
+                  } ]
+                },
+                "nullable" : true,
+                "metadata" : { }
+              }, {
+                "name" : "base",
+                "type" : "string",
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+                  "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/prism/items/$ref//#/definitions/VisionPrescription_Prism/properties/base/$ref//#/definitions/code"
+                }
+              }, {
+                "name" : "_base",
+                "type" : {
+                  "type" : "struct",
+                  "fields" : [ {
+                    "name" : "id",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/prism/items/$ref//#/definitions/VisionPrescription_Prism/properties/_base/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "extension",
+                    "type" : {
+                      "type" : "array",
+                      "elementType" : "string",
+                      "containsNull" : true
+                    },
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                      "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/prism/items/$ref//#/definitions/VisionPrescription_Prism/properties/_base/$ref//#/definitions/Element/properties/extension"
+                    }
+                  } ]
+                },
+                "nullable" : true,
+                "metadata" : { }
+              } ]
+            },
+            "containsNull" : true
+          },
+          "nullable" : true,
+          "metadata" : {
+            "description" : "Allows for adjustment on two axis.",
+            "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/prism"
+          }
+        }, {
+          "name" : "add",
+          "type" : "double",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A rational number with implicit precision",
+            "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/add/$ref//#/definitions/decimal"
+          }
+        }, {
+          "name" : "_add",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_add/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_add/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "power",
+          "type" : "double",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A rational number with implicit precision",
+            "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/power/$ref//#/definitions/decimal"
+          }
+        }, {
+          "name" : "_power",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_power/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_power/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "backCurve",
+          "type" : "double",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A rational number with implicit precision",
+            "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/backCurve/$ref//#/definitions/decimal"
+          }
+        }, {
+          "name" : "_backCurve",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_backCurve/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_backCurve/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "diameter",
+          "type" : "double",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A rational number with implicit precision",
+            "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/diameter/$ref//#/definitions/decimal"
+          }
+        }, {
+          "name" : "_diameter",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_diameter/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_diameter/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "duration",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/duration/$ref//#/definitions/Quantity/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/duration/$ref//#/definitions/Quantity/properties/extension"
+              }
+            }, {
+              "name" : "value",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A rational number with implicit precision",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/duration/$ref//#/definitions/Quantity/properties/value/$ref//#/definitions/decimal"
+              }
+            }, {
+              "name" : "_value",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/duration/$ref//#/definitions/Quantity/properties/_value/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/duration/$ref//#/definitions/Quantity/properties/_value/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "comparator",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "How the value should be understood and represented - whether the actual value is greater or less than the stated value due to measurement issues; e.g. if the comparator is \"<\" , then the real value is < stated value.",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/duration/$ref//#/definitions/Quantity/properties/comparator"
+              }
+            }, {
+              "name" : "_comparator",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/duration/$ref//#/definitions/Quantity/properties/_comparator/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/duration/$ref//#/definitions/Quantity/properties/_comparator/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "unit",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/duration/$ref//#/definitions/Quantity/properties/unit/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_unit",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/duration/$ref//#/definitions/Quantity/properties/_unit/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/duration/$ref//#/definitions/Quantity/properties/_unit/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "system",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "String of characters used to identify a name or a resource",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/duration/$ref//#/definitions/Quantity/properties/system/$ref//#/definitions/uri"
+              }
+            }, {
+              "name" : "_system",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/duration/$ref//#/definitions/Quantity/properties/_system/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/duration/$ref//#/definitions/Quantity/properties/_system/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "code",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/duration/$ref//#/definitions/Quantity/properties/code/$ref//#/definitions/code"
+              }
+            }, {
+              "name" : "_code",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/duration/$ref//#/definitions/Quantity/properties/_code/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/duration/$ref//#/definitions/Quantity/properties/_code/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "color",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/color/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "_color",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_color/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_color/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "brand",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/brand/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "_brand",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_brand/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/_brand/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "note",
+          "type" : {
+            "type" : "array",
+            "elementType" : {
+              "type" : "struct",
+              "fields" : [ {
+                "name" : "id",
+                "type" : "string",
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "A sequence of Unicode characters",
+                  "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/note/items/$ref//#/definitions/Annotation/properties/id/$ref//#/definitions/string"
+                }
+              }, {
+                "name" : "extension",
+                "type" : {
+                  "type" : "array",
+                  "elementType" : "string",
+                  "containsNull" : true
+                },
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                  "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/note/items/$ref//#/definitions/Annotation/properties/extension"
+                }
+              }, {
+                "name" : "authorReference",
+                "type" : "string",
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "A reference from one resource to another.",
+                  "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/note/items/$ref//#/definitions/Annotation/properties/authorReference/$ref//#/definitions/Reference"
+                }
+              }, {
+                "name" : "authorString",
+                "type" : "string",
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "The individual responsible for making the annotation.",
+                  "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/note/items/$ref//#/definitions/Annotation/properties/authorString"
+                }
+              }, {
+                "name" : "_authorString",
+                "type" : {
+                  "type" : "struct",
+                  "fields" : [ {
+                    "name" : "id",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/note/items/$ref//#/definitions/Annotation/properties/_authorString/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "extension",
+                    "type" : {
+                      "type" : "array",
+                      "elementType" : "string",
+                      "containsNull" : true
+                    },
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                      "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/note/items/$ref//#/definitions/Annotation/properties/_authorString/$ref//#/definitions/Element/properties/extension"
+                    }
+                  } ]
+                },
+                "nullable" : true,
+                "metadata" : { }
+              }, {
+                "name" : "time",
+                "type" : "string",
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a UTC offset SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+                  "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/note/items/$ref//#/definitions/Annotation/properties/time/$ref//#/definitions/dateTime"
+                }
+              }, {
+                "name" : "_time",
+                "type" : {
+                  "type" : "struct",
+                  "fields" : [ {
+                    "name" : "id",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/note/items/$ref//#/definitions/Annotation/properties/_time/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "extension",
+                    "type" : {
+                      "type" : "array",
+                      "elementType" : "string",
+                      "containsNull" : true
+                    },
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                      "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/note/items/$ref//#/definitions/Annotation/properties/_time/$ref//#/definitions/Element/properties/extension"
+                    }
+                  } ]
+                },
+                "nullable" : true,
+                "metadata" : { }
+              }, {
+                "name" : "text",
+                "type" : "string",
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "A string that may contain Github Flavored Markdown syntax for optional processing by a mark down presentation engine",
+                  "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/note/items/$ref//#/definitions/Annotation/properties/text/$ref//#/definitions/markdown"
+                }
+              }, {
+                "name" : "_text",
+                "type" : {
+                  "type" : "struct",
+                  "fields" : [ {
+                    "name" : "id",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/note/items/$ref//#/definitions/Annotation/properties/_text/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "extension",
+                    "type" : {
+                      "type" : "array",
+                      "elementType" : "string",
+                      "containsNull" : true
+                    },
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                      "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/note/items/$ref//#/definitions/Annotation/properties/_text/$ref//#/definitions/Element/properties/extension"
+                    }
+                  } ]
+                },
+                "nullable" : true,
+                "metadata" : { }
+              } ]
+            },
+            "containsNull" : true
+          },
+          "nullable" : true,
+          "metadata" : {
+            "description" : "Notes for special requirements such as coatings and lens materials.",
+            "path" : "#/definitions/VisionPrescription/properties/lensSpecification/items/$ref//#/definitions/VisionPrescription_LensSpecification/properties/note"
+          }
+        } ]
+      },
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "Contain the details of  the individual lens specifications and serves as the authorization for the fullfillment by certified professionals.",
+      "path" : "#/definitions/VisionPrescription/properties/lensSpecification"
+    }
+  } ]
+}

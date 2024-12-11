@@ -1,0 +1,2876 @@
+{
+  "type" : "struct",
+  "fields" : [ {
+    "name" : "id",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "Any combination of letters, numerals, \"-\" and \".\", with a length limit of 64 characters.  (This might be an integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Ids are case-insensitive.",
+      "path" : "#/definitions/BiologicallyDerivedProduct/properties/id/$ref//#/definitions/id"
+    }
+  }, {
+    "name" : "meta",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/extension"
+        }
+      }, {
+        "name" : "versionId",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "Any combination of letters, numerals, \"-\" and \".\", with a length limit of 64 characters.  (This might be an integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Ids are case-insensitive.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/versionId/$ref//#/definitions/id"
+        }
+      }, {
+        "name" : "_versionId",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/_versionId/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/_versionId/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "lastUpdated",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "An instant in time - known at least to the second",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/lastUpdated/$ref//#/definitions/instant"
+        }
+      }, {
+        "name" : "_lastUpdated",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/_lastUpdated/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/_lastUpdated/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "source",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "String of characters used to identify a name or a resource",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/source/$ref//#/definitions/uri"
+        }
+      }, {
+        "name" : "_source",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/_source/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/_source/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "profile",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A list of profiles (references to [[[StructureDefinition]]] resources) that this resource claims to conform to. The URL is a reference to [[[StructureDefinition.url]]].",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/profile"
+        }
+      }, {
+        "name" : "security",
+        "type" : {
+          "type" : "array",
+          "elementType" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/extension"
+              }
+            }, {
+              "name" : "system",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "String of characters used to identify a name or a resource",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/system/$ref//#/definitions/uri"
+              }
+            }, {
+              "name" : "_system",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "version",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/version/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_version",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "code",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/code/$ref//#/definitions/code"
+              }
+            }, {
+              "name" : "_code",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "display",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/display/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_display",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "userSelected",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "Value of \"true\" or \"false\"",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/userSelected/$ref//#/definitions/boolean"
+              }
+            }, {
+              "name" : "_userSelected",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "Security labels applied to this resource. These tags connect specific resources to the overall security policy and infrastructure.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/security"
+        }
+      }, {
+        "name" : "tag",
+        "type" : {
+          "type" : "array",
+          "elementType" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/extension"
+              }
+            }, {
+              "name" : "system",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "String of characters used to identify a name or a resource",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/system/$ref//#/definitions/uri"
+              }
+            }, {
+              "name" : "_system",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "version",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/version/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_version",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "code",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/code/$ref//#/definitions/code"
+              }
+            }, {
+              "name" : "_code",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "display",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/display/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_display",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "userSelected",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "Value of \"true\" or \"false\"",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/userSelected/$ref//#/definitions/boolean"
+              }
+            }, {
+              "name" : "_userSelected",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "Tags applied to this resource. Tags are intended to be used to identify and relate resources to process and workflow, and applications are not required to consider the tags when interpreting the meaning of a resource.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/meta/$ref//#/definitions/Meta/properties/tag"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "implicitRules",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "String of characters used to identify a name or a resource",
+      "path" : "#/definitions/BiologicallyDerivedProduct/properties/implicitRules/$ref//#/definitions/uri"
+    }
+  }, {
+    "name" : "_implicitRules",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/_implicitRules/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/_implicitRules/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "language",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+      "path" : "#/definitions/BiologicallyDerivedProduct/properties/language/$ref//#/definitions/code"
+    }
+  }, {
+    "name" : "_language",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/_language/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/_language/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "text",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/text/$ref//#/definitions/Narrative/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/text/$ref//#/definitions/Narrative/properties/extension"
+        }
+      }, {
+        "name" : "status",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "The status of the narrative - whether its entirely generated (from just the defined data or the extensions too), or whether a human authored it and it may contain additional data.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/text/$ref//#/definitions/Narrative/properties/status"
+        }
+      }, {
+        "name" : "_status",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/text/$ref//#/definitions/Narrative/properties/_status/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/text/$ref//#/definitions/Narrative/properties/_status/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "div",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "xhtml - escaped html (see specfication)",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/text/$ref//#/definitions/Narrative/properties/div/$ref//#/definitions/xhtml"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "contained",
+    "type" : {
+      "type" : "array",
+      "elementType" : "string",
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+      "path" : "#/definitions/BiologicallyDerivedProduct/properties/contained"
+    }
+  }, {
+    "name" : "extension",
+    "type" : {
+      "type" : "array",
+      "elementType" : "string",
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "May be used to represent additional information that is not part of the basic definition of the resource. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+      "path" : "#/definitions/BiologicallyDerivedProduct/properties/extension"
+    }
+  }, {
+    "name" : "modifierExtension",
+    "type" : {
+      "type" : "array",
+      "elementType" : "string",
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "May be used to represent additional information that is not part of the basic definition of the resource and that modifies the understanding of the element that contains it and/or the understanding of the containing elements descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+      "path" : "#/definitions/BiologicallyDerivedProduct/properties/modifierExtension"
+    }
+  }, {
+    "name" : "identifier",
+    "type" : {
+      "type" : "array",
+      "elementType" : {
+        "type" : "struct",
+        "fields" : [ {
+          "name" : "id",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/id/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "extension",
+          "type" : {
+            "type" : "array",
+            "elementType" : "string",
+            "containsNull" : true
+          },
+          "nullable" : true,
+          "metadata" : {
+            "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+            "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/extension"
+          }
+        }, {
+          "name" : "use",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "The purpose of this identifier.",
+            "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/use"
+          }
+        }, {
+          "name" : "_use",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/_use/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/_use/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "type",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/extension"
+              }
+            }, {
+              "name" : "coding",
+              "type" : {
+                "type" : "array",
+                "elementType" : {
+                  "type" : "struct",
+                  "fields" : [ {
+                    "name" : "id",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/id/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "extension",
+                    "type" : {
+                      "type" : "array",
+                      "elementType" : "string",
+                      "containsNull" : true
+                    },
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                      "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/extension"
+                    }
+                  }, {
+                    "name" : "system",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "String of characters used to identify a name or a resource",
+                      "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/system/$ref//#/definitions/uri"
+                    }
+                  }, {
+                    "name" : "_system",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "version",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/version/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "_version",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "code",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+                      "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/code/$ref//#/definitions/code"
+                    }
+                  }, {
+                    "name" : "_code",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "display",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/display/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "_display",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "userSelected",
+                    "type" : "boolean",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "Value of \"true\" or \"false\"",
+                      "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/userSelected/$ref//#/definitions/boolean"
+                    }
+                  }, {
+                    "name" : "_userSelected",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  } ]
+                },
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A reference to a code defined by a terminology system.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding"
+              }
+            }, {
+              "name" : "text",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/text/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_text",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/_text/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/_text/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "system",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "String of characters used to identify a name or a resource",
+            "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/system/$ref//#/definitions/uri"
+          }
+        }, {
+          "name" : "_system",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/_system/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/_system/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "value",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/value/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "_value",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/_value/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/_value/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "period",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/extension"
+              }
+            }, {
+              "name" : "start",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a time zone SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/start/$ref//#/definitions/dateTime"
+              }
+            }, {
+              "name" : "_start",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/_start/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/_start/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "end",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a time zone SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/end/$ref//#/definitions/dateTime"
+              }
+            }, {
+              "name" : "_end",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/_end/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/_end/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "assigner",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A reference from one resource to another.",
+            "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier/items/$ref//#/definitions/Identifier/properties/assigner/$ref//#/definitions/Reference"
+          }
+        } ]
+      },
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "This records identifiers associated with this biologically derived product instance that are defined by business processes and/or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).",
+      "path" : "#/definitions/BiologicallyDerivedProduct/properties/identifier"
+    }
+  }, {
+    "name" : "productCategory",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "Broad category of this product.",
+      "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCategory"
+    }
+  }, {
+    "name" : "_productCategory",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/_productCategory/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/_productCategory/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "productCode",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/extension"
+        }
+      }, {
+        "name" : "coding",
+        "type" : {
+          "type" : "array",
+          "elementType" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/extension"
+              }
+            }, {
+              "name" : "system",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "String of characters used to identify a name or a resource",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/system/$ref//#/definitions/uri"
+              }
+            }, {
+              "name" : "_system",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "version",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/version/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_version",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "code",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/code/$ref//#/definitions/code"
+              }
+            }, {
+              "name" : "_code",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "display",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/display/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_display",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "userSelected",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "Value of \"true\" or \"false\"",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/userSelected/$ref//#/definitions/boolean"
+              }
+            }, {
+              "name" : "_userSelected",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A reference to a code defined by a terminology system.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/coding"
+        }
+      }, {
+        "name" : "text",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/text/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "_text",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/_text/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/productCode/$ref//#/definitions/CodeableConcept/properties/_text/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "status",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "Whether the product is currently available.",
+      "path" : "#/definitions/BiologicallyDerivedProduct/properties/status"
+    }
+  }, {
+    "name" : "_status",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/_status/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/_status/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "request",
+    "type" : {
+      "type" : "array",
+      "elementType" : "string",
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "Procedure request to obtain this biologically derived product.",
+      "path" : "#/definitions/BiologicallyDerivedProduct/properties/request"
+    }
+  }, {
+    "name" : "quantity",
+    "type" : "double",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A whole number",
+      "path" : "#/definitions/BiologicallyDerivedProduct/properties/quantity/$ref//#/definitions/integer"
+    }
+  }, {
+    "name" : "_quantity",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/_quantity/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/_quantity/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "parent",
+    "type" : {
+      "type" : "array",
+      "elementType" : "string",
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "Parent product (if any).",
+      "path" : "#/definitions/BiologicallyDerivedProduct/properties/parent"
+    }
+  }, {
+    "name" : "collection",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/collection/$ref//#/definitions/BiologicallyDerivedProduct_Collection/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/collection/$ref//#/definitions/BiologicallyDerivedProduct_Collection/properties/extension"
+        }
+      }, {
+        "name" : "modifierExtension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing elements descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/collection/$ref//#/definitions/BiologicallyDerivedProduct_Collection/properties/modifierExtension"
+        }
+      }, {
+        "name" : "collector",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A reference from one resource to another.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/collection/$ref//#/definitions/BiologicallyDerivedProduct_Collection/properties/collector/$ref//#/definitions/Reference"
+        }
+      }, {
+        "name" : "source",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A reference from one resource to another.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/collection/$ref//#/definitions/BiologicallyDerivedProduct_Collection/properties/source/$ref//#/definitions/Reference"
+        }
+      }, {
+        "name" : "collectedDateTime",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "Time of product collection.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/collection/$ref//#/definitions/BiologicallyDerivedProduct_Collection/properties/collectedDateTime"
+        }
+      }, {
+        "name" : "_collectedDateTime",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/collection/$ref//#/definitions/BiologicallyDerivedProduct_Collection/properties/_collectedDateTime/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/collection/$ref//#/definitions/BiologicallyDerivedProduct_Collection/properties/_collectedDateTime/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "collectedPeriod",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/collection/$ref//#/definitions/BiologicallyDerivedProduct_Collection/properties/collectedPeriod/$ref//#/definitions/Period/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/collection/$ref//#/definitions/BiologicallyDerivedProduct_Collection/properties/collectedPeriod/$ref//#/definitions/Period/properties/extension"
+            }
+          }, {
+            "name" : "start",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a time zone SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/collection/$ref//#/definitions/BiologicallyDerivedProduct_Collection/properties/collectedPeriod/$ref//#/definitions/Period/properties/start/$ref//#/definitions/dateTime"
+            }
+          }, {
+            "name" : "_start",
+            "type" : {
+              "type" : "struct",
+              "fields" : [ {
+                "name" : "id",
+                "type" : "string",
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "A sequence of Unicode characters",
+                  "path" : "#/definitions/BiologicallyDerivedProduct/properties/collection/$ref//#/definitions/BiologicallyDerivedProduct_Collection/properties/collectedPeriod/$ref//#/definitions/Period/properties/_start/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                }
+              }, {
+                "name" : "extension",
+                "type" : {
+                  "type" : "array",
+                  "elementType" : "string",
+                  "containsNull" : true
+                },
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                  "path" : "#/definitions/BiologicallyDerivedProduct/properties/collection/$ref//#/definitions/BiologicallyDerivedProduct_Collection/properties/collectedPeriod/$ref//#/definitions/Period/properties/_start/$ref//#/definitions/Element/properties/extension"
+                }
+              } ]
+            },
+            "nullable" : true,
+            "metadata" : { }
+          }, {
+            "name" : "end",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a time zone SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/collection/$ref//#/definitions/BiologicallyDerivedProduct_Collection/properties/collectedPeriod/$ref//#/definitions/Period/properties/end/$ref//#/definitions/dateTime"
+            }
+          }, {
+            "name" : "_end",
+            "type" : {
+              "type" : "struct",
+              "fields" : [ {
+                "name" : "id",
+                "type" : "string",
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "A sequence of Unicode characters",
+                  "path" : "#/definitions/BiologicallyDerivedProduct/properties/collection/$ref//#/definitions/BiologicallyDerivedProduct_Collection/properties/collectedPeriod/$ref//#/definitions/Period/properties/_end/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                }
+              }, {
+                "name" : "extension",
+                "type" : {
+                  "type" : "array",
+                  "elementType" : "string",
+                  "containsNull" : true
+                },
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                  "path" : "#/definitions/BiologicallyDerivedProduct/properties/collection/$ref//#/definitions/BiologicallyDerivedProduct_Collection/properties/collectedPeriod/$ref//#/definitions/Period/properties/_end/$ref//#/definitions/Element/properties/extension"
+                }
+              } ]
+            },
+            "nullable" : true,
+            "metadata" : { }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "processing",
+    "type" : {
+      "type" : "array",
+      "elementType" : {
+        "type" : "struct",
+        "fields" : [ {
+          "name" : "id",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/id/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "extension",
+          "type" : {
+            "type" : "array",
+            "elementType" : "string",
+            "containsNull" : true
+          },
+          "nullable" : true,
+          "metadata" : {
+            "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+            "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/extension"
+          }
+        }, {
+          "name" : "modifierExtension",
+          "type" : {
+            "type" : "array",
+            "elementType" : "string",
+            "containsNull" : true
+          },
+          "nullable" : true,
+          "metadata" : {
+            "description" : "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing elements descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+            "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/modifierExtension"
+          }
+        }, {
+          "name" : "description",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/description/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "_description",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/_description/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/_description/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "procedure",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/extension"
+              }
+            }, {
+              "name" : "coding",
+              "type" : {
+                "type" : "array",
+                "elementType" : {
+                  "type" : "struct",
+                  "fields" : [ {
+                    "name" : "id",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/id/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "extension",
+                    "type" : {
+                      "type" : "array",
+                      "elementType" : "string",
+                      "containsNull" : true
+                    },
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                      "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/extension"
+                    }
+                  }, {
+                    "name" : "system",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "String of characters used to identify a name or a resource",
+                      "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/system/$ref//#/definitions/uri"
+                    }
+                  }, {
+                    "name" : "_system",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "version",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/version/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "_version",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "code",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+                      "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/code/$ref//#/definitions/code"
+                    }
+                  }, {
+                    "name" : "_code",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "display",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/display/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "_display",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "userSelected",
+                    "type" : "boolean",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "Value of \"true\" or \"false\"",
+                      "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/userSelected/$ref//#/definitions/boolean"
+                    }
+                  }, {
+                    "name" : "_userSelected",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  } ]
+                },
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A reference to a code defined by a terminology system.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/coding"
+              }
+            }, {
+              "name" : "text",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/text/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_text",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/_text/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/procedure/$ref//#/definitions/CodeableConcept/properties/_text/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "additive",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A reference from one resource to another.",
+            "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/additive/$ref//#/definitions/Reference"
+          }
+        }, {
+          "name" : "timeDateTime",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "Time of processing.",
+            "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/timeDateTime"
+          }
+        }, {
+          "name" : "_timeDateTime",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/_timeDateTime/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/_timeDateTime/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "timePeriod",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/timePeriod/$ref//#/definitions/Period/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/timePeriod/$ref//#/definitions/Period/properties/extension"
+              }
+            }, {
+              "name" : "start",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a time zone SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/timePeriod/$ref//#/definitions/Period/properties/start/$ref//#/definitions/dateTime"
+              }
+            }, {
+              "name" : "_start",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/timePeriod/$ref//#/definitions/Period/properties/_start/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/timePeriod/$ref//#/definitions/Period/properties/_start/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "end",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a time zone SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/timePeriod/$ref//#/definitions/Period/properties/end/$ref//#/definitions/dateTime"
+              }
+            }, {
+              "name" : "_end",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/timePeriod/$ref//#/definitions/Period/properties/_end/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing/items/$ref//#/definitions/BiologicallyDerivedProduct_Processing/properties/timePeriod/$ref//#/definitions/Period/properties/_end/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        } ]
+      },
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "Any processing of the product during collection that does not change the fundamental nature of the product. For example adding anti-coagulants during the collection of Peripheral Blood Stem Cells.",
+      "path" : "#/definitions/BiologicallyDerivedProduct/properties/processing"
+    }
+  }, {
+    "name" : "manipulation",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/manipulation/$ref//#/definitions/BiologicallyDerivedProduct_Manipulation/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/manipulation/$ref//#/definitions/BiologicallyDerivedProduct_Manipulation/properties/extension"
+        }
+      }, {
+        "name" : "modifierExtension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing elements descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/manipulation/$ref//#/definitions/BiologicallyDerivedProduct_Manipulation/properties/modifierExtension"
+        }
+      }, {
+        "name" : "description",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/manipulation/$ref//#/definitions/BiologicallyDerivedProduct_Manipulation/properties/description/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "_description",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/manipulation/$ref//#/definitions/BiologicallyDerivedProduct_Manipulation/properties/_description/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/manipulation/$ref//#/definitions/BiologicallyDerivedProduct_Manipulation/properties/_description/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "timeDateTime",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "Time of manipulation.",
+          "path" : "#/definitions/BiologicallyDerivedProduct/properties/manipulation/$ref//#/definitions/BiologicallyDerivedProduct_Manipulation/properties/timeDateTime"
+        }
+      }, {
+        "name" : "_timeDateTime",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/manipulation/$ref//#/definitions/BiologicallyDerivedProduct_Manipulation/properties/_timeDateTime/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/manipulation/$ref//#/definitions/BiologicallyDerivedProduct_Manipulation/properties/_timeDateTime/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "timePeriod",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/manipulation/$ref//#/definitions/BiologicallyDerivedProduct_Manipulation/properties/timePeriod/$ref//#/definitions/Period/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/manipulation/$ref//#/definitions/BiologicallyDerivedProduct_Manipulation/properties/timePeriod/$ref//#/definitions/Period/properties/extension"
+            }
+          }, {
+            "name" : "start",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a time zone SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/manipulation/$ref//#/definitions/BiologicallyDerivedProduct_Manipulation/properties/timePeriod/$ref//#/definitions/Period/properties/start/$ref//#/definitions/dateTime"
+            }
+          }, {
+            "name" : "_start",
+            "type" : {
+              "type" : "struct",
+              "fields" : [ {
+                "name" : "id",
+                "type" : "string",
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "A sequence of Unicode characters",
+                  "path" : "#/definitions/BiologicallyDerivedProduct/properties/manipulation/$ref//#/definitions/BiologicallyDerivedProduct_Manipulation/properties/timePeriod/$ref//#/definitions/Period/properties/_start/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                }
+              }, {
+                "name" : "extension",
+                "type" : {
+                  "type" : "array",
+                  "elementType" : "string",
+                  "containsNull" : true
+                },
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                  "path" : "#/definitions/BiologicallyDerivedProduct/properties/manipulation/$ref//#/definitions/BiologicallyDerivedProduct_Manipulation/properties/timePeriod/$ref//#/definitions/Period/properties/_start/$ref//#/definitions/Element/properties/extension"
+                }
+              } ]
+            },
+            "nullable" : true,
+            "metadata" : { }
+          }, {
+            "name" : "end",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a time zone SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+              "path" : "#/definitions/BiologicallyDerivedProduct/properties/manipulation/$ref//#/definitions/BiologicallyDerivedProduct_Manipulation/properties/timePeriod/$ref//#/definitions/Period/properties/end/$ref//#/definitions/dateTime"
+            }
+          }, {
+            "name" : "_end",
+            "type" : {
+              "type" : "struct",
+              "fields" : [ {
+                "name" : "id",
+                "type" : "string",
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "A sequence of Unicode characters",
+                  "path" : "#/definitions/BiologicallyDerivedProduct/properties/manipulation/$ref//#/definitions/BiologicallyDerivedProduct_Manipulation/properties/timePeriod/$ref//#/definitions/Period/properties/_end/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                }
+              }, {
+                "name" : "extension",
+                "type" : {
+                  "type" : "array",
+                  "elementType" : "string",
+                  "containsNull" : true
+                },
+                "nullable" : true,
+                "metadata" : {
+                  "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                  "path" : "#/definitions/BiologicallyDerivedProduct/properties/manipulation/$ref//#/definitions/BiologicallyDerivedProduct_Manipulation/properties/timePeriod/$ref//#/definitions/Period/properties/_end/$ref//#/definitions/Element/properties/extension"
+                }
+              } ]
+            },
+            "nullable" : true,
+            "metadata" : { }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "storage",
+    "type" : {
+      "type" : "array",
+      "elementType" : {
+        "type" : "struct",
+        "fields" : [ {
+          "name" : "id",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/id/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "extension",
+          "type" : {
+            "type" : "array",
+            "elementType" : "string",
+            "containsNull" : true
+          },
+          "nullable" : true,
+          "metadata" : {
+            "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+            "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/extension"
+          }
+        }, {
+          "name" : "modifierExtension",
+          "type" : {
+            "type" : "array",
+            "elementType" : "string",
+            "containsNull" : true
+          },
+          "nullable" : true,
+          "metadata" : {
+            "description" : "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing elements descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+            "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/modifierExtension"
+          }
+        }, {
+          "name" : "description",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/description/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "_description",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/_description/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/_description/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "temperature",
+          "type" : "double",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A rational number with implicit precision",
+            "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/temperature/$ref//#/definitions/decimal"
+          }
+        }, {
+          "name" : "_temperature",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/_temperature/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/_temperature/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "scale",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "Temperature scale used.",
+            "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/scale"
+          }
+        }, {
+          "name" : "_scale",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/_scale/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/_scale/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "duration",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/duration/$ref//#/definitions/Period/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/duration/$ref//#/definitions/Period/properties/extension"
+              }
+            }, {
+              "name" : "start",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a time zone SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/duration/$ref//#/definitions/Period/properties/start/$ref//#/definitions/dateTime"
+              }
+            }, {
+              "name" : "_start",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/duration/$ref//#/definitions/Period/properties/_start/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/duration/$ref//#/definitions/Period/properties/_start/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "end",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a time zone SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+                "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/duration/$ref//#/definitions/Period/properties/end/$ref//#/definitions/dateTime"
+              }
+            }, {
+              "name" : "_end",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/duration/$ref//#/definitions/Period/properties/_end/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage/items/$ref//#/definitions/BiologicallyDerivedProduct_Storage/properties/duration/$ref//#/definitions/Period/properties/_end/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        } ]
+      },
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "Product storage.",
+      "path" : "#/definitions/BiologicallyDerivedProduct/properties/storage"
+    }
+  } ]
+}

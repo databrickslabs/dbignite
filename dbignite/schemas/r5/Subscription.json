@@ -1,0 +1,2509 @@
+{
+  "type" : "struct",
+  "fields" : [ {
+    "name" : "id",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "Any combination of letters, numerals, \"-\" and \".\", with a length limit of 64 characters.  (This might be an integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Ids are case-insensitive.",
+      "path" : "#/definitions/Subscription/properties/id/$ref//#/definitions/id"
+    }
+  }, {
+    "name" : "meta",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/extension"
+        }
+      }, {
+        "name" : "versionId",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "Any combination of letters, numerals, \"-\" and \".\", with a length limit of 64 characters.  (This might be an integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Ids are case-insensitive.",
+          "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/versionId/$ref//#/definitions/id"
+        }
+      }, {
+        "name" : "_versionId",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/_versionId/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/_versionId/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "lastUpdated",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "An instant in time - known at least to the second",
+          "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/lastUpdated/$ref//#/definitions/instant"
+        }
+      }, {
+        "name" : "_lastUpdated",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/_lastUpdated/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/_lastUpdated/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "source",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "String of characters used to identify a name or a resource",
+          "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/source/$ref//#/definitions/uri"
+        }
+      }, {
+        "name" : "_source",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/_source/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/_source/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "profile",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A list of profiles (references to [[[StructureDefinition]]] resources) that this resource claims to conform to. The URL is a reference to [[[StructureDefinition.url]]].",
+          "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/profile"
+        }
+      }, {
+        "name" : "security",
+        "type" : {
+          "type" : "array",
+          "elementType" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/extension"
+              }
+            }, {
+              "name" : "system",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "String of characters used to identify a name or a resource",
+                "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/system/$ref//#/definitions/uri"
+              }
+            }, {
+              "name" : "_system",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "version",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/version/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_version",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "code",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+                "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/code/$ref//#/definitions/code"
+              }
+            }, {
+              "name" : "_code",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "display",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/display/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_display",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "userSelected",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "Value of \"true\" or \"false\"",
+                "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/userSelected/$ref//#/definitions/boolean"
+              }
+            }, {
+              "name" : "_userSelected",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/security/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "Security labels applied to this resource. These tags connect specific resources to the overall security policy and infrastructure.",
+          "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/security"
+        }
+      }, {
+        "name" : "tag",
+        "type" : {
+          "type" : "array",
+          "elementType" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/extension"
+              }
+            }, {
+              "name" : "system",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "String of characters used to identify a name or a resource",
+                "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/system/$ref//#/definitions/uri"
+              }
+            }, {
+              "name" : "_system",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "version",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/version/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_version",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "code",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+                "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/code/$ref//#/definitions/code"
+              }
+            }, {
+              "name" : "_code",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "display",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/display/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_display",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "userSelected",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "Value of \"true\" or \"false\"",
+                "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/userSelected/$ref//#/definitions/boolean"
+              }
+            }, {
+              "name" : "_userSelected",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/tag/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "Tags applied to this resource. Tags are intended to be used to identify and relate resources to process and workflow, and applications are not required to consider the tags when interpreting the meaning of a resource.",
+          "path" : "#/definitions/Subscription/properties/meta/$ref//#/definitions/Meta/properties/tag"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "implicitRules",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "String of characters used to identify a name or a resource",
+      "path" : "#/definitions/Subscription/properties/implicitRules/$ref//#/definitions/uri"
+    }
+  }, {
+    "name" : "_implicitRules",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/Subscription/properties/_implicitRules/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/Subscription/properties/_implicitRules/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "language",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+      "path" : "#/definitions/Subscription/properties/language/$ref//#/definitions/code"
+    }
+  }, {
+    "name" : "_language",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/Subscription/properties/_language/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/Subscription/properties/_language/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "text",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/Subscription/properties/text/$ref//#/definitions/Narrative/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/Subscription/properties/text/$ref//#/definitions/Narrative/properties/extension"
+        }
+      }, {
+        "name" : "status",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "The status of the narrative - whether its entirely generated (from just the defined data or the extensions too), or whether a human authored it and it may contain additional data.",
+          "path" : "#/definitions/Subscription/properties/text/$ref//#/definitions/Narrative/properties/status"
+        }
+      }, {
+        "name" : "_status",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/Subscription/properties/text/$ref//#/definitions/Narrative/properties/_status/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/Subscription/properties/text/$ref//#/definitions/Narrative/properties/_status/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "div",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "xhtml - escaped html (see specfication)",
+          "path" : "#/definitions/Subscription/properties/text/$ref//#/definitions/Narrative/properties/div/$ref//#/definitions/xhtml"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "contained",
+    "type" : {
+      "type" : "array",
+      "elementType" : "string",
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, nor can they have their own independent transaction scope. This is allowed to be a Parameters resource if and only if it is referenced by a resource that provides context/meaning.",
+      "path" : "#/definitions/Subscription/properties/contained"
+    }
+  }, {
+    "name" : "extension",
+    "type" : {
+      "type" : "array",
+      "elementType" : "string",
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "May be used to represent additional information that is not part of the basic definition of the resource. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+      "path" : "#/definitions/Subscription/properties/extension"
+    }
+  }, {
+    "name" : "modifierExtension",
+    "type" : {
+      "type" : "array",
+      "elementType" : "string",
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "May be used to represent additional information that is not part of the basic definition of the resource and that modifies the understanding of the element that contains it and/or the understanding of the containing elements descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+      "path" : "#/definitions/Subscription/properties/modifierExtension"
+    }
+  }, {
+    "name" : "identifier",
+    "type" : {
+      "type" : "array",
+      "elementType" : {
+        "type" : "struct",
+        "fields" : [ {
+          "name" : "id",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/id/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "extension",
+          "type" : {
+            "type" : "array",
+            "elementType" : "string",
+            "containsNull" : true
+          },
+          "nullable" : true,
+          "metadata" : {
+            "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+            "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/extension"
+          }
+        }, {
+          "name" : "use",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "The purpose of this identifier.",
+            "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/use"
+          }
+        }, {
+          "name" : "_use",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/_use/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/_use/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "type",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/extension"
+              }
+            }, {
+              "name" : "coding",
+              "type" : {
+                "type" : "array",
+                "elementType" : {
+                  "type" : "struct",
+                  "fields" : [ {
+                    "name" : "id",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/id/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "extension",
+                    "type" : {
+                      "type" : "array",
+                      "elementType" : "string",
+                      "containsNull" : true
+                    },
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                      "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/extension"
+                    }
+                  }, {
+                    "name" : "system",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "String of characters used to identify a name or a resource",
+                      "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/system/$ref//#/definitions/uri"
+                    }
+                  }, {
+                    "name" : "_system",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "version",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/version/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "_version",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "code",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+                      "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/code/$ref//#/definitions/code"
+                    }
+                  }, {
+                    "name" : "_code",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "display",
+                    "type" : "string",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "A sequence of Unicode characters",
+                      "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/display/$ref//#/definitions/string"
+                    }
+                  }, {
+                    "name" : "_display",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  }, {
+                    "name" : "userSelected",
+                    "type" : "boolean",
+                    "nullable" : true,
+                    "metadata" : {
+                      "description" : "Value of \"true\" or \"false\"",
+                      "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/userSelected/$ref//#/definitions/boolean"
+                    }
+                  }, {
+                    "name" : "_userSelected",
+                    "type" : {
+                      "type" : "struct",
+                      "fields" : [ {
+                        "name" : "id",
+                        "type" : "string",
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "A sequence of Unicode characters",
+                          "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                        }
+                      }, {
+                        "name" : "extension",
+                        "type" : {
+                          "type" : "array",
+                          "elementType" : "string",
+                          "containsNull" : true
+                        },
+                        "nullable" : true,
+                        "metadata" : {
+                          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                          "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding/items/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/extension"
+                        }
+                      } ]
+                    },
+                    "nullable" : true,
+                    "metadata" : { }
+                  } ]
+                },
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A reference to a code defined by a terminology system.",
+                "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/coding"
+              }
+            }, {
+              "name" : "text",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/text/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "_text",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/_text/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/type/$ref//#/definitions/CodeableConcept/properties/_text/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "system",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "String of characters used to identify a name or a resource",
+            "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/system/$ref//#/definitions/uri"
+          }
+        }, {
+          "name" : "_system",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/_system/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/_system/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "value",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/value/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "_value",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/_value/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/_value/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "period",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/extension"
+              }
+            }, {
+              "name" : "start",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a UTC offset SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+                "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/start/$ref//#/definitions/dateTime"
+              }
+            }, {
+              "name" : "_start",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/_start/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/_start/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "end",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a UTC offset SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+                "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/end/$ref//#/definitions/dateTime"
+              }
+            }, {
+              "name" : "_end",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/_end/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/period/$ref//#/definitions/Period/properties/_end/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "assigner",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A reference from one resource to another.",
+            "path" : "#/definitions/Subscription/properties/identifier/items/$ref//#/definitions/Identifier/properties/assigner/$ref//#/definitions/Reference"
+          }
+        } ]
+      },
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A formal identifier that is used to identify this code system when it is represented in other formats, or referenced in a specification, model, design or an instance.",
+      "path" : "#/definitions/Subscription/properties/identifier"
+    }
+  }, {
+    "name" : "name",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A sequence of Unicode characters",
+      "path" : "#/definitions/Subscription/properties/name/$ref//#/definitions/string"
+    }
+  }, {
+    "name" : "_name",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/Subscription/properties/_name/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/Subscription/properties/_name/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "status",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+      "path" : "#/definitions/Subscription/properties/status/$ref//#/definitions/code"
+    }
+  }, {
+    "name" : "_status",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/Subscription/properties/_status/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/Subscription/properties/_status/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "topic",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A URI that is a reference to a canonical URL on a FHIR resource",
+      "path" : "#/definitions/Subscription/properties/topic/$ref//#/definitions/canonical"
+    }
+  }, {
+    "name" : "contact",
+    "type" : {
+      "type" : "array",
+      "elementType" : {
+        "type" : "struct",
+        "fields" : [ {
+          "name" : "id",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/id/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "extension",
+          "type" : {
+            "type" : "array",
+            "elementType" : "string",
+            "containsNull" : true
+          },
+          "nullable" : true,
+          "metadata" : {
+            "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+            "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/extension"
+          }
+        }, {
+          "name" : "system",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "Telecommunications form for contact point - what communications system is required to make use of the contact.",
+            "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/system"
+          }
+        }, {
+          "name" : "_system",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/_system/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/_system/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "value",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/value/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "_value",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/_value/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/_value/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "use",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "Identifies the purpose for the contact point.",
+            "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/use"
+          }
+        }, {
+          "name" : "_use",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/_use/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/_use/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "rank",
+          "type" : "double",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "An integer with a value that is positive (e.g. >0)",
+            "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/rank/$ref//#/definitions/positiveInt"
+          }
+        }, {
+          "name" : "_rank",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/_rank/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/_rank/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "period",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/period/$ref//#/definitions/Period/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/period/$ref//#/definitions/Period/properties/extension"
+              }
+            }, {
+              "name" : "start",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a UTC offset SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+                "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/period/$ref//#/definitions/Period/properties/start/$ref//#/definitions/dateTime"
+              }
+            }, {
+              "name" : "_start",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/period/$ref//#/definitions/Period/properties/_start/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/period/$ref//#/definitions/Period/properties/_start/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            }, {
+              "name" : "end",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a UTC offset SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.",
+                "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/period/$ref//#/definitions/Period/properties/end/$ref//#/definitions/dateTime"
+              }
+            }, {
+              "name" : "_end",
+              "type" : {
+                "type" : "struct",
+                "fields" : [ {
+                  "name" : "id",
+                  "type" : "string",
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "A sequence of Unicode characters",
+                    "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/period/$ref//#/definitions/Period/properties/_end/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+                  }
+                }, {
+                  "name" : "extension",
+                  "type" : {
+                    "type" : "array",
+                    "elementType" : "string",
+                    "containsNull" : true
+                  },
+                  "nullable" : true,
+                  "metadata" : {
+                    "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                    "path" : "#/definitions/Subscription/properties/contact/items/$ref//#/definitions/ContactPoint/properties/period/$ref//#/definitions/Period/properties/_end/$ref//#/definitions/Element/properties/extension"
+                  }
+                } ]
+              },
+              "nullable" : true,
+              "metadata" : { }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        } ]
+      },
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "Contact details for a human to contact about the subscription. The primary use of this for system administrator troubleshooting.",
+      "path" : "#/definitions/Subscription/properties/contact"
+    }
+  }, {
+    "name" : "end",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "An instant in time - known at least to the second",
+      "path" : "#/definitions/Subscription/properties/end/$ref//#/definitions/instant"
+    }
+  }, {
+    "name" : "_end",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/Subscription/properties/_end/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/Subscription/properties/_end/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "managingEntity",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A reference from one resource to another.",
+      "path" : "#/definitions/Subscription/properties/managingEntity/$ref//#/definitions/Reference"
+    }
+  }, {
+    "name" : "reason",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A sequence of Unicode characters",
+      "path" : "#/definitions/Subscription/properties/reason/$ref//#/definitions/string"
+    }
+  }, {
+    "name" : "_reason",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/Subscription/properties/_reason/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/Subscription/properties/_reason/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "filterBy",
+    "type" : {
+      "type" : "array",
+      "elementType" : {
+        "type" : "struct",
+        "fields" : [ {
+          "name" : "id",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/Subscription/properties/filterBy/items/$ref//#/definitions/Subscription_FilterBy/properties/id/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "extension",
+          "type" : {
+            "type" : "array",
+            "elementType" : "string",
+            "containsNull" : true
+          },
+          "nullable" : true,
+          "metadata" : {
+            "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+            "path" : "#/definitions/Subscription/properties/filterBy/items/$ref//#/definitions/Subscription_FilterBy/properties/extension"
+          }
+        }, {
+          "name" : "modifierExtension",
+          "type" : {
+            "type" : "array",
+            "elementType" : "string",
+            "containsNull" : true
+          },
+          "nullable" : true,
+          "metadata" : {
+            "description" : "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing elements descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+            "path" : "#/definitions/Subscription/properties/filterBy/items/$ref//#/definitions/Subscription_FilterBy/properties/modifierExtension"
+          }
+        }, {
+          "name" : "resourceType",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "String of characters used to identify a name or a resource",
+            "path" : "#/definitions/Subscription/properties/filterBy/items/$ref//#/definitions/Subscription_FilterBy/properties/resourceType/$ref//#/definitions/uri"
+          }
+        }, {
+          "name" : "_resourceType",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/filterBy/items/$ref//#/definitions/Subscription_FilterBy/properties/_resourceType/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/filterBy/items/$ref//#/definitions/Subscription_FilterBy/properties/_resourceType/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "filterParameter",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/Subscription/properties/filterBy/items/$ref//#/definitions/Subscription_FilterBy/properties/filterParameter/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "_filterParameter",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/filterBy/items/$ref//#/definitions/Subscription_FilterBy/properties/_filterParameter/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/filterBy/items/$ref//#/definitions/Subscription_FilterBy/properties/_filterParameter/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "comparator",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+            "path" : "#/definitions/Subscription/properties/filterBy/items/$ref//#/definitions/Subscription_FilterBy/properties/comparator/$ref//#/definitions/code"
+          }
+        }, {
+          "name" : "_comparator",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/filterBy/items/$ref//#/definitions/Subscription_FilterBy/properties/_comparator/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/filterBy/items/$ref//#/definitions/Subscription_FilterBy/properties/_comparator/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "modifier",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+            "path" : "#/definitions/Subscription/properties/filterBy/items/$ref//#/definitions/Subscription_FilterBy/properties/modifier/$ref//#/definitions/code"
+          }
+        }, {
+          "name" : "_modifier",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/filterBy/items/$ref//#/definitions/Subscription_FilterBy/properties/_modifier/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/filterBy/items/$ref//#/definitions/Subscription_FilterBy/properties/_modifier/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "value",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/Subscription/properties/filterBy/items/$ref//#/definitions/Subscription_FilterBy/properties/value/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "_value",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/filterBy/items/$ref//#/definitions/Subscription_FilterBy/properties/_value/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/filterBy/items/$ref//#/definitions/Subscription_FilterBy/properties/_value/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        } ]
+      },
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "The filter properties to be applied to narrow the subscription topic stream.  When multiple filters are applied, evaluates to true if all the conditions applicable to that resource are met; otherwise it returns false (i.e., logical AND).",
+      "path" : "#/definitions/Subscription/properties/filterBy"
+    }
+  }, {
+    "name" : "channelType",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/Subscription/properties/channelType/$ref//#/definitions/Coding/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/Subscription/properties/channelType/$ref//#/definitions/Coding/properties/extension"
+        }
+      }, {
+        "name" : "system",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "String of characters used to identify a name or a resource",
+          "path" : "#/definitions/Subscription/properties/channelType/$ref//#/definitions/Coding/properties/system/$ref//#/definitions/uri"
+        }
+      }, {
+        "name" : "_system",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/Subscription/properties/channelType/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/Subscription/properties/channelType/$ref//#/definitions/Coding/properties/_system/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "version",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/Subscription/properties/channelType/$ref//#/definitions/Coding/properties/version/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "_version",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/Subscription/properties/channelType/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/Subscription/properties/channelType/$ref//#/definitions/Coding/properties/_version/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "code",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+          "path" : "#/definitions/Subscription/properties/channelType/$ref//#/definitions/Coding/properties/code/$ref//#/definitions/code"
+        }
+      }, {
+        "name" : "_code",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/Subscription/properties/channelType/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/Subscription/properties/channelType/$ref//#/definitions/Coding/properties/_code/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "display",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/Subscription/properties/channelType/$ref//#/definitions/Coding/properties/display/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "_display",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/Subscription/properties/channelType/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/Subscription/properties/channelType/$ref//#/definitions/Coding/properties/_display/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "userSelected",
+        "type" : "boolean",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "Value of \"true\" or \"false\"",
+          "path" : "#/definitions/Subscription/properties/channelType/$ref//#/definitions/Coding/properties/userSelected/$ref//#/definitions/boolean"
+        }
+      }, {
+        "name" : "_userSelected",
+        "type" : {
+          "type" : "struct",
+          "fields" : [ {
+            "name" : "id",
+            "type" : "string",
+            "nullable" : true,
+            "metadata" : {
+              "description" : "A sequence of Unicode characters",
+              "path" : "#/definitions/Subscription/properties/channelType/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+            }
+          }, {
+            "name" : "extension",
+            "type" : {
+              "type" : "array",
+              "elementType" : "string",
+              "containsNull" : true
+            },
+            "nullable" : true,
+            "metadata" : {
+              "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+              "path" : "#/definitions/Subscription/properties/channelType/$ref//#/definitions/Coding/properties/_userSelected/$ref//#/definitions/Element/properties/extension"
+            }
+          } ]
+        },
+        "nullable" : true,
+        "metadata" : { }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "endpoint",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A URI that is a literal reference",
+      "path" : "#/definitions/Subscription/properties/endpoint/$ref//#/definitions/url"
+    }
+  }, {
+    "name" : "_endpoint",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/Subscription/properties/_endpoint/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/Subscription/properties/_endpoint/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "parameter",
+    "type" : {
+      "type" : "array",
+      "elementType" : {
+        "type" : "struct",
+        "fields" : [ {
+          "name" : "id",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/Subscription/properties/parameter/items/$ref//#/definitions/Subscription_Parameter/properties/id/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "extension",
+          "type" : {
+            "type" : "array",
+            "elementType" : "string",
+            "containsNull" : true
+          },
+          "nullable" : true,
+          "metadata" : {
+            "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+            "path" : "#/definitions/Subscription/properties/parameter/items/$ref//#/definitions/Subscription_Parameter/properties/extension"
+          }
+        }, {
+          "name" : "modifierExtension",
+          "type" : {
+            "type" : "array",
+            "elementType" : "string",
+            "containsNull" : true
+          },
+          "nullable" : true,
+          "metadata" : {
+            "description" : "May be used to represent additional information that is not part of the basic definition of the element and that modifies the understanding of the element in which it is contained and/or the understanding of the containing elements descendants. Usually modifier elements provide negation or qualification. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.\n\nModifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).",
+            "path" : "#/definitions/Subscription/properties/parameter/items/$ref//#/definitions/Subscription_Parameter/properties/modifierExtension"
+          }
+        }, {
+          "name" : "name",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/Subscription/properties/parameter/items/$ref//#/definitions/Subscription_Parameter/properties/name/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "_name",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/parameter/items/$ref//#/definitions/Subscription_Parameter/properties/_name/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/parameter/items/$ref//#/definitions/Subscription_Parameter/properties/_name/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        }, {
+          "name" : "value",
+          "type" : "string",
+          "nullable" : true,
+          "metadata" : {
+            "description" : "A sequence of Unicode characters",
+            "path" : "#/definitions/Subscription/properties/parameter/items/$ref//#/definitions/Subscription_Parameter/properties/value/$ref//#/definitions/string"
+          }
+        }, {
+          "name" : "_value",
+          "type" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "A sequence of Unicode characters",
+                "path" : "#/definitions/Subscription/properties/parameter/items/$ref//#/definitions/Subscription_Parameter/properties/_value/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+              }
+            }, {
+              "name" : "extension",
+              "type" : {
+                "type" : "array",
+                "elementType" : "string",
+                "containsNull" : true
+              },
+              "nullable" : true,
+              "metadata" : {
+                "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+                "path" : "#/definitions/Subscription/properties/parameter/items/$ref//#/definitions/Subscription_Parameter/properties/_value/$ref//#/definitions/Element/properties/extension"
+              }
+            } ]
+          },
+          "nullable" : true,
+          "metadata" : { }
+        } ]
+      },
+      "containsNull" : true
+    },
+    "nullable" : true,
+    "metadata" : {
+      "description" : "Channel-dependent information to send as part of the notification (e.g., HTTP Headers).",
+      "path" : "#/definitions/Subscription/properties/parameter"
+    }
+  }, {
+    "name" : "heartbeatPeriod",
+    "type" : "double",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "An integer with a value that is not negative (e.g. >= 0)",
+      "path" : "#/definitions/Subscription/properties/heartbeatPeriod/$ref//#/definitions/unsignedInt"
+    }
+  }, {
+    "name" : "_heartbeatPeriod",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/Subscription/properties/_heartbeatPeriod/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/Subscription/properties/_heartbeatPeriod/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "timeout",
+    "type" : "double",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "An integer with a value that is not negative (e.g. >= 0)",
+      "path" : "#/definitions/Subscription/properties/timeout/$ref//#/definitions/unsignedInt"
+    }
+  }, {
+    "name" : "_timeout",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/Subscription/properties/_timeout/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/Subscription/properties/_timeout/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "contentType",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+      "path" : "#/definitions/Subscription/properties/contentType/$ref//#/definitions/code"
+    }
+  }, {
+    "name" : "_contentType",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/Subscription/properties/_contentType/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/Subscription/properties/_contentType/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "content",
+    "type" : "string",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents",
+      "path" : "#/definitions/Subscription/properties/content/$ref//#/definitions/code"
+    }
+  }, {
+    "name" : "_content",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/Subscription/properties/_content/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/Subscription/properties/_content/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  }, {
+    "name" : "maxCount",
+    "type" : "double",
+    "nullable" : true,
+    "metadata" : {
+      "description" : "An integer with a value that is positive (e.g. >0)",
+      "path" : "#/definitions/Subscription/properties/maxCount/$ref//#/definitions/positiveInt"
+    }
+  }, {
+    "name" : "_maxCount",
+    "type" : {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : {
+          "description" : "A sequence of Unicode characters",
+          "path" : "#/definitions/Subscription/properties/_maxCount/$ref//#/definitions/Element/properties/id/$ref//#/definitions/string"
+        }
+      }, {
+        "name" : "extension",
+        "type" : {
+          "type" : "array",
+          "elementType" : "string",
+          "containsNull" : true
+        },
+        "nullable" : true,
+        "metadata" : {
+          "description" : "May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and managable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+          "path" : "#/definitions/Subscription/properties/_maxCount/$ref//#/definitions/Element/properties/extension"
+        }
+      } ]
+    },
+    "nullable" : true,
+    "metadata" : { }
+  } ]
+}

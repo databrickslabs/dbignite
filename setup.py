@@ -32,6 +32,6 @@ setup(
         "Operating System :: OS Independent",
     ],
     packages=['dbignite', 'dbignite.omop', 'dbignite.hosp_feeds', 'dbignite.writer'],
-    package_data={'': ["schemas/*.json"]},
+    package_data={'': ["schemas/r4/*.json", "schemas/r5/*json", "schemas/ci-build/*json"]},
     py_modules=['dbignite.data_model']
 )
